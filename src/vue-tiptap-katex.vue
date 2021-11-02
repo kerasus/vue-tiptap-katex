@@ -1,22 +1,36 @@
 <template>
   <div :class="{ 'tiptap-plus-container': true }">
-    <div
+    <v-overlay
+      v-if="loading"
+      absolute
+      :value="loading"
+      opacity="0.5"
+    />
+    <v-progress-circular
+      v-if="loading"
+      :size="50"
+      color="#fff"
+      indeterminate
+    />
+    <v-card
       elevation="3"
       class="tiptap-plus"
     >
-      <div
+      <v-card-title
         v-if="editor"
         class="tiptap-header"
       >
-        <toolbar
-          v-if="editorOptions"
-          :editor="editor"
-          :access-token="accessToken"
-          :upload-url="uploadUrl"
-          :options="editorOptions"
-        />
-      </div>
-      <div class="pa-0">
+        <slot name="toolbar">
+          <toolbar
+            v-if="editorOptions"
+            :editor="editor"
+            :access-token="accessToken"
+            :upload-url="uploadUrl"
+            :options="editorOptions"
+          />
+        </slot>
+      </v-card-title>
+      <v-card-text class="pa-0">
         <bubble-menu
           v-if="editorOptions && editorOptions.bubbleMenu"
           class="bubble-menu"
@@ -72,7 +86,7 @@
     EditorContent,
     BubbleMenu,
     FloatingMenu
-  } from '@tiptap/vue-3'
+  } from '@tiptap/vue-2'
 
   import mixinConvertToHTML from './mixins/convertToHTML';
   import mixinConvertToTiptap from './mixins/convertToTiptap';
