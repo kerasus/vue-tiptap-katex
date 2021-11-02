@@ -48,8 +48,8 @@
           <slot-floating-menu :editor="editor" />
         </floating-menu>
         <editor-content :editor="editor" />
-      </div>
-    </div>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
