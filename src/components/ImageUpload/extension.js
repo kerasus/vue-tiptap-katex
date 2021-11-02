@@ -1,5 +1,5 @@
 import { Node, mergeAttributes } from '@tiptap/core'
-import { VueNodeViewRenderer } from '@tiptap/vue-3'
+import { VueNodeViewRenderer } from '@tiptap/vue-2'
 import TiptapInteractiveImageUpload from './TiptapInteractiveImageUpload'
 
 export default Node.create({

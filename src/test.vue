@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <v-app>
     <vue-tiptap-katex
       ref="tiptap"
       :options="{ poem: true, reading: true, bubbleMenu: false, floatingMenu: false }"
     />
-    <div @click="temp">
+    <v-btn @click="temp">
       click
-    </div>
+    </v-btn>
     <div v-html="test" />
-  </div>
+  </v-app>
 </template>
 
 <script>
