@@ -117,8 +117,41 @@ export default {
   },
   created() {
     this.katex = this.node.attrs.katex
+    this.overrideKeyboardEvent()
   },
   methods: {
+    overrideKeyboardEvent () {
+      window.document.onkeydown = overrideKeyboardEvent;
+      window.document.onkeyup = overrideKeyboardEvent;
+      const keyIsDown = {};
+
+      function overrideKeyboardEvent(e) {
+        switch(e.type){
+          case 'keydown':
+            if(!keyIsDown[e.keyCode]){
+              keyIsDown[e.keyCode] = true;
+              // do key down stuff here
+            }
+            break;
+          case 'keyup':
+            delete(keyIsDown[e.keyCode]);
+            // do key up stuff here
+            break;
+        }
+        disabledEventPropagation(e);
+        e.preventDefault();
+        return false;
+      }
+      function disabledEventPropagation(e) {
+        if(e){
+          if(e.stopPropagation){
+            e.stopPropagation();
+          } else if(window.event){
+            window.event.cancelBubble = true;
+          }
+        }
+      }
+    },
     toggleEdit () {
       this.editMode = !this.editMode
       this.editor.chain().focus().run()
@@ -141,14 +174,63 @@ export default {
         'customVirtualKeyboardLayers': EXTRA_KEYBOARD_LAYER,
         'customVirtualKeyboards': EXTRA_KEYBOARD,
         'virtualKeyboards': 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard',
-        onKeystroke: (mathfield, keystroke, ev) => {
+        onKeystroke: (mathfield, keystroke /* , ev */) => {
           // console.log('ev', ev)
           // console.log('mathfield', mathfield)
           // console.log('keystroke', keystroke)
           if (keystroke === '[Space]') {
             mf.insert('\\enspace');
             return false;
+          } else if (keystroke === 'ctrl+[KeyF]') {
+            mf.insert('\\frac{1}{2}');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyR]') {
+            mf.insert('\\sqrt[]{2}');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyH]') {
+            mf.insert('2^2');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyL]') {
+            mf.insert('2_4');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyJ]') {
+            mf.insert('{2\\atop 1}H');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyQ]') {
+            mf.insert('\\rightarrow');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyE]') {
+            mf.insert('\\theta');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyS]') {
+            mf.insert('\\alpha');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyD]') {
+            mf.insert('\\beta');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyB]') {
+            mf.insert('\\lambda');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyM]') {
+            mf.insert('\\mu');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyK]') {
+            mf.insert('\\rho');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyU]') {
+            mf.insert('\\infty');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyG]') {
+            mf.insert('\\pi');
+            return false;
           }
+          // else if (keystroke === 'ctrl+[KeyW]') {
+          //   mf.insert('\\Delta');
+          //   return false;
+          // } else if (keystroke === 'ctrl+[KeyT]') {
+          //   mf.insert('35^{37}+2');
+          //   return false;
+          // }
           // Keystroke not handled, return true for default handling to proceed.
           return true;
         },
