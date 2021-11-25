@@ -1,6 +1,6 @@
 {
   "name": "vue-tiptap-katex",
-  "version": "2.2.26",
+  "version": "2.2.27",
   "description": "tiptap editor with katex in vue",
   "main": "index.js",
   "keywords": [
@@ -49,7 +49,6 @@
     "core-js": "^3.6.5",
     "cropperjs": "^1.5.11",
     "css-loader": "^3.6.0",
-    "katex": "^0.12.0",
     "mathlive": "^0.58.0",
     "node-sass": "^6.0.0",
     "postcss-loader": "^4.2.0",
@@ -69,7 +68,7 @@
     "@vue/cli-plugin-eslint": "^3.1.1",
     "@vue/cli-service": "^3.12.1",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
     "vue-template-compiler": "^2.6.11"
   },
