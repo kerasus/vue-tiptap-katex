@@ -49,6 +49,10 @@ export default {
 </script>
 
 <style>
+
+.katex {
+  direction: ltr;
+}
   .beit {
     display: -webkit-box;
     display: -ms-flexbox;
