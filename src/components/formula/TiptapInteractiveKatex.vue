@@ -126,6 +126,9 @@ export default {
       const keyIsDown = {};
 
       function overrideKeyboardEvent(e) {
+        if (e.keyCode !== 17) {
+          return
+        }
         switch(e.type){
           case 'keydown':
             if(!keyIsDown[e.keyCode]){
