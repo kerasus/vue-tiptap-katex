@@ -239,57 +239,58 @@ const EXTRA_KEYBOARD_LAYER = {
             [
                 {
                     class: 'keycap tex',
-                    insert: '$$\\xleftarrow{#@}$$',
+                    insert: '$$\\xleftarrow{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\xrightarrow{#@}$$',
+                    insert: '$$\\xrightarrow{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\xrightarrow[under]{#@}$$',
+                    insert: '$$\\xrightarrow[under]{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\xleftrightarrow{#@}$$',
+                    insert: '$$\\xleftrightarrow{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\xtofrom{#@}$$',
-                },
-                {class: 'separator w5'},
-                {
-                    class: 'keycap tex',
-                    insert: '$$\\frac{#@}{#@}$$',
-                },
-                {
-                    class: 'keycap tex',
-                    insert: '$${#@}/{#@}$$',
-                },
-                {
-                    class: 'keycap tex',
-                    insert: '$$\\hat{#@}$$',
-                },
-                {
-                    class: 'keycap tex',
-                    insert: '$${#@}_u^o$$',
+                    insert: '$$\\xtofrom{#0}$$',
                 },
                 {class: 'separator w5'},
                 {
                     class: 'keycap tex',
-                    insert: '$$\\xLeftarrow{#@}$$',
+                    insert: '$$\\frac{#0}{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\xRightarrow{#@}$$',
+                    insert: '$${#0}/{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\xLeftrightarrow{#@}$$',
+                    insert: '$$\\hat{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\bar{#@}$$',
+                    insert: '$${#0}_u^o$$',
+                },
+                {class: 'separator w5'},
+                {
+                    class: 'keycap tex',
+                    insert: '$$\\xLeftarrow{#0}$$',
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '$$\\xRightarrow{#0}$$',
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '$$\\xLeftrightarrow{#0}$$',
+                },
+                {
+                    class: 'keycap tex',
+                    aside: 'overline',
+                    insert: '$$\\overline{#0}$$',
                 },
             ],
             [

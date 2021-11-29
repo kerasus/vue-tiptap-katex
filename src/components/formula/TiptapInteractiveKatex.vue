@@ -259,7 +259,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 .katex {
   direction: ltr;
@@ -267,8 +267,33 @@ export default {
 
   .katex-html {
     .accent {
-      background-color: unset !important;
-      border-color: unset !important;
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+    .overline {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      letter-spacing: inherit !important;
+      line-height: inherit !important;
+      text-transform: inherit !important;
+      font-family: inherit !important;
+    }
+  }
+}
+
+.ML__fieldcontainer {
+  .ML__fieldcontainer__field {
+    .accent {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+    .overline {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      letter-spacing: inherit !important;
+      line-height: inherit !important;
+      text-transform: inherit !important;
+      font-family: inherit !important;
     }
   }
 }
