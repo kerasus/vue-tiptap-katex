@@ -959,7 +959,21 @@ export default {
         'customVirtualKeyboardLayers': EXTRA_KEYBOARD_LAYER,
         'customVirtualKeyboards': EXTRA_KEYBOARD,
         'virtualKeyboards': 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard',
-        mathModeSpace: '\\:'
+        mathModeSpace: '\\:',
+        onKeystroke: (mathfield, keystroke, ev) => {
+          if (keystroke === 'ctrl+alt+[KeyW]') {
+            mf.insert('\\Delta');
+            return true;
+          } else if (keystroke === 'ctrl+alt+[KeyI]') {
+            mf.insert('\\underbrace{#@}_{\\text{note}}');
+            return false;
+          } else if (keystroke === 'ctrl+alt+[KeyP]') {
+            mf.insert('\\div');
+            return false;
+          }
+          // Keystroke not handled, return true for default handling to proceed.
+          return true;
+        }
       });
       // console.log(mf.getOption())
       // mf.$setConfig(
