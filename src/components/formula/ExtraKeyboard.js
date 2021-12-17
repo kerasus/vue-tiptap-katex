@@ -735,6 +735,14 @@ const EXTRA_KEYBOARD_LAYER = {
                 },
                 {
                     class: 'keycap tex',
+                    insert: '$$\\div$$'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '$$\\overset{\\triangle}{#@}$$'
+                },
+                {
+                    class: 'keycap tex',
                     insert: '$$\\lgroup$$'
                 },
                 {
