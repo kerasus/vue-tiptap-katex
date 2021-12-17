@@ -4,10 +4,17 @@
       ref="tiptap"
       :options="{ poem: true, reading: true, bubbleMenu: false, floatingMenu: false }"
     />
-    <v-btn @click="temp">
-      click
+    <v-btn @click="getContent">
+      Get Content
     </v-btn>
+    <hr>
     <div v-html="test" />
+    <hr>
+    <div
+      ref="printdiv"
+      v-katex:auto
+      v-html="test"
+    />
   </v-app>
 </template>
 
@@ -17,19 +24,35 @@ export default {
   name: 'Test',
   components: {VueTiptapKatex},
   methods: {
-    temp () {
+    prepareForKatex () {
+      let regex = /((\\\[((?! ).){1}((?!\$).)*?((?! ).){1}\\\])|(\$((?! ).){1}((?!\$).)*?((?! ).){1}\$))/gms;
+      this.test = this.test.replace(regex, (match) => {
+        return ' ' + match + ' '
+      })
+    },
+    getContent () {
       this.test = this.$refs.tiptap.getContent()
+      this.prepareForKatex()
     }
   },
   data () {
     return {
-      test: ''
+      test: '<p dir="auto">دو بار الکتریکی${q_1}$و${q_2} =  - 16\\,\\mu C$به ترتیب در مختصات$A\\, \\left|\\begin{array}{l}0 \\\\ 3\\, cm\\end{array}\\right.$$B\\, \\left|\\begin{array}{l}0 \\\\ 6\\, cm\\end{array}\\right.$واقع شده‌اند.${q_1}$چند میکروکولن باشد تا اگر بار${q_3}$را در مبدأ مختصات قرار دهیم، برایند نیروهای وارد بر آن صفر باشد؟</p>'
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.tiptap.setContent(this.test)
+    })
   }
 }
 </script>
 
 <style>
+
+.katex {
+  direction: ltr;
+}
   .beit {
     display: -webkit-box;
     display: -ms-flexbox;
