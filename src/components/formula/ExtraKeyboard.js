@@ -735,11 +735,16 @@ const EXTRA_KEYBOARD_LAYER = {
                 },
                 {
                     class: 'keycap tex',
+                    label: 'Farsi',
+                    insert: '$$\\colorbox{#aaaaaa}{متن}$$'
+                },
+                {
+                    class: 'keycap tex',
                     insert: '$$\\div$$'
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\overset{\\triangle}{#@}$$'
+                    insert: '$$\\mathop {#@}\\limits^\\Delta$$'
                 },
                 {
                     class: 'keycap tex',
