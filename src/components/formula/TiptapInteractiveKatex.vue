@@ -117,14 +117,10 @@ export default {
   },
   computed: {
     computedKatex() {
-      let katexString =  katex.renderToString(this.node.attrs.katex, {
+      const katexString =  katex.renderToString(this.node.attrs.katex, {
         throwOnError: false,
-        trust: true
       });
-      let htmlObject = document.createElement('div')
-      htmlObject.innerHTML = katexString
-      // htmlObject = this.setDir(htmlObject)
-      return htmlObject.innerHTML
+      return katexString
     }
   },
   created() {
