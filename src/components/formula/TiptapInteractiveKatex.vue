@@ -115,6 +115,13 @@ export default {
     },
   },
   computed: {
+    keyboardList() {
+      let options = 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard'
+      if (this.editor.editorOptions.persianKeyboard) {
+        options += ' persian-keyboard'
+      }
+      return options
+    },
     computedKatex() {
       return katex.renderToString(this.node.attrs.katex, {
         throwOnError: false,
@@ -194,43 +201,13 @@ export default {
       mf.setOptions({
         'customVirtualKeyboardLayers': EXTRA_KEYBOARD_LAYER,
         'customVirtualKeyboards': EXTRA_KEYBOARD,
-        'virtualKeyboards': 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard persian-keyboard',
+        'virtualKeyboards': this.keyboardList,
         onKeystroke: (mathfield, keystroke /* , ev */) => {
           // console.log('ev', ev)
           // console.log('mathfield', mathfield)
           console.log('keystroke', keystroke)
           if (keystroke === '[Space]') {
             mf.insert('\\enspace');
-            return false;
-          } else if (keystroke === 'alt+[Digit0]' || keystroke === '[Numpad0]') {
-            mf.insert('٠');
-            return false;
-          } else if (keystroke === 'alt+[Digit1]' || keystroke === '[Numpad1]') {
-            mf.insert('١');
-            return false;
-          } else if (keystroke === 'alt+[Digit2]' || keystroke === '[Numpad2]') {
-            mf.insert('٢');
-            return false;
-          } else if (keystroke === 'alt+[Digit3]' || keystroke === '[Numpad3]') {
-            mf.insert('٣');
-            return false;
-          } else if (keystroke === 'alt+[Digit4]' || keystroke === '[Numpad4]') {
-            mf.insert('٤');
-            return false;
-          } else if (keystroke === 'alt+[Digit5]' || keystroke === '[Numpad5]') {
-            mf.insert('٥');
-            return false;
-          } else if (keystroke === 'alt+[Digit6]' || keystroke === '[Numpad6]') {
-            mf.insert('٦');
-            return false;
-          } else if (keystroke === 'alt+[Digit7]' || keystroke === '[Numpad7]') {
-            mf.insert('٧');
-            return false;
-          } else if (keystroke === 'alt+[Digit8]' || keystroke === '[Numpad8]') {
-            mf.insert('٨');
-            return false;
-          } else if (keystroke === 'alt+[Digit9]' || keystroke === '[Numpad9]') {
-            mf.insert('٩');
             return false;
           } else if (keystroke === 'ctrl+[KeyF]') {
             mf.insert('\\frac{1}{2}');
@@ -289,6 +266,39 @@ export default {
           } else if (keystroke === 'ctrl+alt+[KeyP]') {
             mf.insert('\\div');
             return false;
+          }
+          if (this.editor.editorOptions.persianKeyboard) {
+            if (keystroke === 'alt+[Digit0]' || keystroke === '[Numpad0]') {
+              mf.insert('٠');
+              return false;
+            } else if (keystroke === 'alt+[Digit1]' || keystroke === '[Numpad1]') {
+              mf.insert('١');
+              return false;
+            } else if (keystroke === 'alt+[Digit2]' || keystroke === '[Numpad2]') {
+              mf.insert('٢');
+              return false;
+            } else if (keystroke === 'alt+[Digit3]' || keystroke === '[Numpad3]') {
+              mf.insert('٣');
+              return false;
+            } else if (keystroke === 'alt+[Digit4]' || keystroke === '[Numpad4]') {
+              mf.insert('٤');
+              return false;
+            } else if (keystroke === 'alt+[Digit5]' || keystroke === '[Numpad5]') {
+              mf.insert('٥');
+              return false;
+            } else if (keystroke === 'alt+[Digit6]' || keystroke === '[Numpad6]') {
+              mf.insert('٦');
+              return false;
+            } else if (keystroke === 'alt+[Digit7]' || keystroke === '[Numpad7]') {
+              mf.insert('٧');
+              return false;
+            } else if (keystroke === 'alt+[Digit8]' || keystroke === '[Numpad8]') {
+              mf.insert('٨');
+              return false;
+            } else if (keystroke === 'alt+[Digit9]' || keystroke === '[Numpad9]') {
+              mf.insert('٩');
+              return false;
+            }
           }
           // else if (keystroke === 'ctrl+[KeyW]') {
           //   mf.insert('\\Delta');
