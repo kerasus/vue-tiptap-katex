@@ -15,7 +15,6 @@
     </div>
     <div
       v-if="!editMode"
-      v-katex:auto
       class="converted"
       dir="ltr"
       @click="editMode = true"
@@ -41,27 +40,32 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VueKatex from 'vue-katex'
+// import Vue from 'vue'
+// import VueKatex from 'vue-katex'
+import katex from 'katex'
 import 'katex/dist/katex.min.css'
-
-Vue.use(VueKatex, {
-  globalOptions: {
-    delimiters: [
-      {left: '$$', right: '$$', display: true},
-      {left: '\\[', right: '\\]', display: true},
-      {left: '$', right: '$', display: false},
-      {left: '\\(', right: '\\)', display: false}
-    ]
-  }
-});
-
-import {NodeViewWrapper, nodeViewProps} from '@tiptap/vue-2'
+import addPersianTo from 'persian-katex-plugin';
+// import 'perisan-katex-plugin/build/index.css';
+import '../../../node_modules/persian-katex-plugin/build/index.css'
+import {nodeViewProps, NodeViewWrapper} from '@tiptap/vue-2'
 import 'mathlive/dist/mathlive-fonts.css'
 import 'mathlive/dist/mathlive-static.css'
 import '@mdi/font/css/materialdesignicons.css'
 import MathLive from 'mathlive'
-import {EXTRA_KEYBOARD_LAYER, EXTRA_KEYBOARD} from './ExtraKeyboard'
+import {EXTRA_KEYBOARD, EXTRA_KEYBOARD_LAYER} from './ExtraKeyboard'
+
+addPersianTo(katex);
+
+// Vue.use(VueKatex, {
+//   globalOptions: {
+//     delimiters: [
+//       {left: '$$', right: '$$', display: true},
+//       {left: '\\[', right: '\\]', display: true},
+//       {left: '$', right: '$', display: false},
+//       {left: '\\(', right: '\\)', display: false}
+//     ]
+//   }
+// });
 
 export default {
   components: {
@@ -108,11 +112,20 @@ export default {
         katex: newValue
       })
       this.katex = newValue
-    }
+    },
   },
   computed: {
+    keyboardList() {
+      let options = 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard'
+      if (this.editor.editorOptions.persianKeyboard) {
+        options += ' persian-keyboard'
+      }
+      return options
+    },
     computedKatex() {
-      return '$' + this.node.attrs.katex + '$'
+      return katex.renderToString(this.node.attrs.katex, {
+        throwOnError: false,
+      })
     }
   },
   created() {
@@ -120,6 +133,18 @@ export default {
     this.overrideKeyboardEvent()
   },
   methods: {
+    // setDirMath () {
+    //   //.setAttribute('dir', 'auto')
+    //   document.querySelectorAll('span').forEach(item => {
+    //
+    //   })
+    // },
+    // setDir (input) {
+    //   input.querySelectorAll('.boxpad').forEach(item => {
+    //     item.setAttribute('dir', 'auto')
+    //   })
+    //   return input
+    // },
     overrideKeyboardEvent () {
       window.document.onkeydown = overrideKeyboardEvent;
       window.document.onkeyup = overrideKeyboardEvent;
@@ -176,16 +201,22 @@ export default {
       mf.setOptions({
         'customVirtualKeyboardLayers': EXTRA_KEYBOARD_LAYER,
         'customVirtualKeyboards': EXTRA_KEYBOARD,
-        'virtualKeyboards': 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard',
+        'virtualKeyboards': this.keyboardList,
         onKeystroke: (mathfield, keystroke /* , ev */) => {
           // console.log('ev', ev)
           // console.log('mathfield', mathfield)
-          // console.log('keystroke', keystroke)
+          console.log('keystroke', keystroke)
           if (keystroke === '[Space]') {
             mf.insert('\\enspace');
             return false;
           } else if (keystroke === 'ctrl+[KeyF]') {
             mf.insert('\\frac{1}{2}');
+            return false;
+          } else if (keystroke === 'ctrl+alt+[KeyT]') {
+            mf.insert('#@^\\text{text}');
+            return false;
+          } else if (keystroke === 'ctrl+alt+[KeyA]') {
+            mf.insert('\\mathop {#@}\\limits^\\Delta');
             return false;
           } else if (keystroke === 'ctrl+[KeyR]') {
             mf.insert('\\sqrt[]{2}');
@@ -226,6 +257,48 @@ export default {
           } else if (keystroke === 'ctrl+[KeyG]') {
             mf.insert('\\pi');
             return false;
+          } else if (keystroke === 'ctrl+alt+[KeyW]') {
+            mf.insert('\\Delta');
+            return true;
+          } else if (keystroke === 'ctrl+alt+[KeyI]') {
+            mf.insert('\\underbrace{#@}_{\\text{note}}');
+            return false;
+          } else if (keystroke === 'ctrl+alt+[KeyP]') {
+            mf.insert('\\div');
+            return false;
+          }
+          if (this.editor.editorOptions.persianKeyboard) {
+            if (keystroke === 'alt+[Digit0]' || keystroke === '[Numpad0]') {
+              mf.insert('٠');
+              return false;
+            } else if (keystroke === 'alt+[Digit1]' || keystroke === '[Numpad1]') {
+              mf.insert('١');
+              return false;
+            } else if (keystroke === 'alt+[Digit2]' || keystroke === '[Numpad2]') {
+              mf.insert('٢');
+              return false;
+            } else if (keystroke === 'alt+[Digit3]' || keystroke === '[Numpad3]') {
+              mf.insert('٣');
+              return false;
+            } else if (keystroke === 'alt+[Digit4]' || keystroke === '[Numpad4]') {
+              mf.insert('٤');
+              return false;
+            } else if (keystroke === 'alt+[Digit5]' || keystroke === '[Numpad5]') {
+              mf.insert('٥');
+              return false;
+            } else if (keystroke === 'alt+[Digit6]' || keystroke === '[Numpad6]') {
+              mf.insert('٦');
+              return false;
+            } else if (keystroke === 'alt+[Digit7]' || keystroke === '[Numpad7]') {
+              mf.insert('٧');
+              return false;
+            } else if (keystroke === 'alt+[Digit8]' || keystroke === '[Numpad8]') {
+              mf.insert('٨');
+              return false;
+            } else if (keystroke === 'alt+[Digit9]' || keystroke === '[Numpad9]') {
+              mf.insert('٩');
+              return false;
+            }
           }
           // else if (keystroke === 'ctrl+[KeyW]') {
           //   mf.insert('\\Delta');
@@ -262,8 +335,14 @@ export default {
 <style lang="scss">
 
 .katex {
+
+
   direction: ltr;
   display: inline-block;
+
+  .colorbox {
+    background-color: transparent !important;
+  }
 
   .katex-html {
     .accent {

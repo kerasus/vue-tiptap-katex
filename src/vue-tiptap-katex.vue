@@ -138,7 +138,8 @@
           bubbleMenu: true,
           floatingMenu: true,
           poem: false,
-          reading: false
+          reading: false,
+          persianKeyboard: false
         }
         Object.assign(options, this.options)
         return options
@@ -188,6 +189,7 @@
         onUpdate() {
         },
       })
+      this.editor.editorOptions = this.editorOptions
     },
     beforeDestroy() {
       this.editor.destroy()

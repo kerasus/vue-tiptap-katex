@@ -714,6 +714,59 @@ const EXTRA_KEYBOARD_LAYER = {
             ],
         ]
     },
+    'persian-keyboard-layer': {
+        styles: '',
+        rows: [
+            [
+                {
+                    class: 'keycap tex',
+                    insert: '١'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '٢'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '٣'
+                },
+            ],
+            [
+                {
+                    class: 'keycap tex',
+                    insert: '٤'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '٥'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '٦'
+                },
+            ],
+            [
+                {
+                    class: 'keycap tex',
+                    insert: '٧'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '٨'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '٩'
+                },
+            ],
+            [
+                {
+                    class: 'keycap tex w30',
+                    insert: '٠'
+                },
+            ]
+        ]
+    },
     'extra-keyboard-layer': {
         styles: '',
         rows: [
@@ -732,6 +785,14 @@ const EXTRA_KEYBOARD_LAYER = {
                 {
                     class: 'keycap tex',
                     insert: '$$\\overgroup{#0}$$'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '$$\\div$$'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '$$\\mathop {#@}\\limits^\\Delta$$'
                 },
                 {
                     class: 'keycap tex',
@@ -849,6 +910,11 @@ const EXTRA_KEYBOARD = {
         'label': 'Extra',
         'tooltip': '',
         'layer': 'extra-keyboard-layer'
+    },
+    'persian-keyboard': {
+        'label': 'Persian',
+        'tooltip': '',
+        'layer': 'persian-keyboard-layer'
     }
 };
 

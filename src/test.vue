@@ -2,7 +2,7 @@
   <v-app>
     <vue-tiptap-katex
       ref="tiptap"
-      :options="{ poem: true, reading: true, bubbleMenu: false, floatingMenu: false }"
+      :options="{ poem: true, reading: true, bubbleMenu: false, floatingMenu: false, persianKeyboard: true }"
     />
     <v-btn @click="getContent">
       Get Content
