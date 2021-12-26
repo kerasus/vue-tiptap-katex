@@ -15,14 +15,13 @@
     </div>
     <div
       v-if="!editMode"
-      v-katex:auto
       class="converted"
       dir="ltr"
       @click="editMode = true"
       v-html="computedKatex"
     />
     <v-btn
-      v-if="!editMode"
+      v-if="!editMode && false"
       icon
       color="blue"
       @click="editMode = true"
@@ -33,7 +32,7 @@
       v-if="editMode"
       icon
       color="green"
-      @click="editMode = false"
+      @click="toggleEdit"
     >
       <v-icon>mdi-check</v-icon>
     </v-btn>
@@ -41,26 +40,32 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VueKatex from 'vue-katex'
+// import Vue from 'vue'
+// import VueKatex from 'vue-katex'
+import katex from 'katex'
 import 'katex/dist/katex.min.css'
-
-Vue.use(VueKatex, {
-  globalOptions: {
-    delimiters: [
-      {left: '$$', right: '$$', display: true},
-      {left: '\\[', right: '\\]', display: true},
-      {left: '$', right: '$', display: false},
-      {left: '\\(', right: '\\)', display: false}
-    ]
-  }
-});
-
-import {NodeViewWrapper, nodeViewProps} from '@tiptap/vue-2'
+import addPersianTo from 'persian-katex-plugin';
+// import 'perisan-katex-plugin/build/index.css';
+import '../../../node_modules/persian-katex-plugin/build/index.css'
+import {nodeViewProps, NodeViewWrapper} from '@tiptap/vue-2'
 import 'mathlive/dist/mathlive-fonts.css'
 import 'mathlive/dist/mathlive-static.css'
 import '@mdi/font/css/materialdesignicons.css'
 import MathLive from 'mathlive'
+import {EXTRA_KEYBOARD, EXTRA_KEYBOARD_LAYER} from './ExtraKeyboard'
+
+addPersianTo(katex);
+
+// Vue.use(VueKatex, {
+//   globalOptions: {
+//     delimiters: [
+//       {left: '$$', right: '$$', display: true},
+//       {left: '\\[', right: '\\]', display: true},
+//       {left: '$', right: '$', display: false},
+//       {left: '\\(', right: '\\)', display: false}
+//     ]
+//   }
+// });
 
 export default {
   components: {
@@ -76,6 +81,10 @@ export default {
       type: Function,
       required: true,
     },
+    editor: {
+      type: Object,
+      default: () => {return {}}
+    }
   },
   data: () => {
     return {
@@ -87,8 +96,6 @@ export default {
       katex: '$x=\\frac{-b\\pm\\sqrt[]{b^2-4ac}}{2a}$',
       icons: {}
     }
-  },
-  mounted() {
   },
   watch: {
     editMode(newValue) {
@@ -104,17 +111,79 @@ export default {
         // katex: this.latexData
         katex: newValue
       })
-    }
+      this.katex = newValue
+    },
   },
   computed: {
+    keyboardList() {
+      let options = 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard'
+      if (this.editor.editorOptions.persianKeyboard) {
+        options += ' persian-keyboard'
+      }
+      return options
+    },
     computedKatex() {
-      return '$' + this.node.attrs.katex + '$'
+      return katex.renderToString(this.node.attrs.katex, {
+        throwOnError: false,
+      })
     }
   },
   created() {
     this.katex = this.node.attrs.katex
+    this.overrideKeyboardEvent()
   },
   methods: {
+    // setDirMath () {
+    //   //.setAttribute('dir', 'auto')
+    //   document.querySelectorAll('span').forEach(item => {
+    //
+    //   })
+    // },
+    // setDir (input) {
+    //   input.querySelectorAll('.boxpad').forEach(item => {
+    //     item.setAttribute('dir', 'auto')
+    //   })
+    //   return input
+    // },
+    overrideKeyboardEvent () {
+      window.document.onkeydown = overrideKeyboardEvent;
+      window.document.onkeyup = overrideKeyboardEvent;
+      const keyIsDown = {};
+
+      function overrideKeyboardEvent(e) {
+        if (e.keyCode !== 17) {
+          return
+        }
+        switch(e.type){
+          case 'keydown':
+            if(!keyIsDown[e.keyCode]){
+              keyIsDown[e.keyCode] = true;
+              // do key down stuff here
+            }
+            break;
+          case 'keyup':
+            delete(keyIsDown[e.keyCode]);
+            // do key up stuff here
+            break;
+        }
+        disabledEventPropagation(e);
+        e.preventDefault();
+        return false;
+      }
+      function disabledEventPropagation(e) {
+        if(e){
+          if(e.stopPropagation){
+            e.stopPropagation();
+          } else if(window.event){
+            window.event.cancelBubble = true;
+          }
+        }
+      }
+    },
+    toggleEdit () {
+      this.editMode = !this.editMode
+      this.editor.chain().focus().run()
+    },
     getMathliveValue (mf) {
       return mf.getValue().replaceAll('\\mleft', '\\left').replaceAll('\\mright', '\\right')
     },
@@ -129,730 +198,131 @@ export default {
               that.latexData = that.getMathliveValue(mf)
             },
           });
-      const EXTRA_KEYBOARD_LAYER = {
-        'extra-keyboard-layer': {
-          styles: '',
-          rows: [
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\rightarrow$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\uparrow$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\downarrow$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\gets$$',
-                label: this.icons.test
-              },
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\le$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\geq$$',
-
-              },
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\land$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\lor$$',
-
-              },
-              {class: 'separator w5'},
-            ],
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\nearrow$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\nwarrow$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '\\leftrightharpoons$$',
-                label: this.icons.test
-              },
-              {class: 'separator w5'},
-              {class: 'separator w5'},
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\leqslant$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\geqslant$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\simeq$$',
-
-              },
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\cup$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\cap$$',
-
-              },
-            ],
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\searrow$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\swarrow$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\leftrightarrow$$',
-
-              },
-              {class: 'separator w5'},
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\N$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\R$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\Z$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\Bbb{W}$$',
-              },
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\odot$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\otimes$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\surd$$',
-
-              },
-            ],
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\Rightarrow$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\Leftrightarrow$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\Leftarrow$$',
-
-              },
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\Delta$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\alpha$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\exists$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\Omega$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\ell$$',
-
-              },
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\varnothing$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\cancel{C}$$',
-
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\^$$',
-
-              },
-            ],
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\hat{#@}$$',
-              },
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\xLeftarrow{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\xRightarrow{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\xLeftrightarrow{#@}$$',
-              },
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\xleftarrow{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\xrightarrow{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\xleftrightarrow{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\xtofrom{#@}$$',
-              },
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\frac{#@}{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$${#@}/{#@}$$',
-              },
-            ],
-            [
-              {
-                class: 'keycap tex',
-                insert: '$${#@}_u^o$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\sqrt{#@}$$',
-              },
-              {class: 'separator w5'},
-              {
-                class: 'keycap tex',
-                insert: '$$\\cancel{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\bcancel{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\xcancel{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\enspace$$',
-                label: 'space',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\overbrace{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\underbrace{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\overgroup{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\undergroup{#@}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\overbrace{#@}^{\\text{note}}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\underbrace{#@}_{\\text{note}}$$',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\boxed{#@}$$',
-              }
-            ]
-          ]
-        },
-        'matrix-keyboard-layer': {
-          styles: '',
-          rows: [
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0\\end{bmatrix}$$',
-                label: 'M(1,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 & 0\\end{bmatrix}$$',
-                label: 'M(1,2)'
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 & 0 & 0\\end{bmatrix}$$',
-                label: 'M(1,3)'
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 & 0 & 0 & 0\\end{bmatrix}$$',
-                label: 'M(1,4)'
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 & 0 & 0 & 0 & 0\\end{bmatrix}$$',
-                label: 'M(1,5)'
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 & 0 & 0 & 0 & 0 & 0\\end{bmatrix}$$',
-                label: 'M(1,6)'
-              },
-
-              {class: 'separator w5'},
-
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0\\end{vmatrix}$$',
-                label: 'D(1,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 & 0\\end{vmatrix}$$',
-                label: 'D(1,2)'
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 & 0 & 0\\end{vmatrix}$$',
-                label: 'D(1,3)'
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 & 0 & 0 & 0\\end{vmatrix}$$',
-                label: 'D(1,4)'
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 & 0 & 0 & 0 & 0\\end{vmatrix}$$',
-                label: 'D(1,5)'
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 & 0 & 0 & 0 & 0 & 0\\end{vmatrix}$$',
-                label: 'D(1,6)'
-              },
-            ],
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 \\\\ 0\\end{bmatrix}$$',
-                label: 'M(2,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 & 0\\\\ 0 & 0\\end{bmatrix}$$',
-                label: 'M(2,2)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 & 0 & 0\\\\ 0 & 0 & 0\\end{bmatrix}$$',
-                label: 'M(2,3)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 0\\end{bmatrix}$$',
-                label: 'M(2,4)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 & 0 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 0 & 0\\end{bmatrix}$$',
-                label: 'M(2,5)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 & 0 & 0 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 0 & 0 & 0\\end{bmatrix}$$',
-                label: 'M(2,6)',
-              },
-
-              {class: 'separator w5'},
-
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 \\\\ 0\\end{vmatrix}$$',
-                label: 'D(2,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 & 0\\\\ 0 & 0\\end{vmatrix}$$',
-                label: 'D(2,2)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 & 0 & 0\\\\ 0 & 0 & 0\\end{vmatrix}$$',
-                label: 'D(2,3)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 0\\end{vmatrix}$$',
-                label: 'D(2,4)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 & 0 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 0 & 0\\end{vmatrix}$$',
-                label: 'D(2,5)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 & 0 & 0 & 0 & 0 & 0\\\\ 0 & 0 & 0 & 0 & 0 & 0\\end{vmatrix}$$',
-                label: 'D(2,6)',
-              },
-            ],
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix}0 \\\\ 0 \\\\ 0 \\end{bmatrix}$$',
-                label: 'M(3,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\end{bmatrix}$$',
-                label: 'M(3,2)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(3,3)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(3,4)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(3,5)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(3,6)',
-              },
-
-              {class: 'separator w5'},
-
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix}0 \\\\ 0 \\\\ 0 \\end{vmatrix}$$',
-                label: 'D(3,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\end{vmatrix}$$',
-                label: 'D(3,2)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(3,3)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(3,4)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(3,5)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(3,6)',
-              },
-            ],
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\end{bmatrix}$$',
-                label: 'M(4,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\end{bmatrix}$$',
-                label: 'M(4,2)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(4,3)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(4,4)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(4,5)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(4,6)',
-              },
-
-              {class: 'separator w5'},
-
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\end{vmatrix}$$',
-                label: 'D(4,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\end{vmatrix}$$',
-                label: 'D(4,2)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(4,3)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(4,4)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(4,5)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(4,6)',
-              },
-            ],
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\end{bmatrix}$$',
-                label: 'M(5,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\end{bmatrix}$$',
-                label: 'M(5,2)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(5,3)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(5,4)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(5,5)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(5,6)',
-              },
-
-              {class: 'separator w5'},
-
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\end{vmatrix}$$',
-                label: 'D(5,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\end{vmatrix}$$',
-                label: 'D(5,2)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(5,3)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(5,4)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(5,5)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(5,6)',
-              },
-            ],
-            [
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\end{bmatrix}$$',
-                label: 'M(6,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\end{bmatrix}$$',
-                label: 'M(6,2)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(6,3)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(6,4)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(6,5)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{bmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\end{bmatrix}$$',
-                label: 'M(6,6)',
-              },
-
-              {class: 'separator w5'},
-
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\end{vmatrix}$$',
-                label: 'D(6,1)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\\\ 0 & 0 \\end{vmatrix}$$',
-                label: 'D(6,2)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(6,3)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(6,4)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(6,5)',
-              },
-              {
-                class: 'keycap tex',
-                insert: '$$\\begin{vmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0 & 0 \\end{vmatrix}$$',
-                label: 'D(6,6)',
-              },
-            ],
-          ]
-        }
-      };
-      const EXTRA_KEYBOARD = {
-        'extra-keyboard': {
-          'label': 'Others', // Label displayed in the Virtual Keyboard Switcher
-          'tooltip': 'High School Level', // Tooltip when hovering over the label
-          'layer': 'extra-keyboard-layer'
-        },
-        'matrix-keyboard': {
-          'label': 'Matrix', // Label displayed in the Virtual Keyboard Switcher
-          'tooltip': 'Matrix Keyboard', // Tooltip when hovering over the label
-          'layer': 'matrix-keyboard-layer'
-        }
-      };
       mf.setOptions({
         'customVirtualKeyboardLayers': EXTRA_KEYBOARD_LAYER,
         'customVirtualKeyboards': EXTRA_KEYBOARD,
-        'virtualKeyboards': 'numeric functions symbols roman  greek matrix-keyboard extra-keyboard'
+        'virtualKeyboards': this.keyboardList,
+        onKeystroke: (mathfield, keystroke /* , ev */) => {
+          // console.log('ev', ev)
+          // console.log('mathfield', mathfield)
+          console.log('keystroke', keystroke)
+          if (keystroke === '[Space]') {
+            mf.insert('\\enspace');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyF]') {
+            mf.insert('\\frac{1}{2}');
+            return false;
+          } else if (keystroke === 'ctrl+alt+[KeyT]') {
+            mf.insert('#@^\\text{text}');
+            return false;
+          } else if (keystroke === 'ctrl+alt+[KeyA]') {
+            mf.insert('\\mathop {#@}\\limits^\\Delta');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyR]') {
+            mf.insert('\\sqrt[]{2}');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyH]') {
+            mf.insert('2^2');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyL]') {
+            mf.insert('2_4');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyJ]') {
+            mf.insert('{2\\atop 1}H');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyQ]') {
+            mf.insert('\\rightarrow');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyE]') {
+            mf.insert('\\theta');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyS]') {
+            mf.insert('\\alpha');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyD]') {
+            mf.insert('\\beta');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyB]') {
+            mf.insert('\\lambda');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyM]') {
+            mf.insert('\\mu');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyK]') {
+            mf.insert('\\rho');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyU]') {
+            mf.insert('\\infty');
+            return false;
+          } else if (keystroke === 'ctrl+[KeyG]') {
+            mf.insert('\\pi');
+            return false;
+          } else if (keystroke === 'ctrl+alt+[KeyW]') {
+            mf.insert('\\Delta');
+            return true;
+          } else if (keystroke === 'ctrl+alt+[KeyI]') {
+            mf.insert('\\underbrace{#@}_{\\text{note}}');
+            return false;
+          } else if (keystroke === 'ctrl+alt+[KeyP]') {
+            mf.insert('\\div');
+            return false;
+          }
+          if (this.editor.editorOptions.persianKeyboard) {
+            if (keystroke === 'alt+[Digit0]' || keystroke === '[Numpad0]') {
+              mf.insert('٠');
+              return false;
+            } else if (keystroke === 'alt+[Digit1]' || keystroke === '[Numpad1]') {
+              mf.insert('١');
+              return false;
+            } else if (keystroke === 'alt+[Digit2]' || keystroke === '[Numpad2]') {
+              mf.insert('٢');
+              return false;
+            } else if (keystroke === 'alt+[Digit3]' || keystroke === '[Numpad3]') {
+              mf.insert('٣');
+              return false;
+            } else if (keystroke === 'alt+[Digit4]' || keystroke === '[Numpad4]') {
+              mf.insert('٤');
+              return false;
+            } else if (keystroke === 'alt+[Digit5]' || keystroke === '[Numpad5]') {
+              mf.insert('٥');
+              return false;
+            } else if (keystroke === 'alt+[Digit6]' || keystroke === '[Numpad6]') {
+              mf.insert('٦');
+              return false;
+            } else if (keystroke === 'alt+[Digit7]' || keystroke === '[Numpad7]') {
+              mf.insert('٧');
+              return false;
+            } else if (keystroke === 'alt+[Digit8]' || keystroke === '[Numpad8]') {
+              mf.insert('٨');
+              return false;
+            } else if (keystroke === 'alt+[Digit9]' || keystroke === '[Numpad9]') {
+              mf.insert('٩');
+              return false;
+            }
+          }
+          // else if (keystroke === 'ctrl+[KeyW]') {
+          //   mf.insert('\\Delta');
+          //   return false;
+          // } else if (keystroke === 'ctrl+[KeyT]') {
+          //   mf.insert('35^{37}+2');
+          //   return false;
+          // }
+          // Keystroke not handled, return true for default handling to proceed.
+          return true;
+        },
+        mathModeSpace: '\\:'
       });
+
+      // MathLive > 0.60
+      // this.$refs.mathfield.setOptions({
+      //   virtualKeyboardMode: 'manual',
+      //   'customVirtualKeyboardLayers': EXTRA_KEYBOARD_LAYER,
+      //   'customVirtualKeyboards': EXTRA_KEYBOARD,
+      //   'virtualKeyboards': 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard',
+      //   mathModeSpace: '\\:'
+      // });
+
+      // console.log(mf.getOption())
       // mf.$setConfig(
       //     //{ macros: { ...mf.getConfig('macros'), smallfrac: '{}^{#1}\\!\\!/\\!{}_{#2}', }, }
       // );
@@ -862,16 +332,47 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 .katex {
+
+
   direction: ltr;
   display: inline-block;
 
+  .colorbox {
+    background-color: transparent !important;
+  }
+
   .katex-html {
     .accent {
-      background-color: unset !important;
-      border-color: unset !important;
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+    .overline {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      letter-spacing: inherit !important;
+      line-height: inherit !important;
+      text-transform: inherit !important;
+      font-family: inherit !important;
+    }
+  }
+}
+
+.ML__fieldcontainer {
+  .ML__fieldcontainer__field {
+    .accent {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+    .overline {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      letter-spacing: inherit !important;
+      line-height: inherit !important;
+      text-transform: inherit !important;
+      font-family: inherit !important;
     }
   }
 }
@@ -890,7 +391,7 @@ export default {
 }
 
 .vue-component.inline {
-  display: ruby-base-container;
+  display: inline-flex;
 }
 
 .label {
@@ -939,5 +440,27 @@ export default {
 
 .converted p {
   margin-bottom: 0 !important;
+}
+
+.ML__keyboard div .rows > ul > .w30 {
+  width: 200px;
+}
+
+.ML__keyboard div .rows > ul > .h80 {
+  height: 80px;
+}
+
+.ML__keyboard div .rows > ul > .h100 {
+  height: 100px;
+}
+
+.ML__keyboard div .rows>ul>li aside {
+  color: #fff !important;
+}
+
+@media only screen and (min-width: 1025px) {
+  .ML__keyboard div .rows>ul {
+    height: fit-content !important;
+  }
 }
 </style>
