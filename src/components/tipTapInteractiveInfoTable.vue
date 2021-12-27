@@ -1,7 +1,9 @@
 <template>
-  <div
-      v-html="getShortKey"
-  />
+  <div>
+    <div v-if="flag">
+      <div v-for="(item, index) in renderedShortkeys" :key="index" v-html="item.insert" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -11,14 +13,20 @@ import {katexShortkeys} from './formula/KatexShortkeys'
 
 export default {
   name: 'InteractiveInfoTable',
-  props: {tipTapInteractiveObjects: katexShortkeys},
-  computed:{
-    getShortKey(){
-      return katex.renderToString(katexShortkeys[0])
+  computed: {
+  },
+  data () {
+    return {
+      renderedShortkeys: [],
+      flag: false
     }
   },
   created() {
-    console.log(this.getShortKey)
+    this.renderedShortkeys = katexShortkeys
+    this.renderedShortkeys.forEach(shortkeyObject => {
+      shortkeyObject.insert = katex.renderToString(shortkeyObject.insert)
+    })
+    this.flag = true
   }
 }
 </script>
