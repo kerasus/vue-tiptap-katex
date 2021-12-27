@@ -119,6 +119,11 @@ const EXTRA_KEYBOARD_LAYER = {
             [
                 {
                     class: 'keycap tex',
+                    insert: '$$\\Bbb{Q}$$',
+
+                },
+                {
+                    class: 'keycap tex',
                     insert: '$$\\N$$',
 
                 },
@@ -139,19 +144,19 @@ const EXTRA_KEYBOARD_LAYER = {
                 {class: 'separator w5'},
                 {
                     class: 'keycap tex',
-                    insert: '$$\\overbrace{#@}$$',
+                    insert: '$$\\overbrace{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\underbrace{#@}$$',
+                    insert: '$$\\underbrace{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\overgroup{#@}$$',
+                    insert: '$$\\overgroup{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\undergroup{#@}$$',
+                    insert: '$$\\undergroup{#0}$$',
                 },
                 {class: 'separator w5'},
                 {
@@ -213,15 +218,15 @@ const EXTRA_KEYBOARD_LAYER = {
                 {class: 'separator w5'},
                 {
                     class: 'keycap tex',
-                    insert: '$$\\cancel{#@}$$',
+                    insert: '$$\\cancel{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\bcancel{#@}$$',
+                    insert: '$$\\bcancel{#0}$$',
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\xcancel{#@}$$',
+                    insert: '$$\\xcancel{#0}$$',
                 },
                 {
                     class: 'keycap tex',
@@ -306,7 +311,7 @@ const EXTRA_KEYBOARD_LAYER = {
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\boxed{#@}$$',
+                    insert: '$$\\boxed{#0}$$',
                 },
                 {
                     class: 'keycap tex',
@@ -792,7 +797,7 @@ const EXTRA_KEYBOARD_LAYER = {
                 },
                 {
                     class: 'keycap tex',
-                    insert: '$$\\mathop {#@}\\limits^\\Delta$$'
+                    insert: '$$\\mathop {#0}\\limits^\\Delta$$'
                 },
                 {
                     class: 'keycap tex',
@@ -835,6 +840,10 @@ const EXTRA_KEYBOARD_LAYER = {
                 },
             ],
             [
+                {
+                    class: 'keycap tex',
+                    insert: '$$\\underline{#0}$$'
+                },
                 {
                     class: 'keycap tex',
                     // insert: '$$|\\begin{array}{l}{#0} \\\\ {#0}\\end{array}$$'

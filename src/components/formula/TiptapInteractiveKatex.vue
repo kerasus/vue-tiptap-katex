@@ -213,10 +213,10 @@ export default {
             mf.insert('\\frac{1}{2}');
             return false;
           } else if (keystroke === 'ctrl+alt+[KeyT]') {
-            mf.insert('#@^\\text{text}');
+            mf.insert('#0^\\text{text}');
             return false;
           } else if (keystroke === 'ctrl+alt+[KeyA]') {
-            mf.insert('\\mathop {#@}\\limits^\\Delta');
+            mf.insert('\\mathop {#0}\\limits^\\Delta');
             return false;
           } else if (keystroke === 'ctrl+[KeyR]') {
             mf.insert('\\sqrt[]{2}');
@@ -261,7 +261,7 @@ export default {
             mf.insert('\\Delta');
             return true;
           } else if (keystroke === 'ctrl+alt+[KeyI]') {
-            mf.insert('\\underbrace{#@}_{\\text{note}}');
+            mf.insert('\\underbrace{#0}_{\\text{note}}');
             return false;
           } else if (keystroke === 'ctrl+alt+[KeyP]') {
             mf.insert('\\div');
