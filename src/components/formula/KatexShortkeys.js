@@ -1,101 +1,101 @@
-export const tipTapInteractiveObjects = [
+export const katexShortkeys = [
     {
-        class: 'english',
+        class: 'math',
         shortKey: '[Space]',
         insert: '//enspace'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyF]',
         insert: '\\frac{1}{2}'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+alt+[KeyT]]',
         insert: '#0^\\text{text}'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+alt+[KeyA]',
         insert: '\\mathop {#0}\\limits^\\Delta'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyR]',
         insert: '\\sqrt[]{2}'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyH]',
         insert: '2^2'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyL]',
         insert: '2_4'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyJ]',
         insert: '{2\\atop 1}H'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyQ]',
         insert: '//rightarrow'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyE]',
         insert: '//theta'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyS]',
         insert: '//alpha'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyD]',
         insert: '//beta'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyB]',
         insert: '//lambda'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyM]',
         insert: '//mu'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyK]',
         insert: '//rho'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyU]',
         insert: '//infty'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+[KeyG]',
         insert: '//pi'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+alt+[KeyW]',
         insert: '//Delta'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+alt+[KeyI]',
         insert: '\\underbrace{#0}_{\\text{note}}'
     },
     {
-        class: 'english',
+        class: 'math',
         shortKey: 'ctrl+alt+[KeyP]',
         insert: '\\div'
     },
@@ -200,4 +200,5 @@ export const tipTapInteractiveObjects = [
         class: 'persian',
         shortKey: '[Numpad9]',
         insert: '٩'
-    }]
+    }
+]

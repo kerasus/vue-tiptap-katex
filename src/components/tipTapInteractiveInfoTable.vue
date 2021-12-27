@@ -7,14 +7,14 @@
 <script>
 
 import katex from 'katex'
-import {tipTapInteractiveObjects} from '../mixins/tipTapInteractiveObjects'
+import {katexShortkeys} from './formula/KatexShortkeys'
 
 export default {
   name: 'InteractiveInfoTable',
-  props: {tipTapInteractiveObjects},
+  props: {tipTapInteractiveObjects: katexShortkeys},
   computed:{
     getShortKey(){
-      return katex.renderToString(tipTapInteractiveObjects[0])
+      return katex.renderToString(katexShortkeys[0])
     }
   },
   created() {

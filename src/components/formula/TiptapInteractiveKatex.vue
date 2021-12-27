@@ -53,6 +53,7 @@ import 'mathlive/dist/mathlive-static.css'
 import '@mdi/font/css/materialdesignicons.css'
 import MathLive from 'mathlive'
 import {EXTRA_KEYBOARD, EXTRA_KEYBOARD_LAYER} from './ExtraKeyboard'
+import {katexShortkeys} from './KatexShortkeys';
 
 addPersianTo(katex);
 
@@ -205,108 +206,20 @@ export default {
         onKeystroke: (mathfield, keystroke /* , ev */) => {
           // console.log('ev', ev)
           // console.log('mathfield', mathfield)
-          console.log('keystroke', keystroke)
-          if (keystroke === '[Space]') {
-            mf.insert('\\enspace');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyF]') {
-            mf.insert('\\frac{1}{2}');
-            return false;
-          } else if (keystroke === 'ctrl+alt+[KeyT]') {
-            mf.insert('#0^\\text{text}');
-            return false;
-          } else if (keystroke === 'ctrl+alt+[KeyA]') {
-            mf.insert('\\mathop {#0}\\limits^\\Delta');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyR]') {
-            mf.insert('\\sqrt[]{2}');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyH]') {
-            mf.insert('2^2');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyL]') {
-            mf.insert('2_4');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyJ]') {
-            mf.insert('{2\\atop 1}H');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyQ]') {
-            mf.insert('\\rightarrow');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyE]') {
-            mf.insert('\\theta');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyS]') {
-            mf.insert('\\alpha');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyD]') {
-            mf.insert('\\beta');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyB]') {
-            mf.insert('\\lambda');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyM]') {
-            mf.insert('\\mu');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyK]') {
-            mf.insert('\\rho');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyU]') {
-            mf.insert('\\infty');
-            return false;
-          } else if (keystroke === 'ctrl+[KeyG]') {
-            mf.insert('\\pi');
-            return false;
-          } else if (keystroke === 'ctrl+alt+[KeyW]') {
-            mf.insert('\\Delta');
-            return true;
-          } else if (keystroke === 'ctrl+alt+[KeyI]') {
-            mf.insert('\\underbrace{#0}_{\\text{note}}');
-            return false;
-          } else if (keystroke === 'ctrl+alt+[KeyP]') {
-            mf.insert('\\div');
-            return false;
-          }
-          if (this.editor.editorOptions.persianKeyboard) {
-            if (keystroke === 'alt+[Digit0]' || keystroke === '[Numpad0]') {
-              mf.insert('٠');
-              return false;
-            } else if (keystroke === 'alt+[Digit1]' || keystroke === '[Numpad1]') {
-              mf.insert('١');
-              return false;
-            } else if (keystroke === 'alt+[Digit2]' || keystroke === '[Numpad2]') {
-              mf.insert('٢');
-              return false;
-            } else if (keystroke === 'alt+[Digit3]' || keystroke === '[Numpad3]') {
-              mf.insert('٣');
-              return false;
-            } else if (keystroke === 'alt+[Digit4]' || keystroke === '[Numpad4]') {
-              mf.insert('٤');
-              return false;
-            } else if (keystroke === 'alt+[Digit5]' || keystroke === '[Numpad5]') {
-              mf.insert('٥');
-              return false;
-            } else if (keystroke === 'alt+[Digit6]' || keystroke === '[Numpad6]') {
-              mf.insert('٦');
-              return false;
-            } else if (keystroke === 'alt+[Digit7]' || keystroke === '[Numpad7]') {
-              mf.insert('٧');
-              return false;
-            } else if (keystroke === 'alt+[Digit8]' || keystroke === '[Numpad8]') {
-              mf.insert('٨');
-              return false;
-            } else if (keystroke === 'alt+[Digit9]' || keystroke === '[Numpad9]') {
-              mf.insert('٩');
-              return false;
+          for (let i = 0; i < katexShortkeys.length; i++) {
+            if (keystroke === katexShortkeys[i].shortKey && katexShortkeys[i].class === 'math') {
+              mf.insert(katexShortkeys[i].insert)
+              return false
             }
           }
-          // else if (keystroke === 'ctrl+[KeyW]') {
-          //   mf.insert('\\Delta');
-          //   return false;
-          // } else if (keystroke === 'ctrl+[KeyT]') {
-          //   mf.insert('35^{37}+2');
-          //   return false;
-          // }
+          if (this.editor.editorOptions.persianKeyboard) {
+            for (let i = 0; i < katexShortkeys.length; i++) {
+              if (keystroke === katexShortkeys[i].shortKey && katexShortkeys[i].class === 'persian') {
+                mf.insert(katexShortkeys[i].insert)
+                return false
+              }
+            }
+          }
           // Keystroke not handled, return true for default handling to proceed.
           return true;
         },
