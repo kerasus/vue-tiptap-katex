@@ -46,6 +46,7 @@ const mixinConvertToTiptap = {
             view.dispatch(trx)
         },
         convertToTiptap(string) { //call this function when you want to convert pure HTML to tiptap format
+            string = string.replaceAll('¬', '&#8202;')
             string = this.convertHTMLKatexToInteractive(string)
             string = this.convertHTMLReadingToInteractive(string)
             string = this.convertHTMLImageToInlineInteractive(string)
