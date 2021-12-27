@@ -1,6 +1,6 @@
 {
   "name": "vue-tiptap-katex",
-  "version": "2.2.31",
+  "version": "2.2.32",
   "description": "tiptap editor with katex in vue",
   "main": "index.js",
   "keywords": [
@@ -51,6 +51,7 @@
     "css-loader": "^3.6.0",
     "mathlive": "^0.58.0",
     "node-sass": "^6.0.0",
+    "persian-katex-plugin": "^1.1.0",
     "postcss-loader": "^4.2.0",
     "sass-loader": "^10.1.1",
     "tiptap-extensions": "^1.35.2",
