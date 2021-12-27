@@ -131,7 +131,15 @@ export default {
   },
   created() {
     this.katex = this.node.attrs.katex
+    this.editMode = this.node.attrs.editMode
     this.overrideKeyboardEvent()
+  },
+  mounted () {
+    if (this.node.attrs.editMode) {
+      setTimeout(() => {
+        this.$refs.mathfield.children[1].children[1].click()
+      }, 100)
+    }
   },
   methods: {
     // setDirMath () {

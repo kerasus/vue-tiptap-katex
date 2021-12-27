@@ -14,7 +14,9 @@ const Shortkeys = Extension.create({
                     console.error('Failed to read clipboard contents: ', err);
                 }),
             // Insert TiptapInteractiveKatex
-            'Mod-Alt-q': () => this.editor.chain().focus().insertContent('<tiptap-interactive-katex-inline></tiptap-interactive-katex-inline> ').run()
+            'Mod-Alt-q': () => {
+                this.editor.chain().focus().insertContent('<tiptap-interactive-katex-inline editMode="true" katex=" "></tiptap-interactive-katex-inline> ').run()
+            }
         }
     }
 })
