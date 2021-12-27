@@ -46,7 +46,7 @@ import katex from 'katex'
 import 'katex/dist/katex.min.css'
 import addPersianTo from 'persian-katex-plugin';
 // import 'perisan-katex-plugin/build/index.css';
-import '../../../node_modules/persian-katex-plugin/build/index.css'
+import 'persian-katex-plugin/build/index.css'
 import {nodeViewProps, NodeViewWrapper} from '@tiptap/vue-2'
 import 'mathlive/dist/mathlive-fonts.css'
 import 'mathlive/dist/mathlive-static.css'
