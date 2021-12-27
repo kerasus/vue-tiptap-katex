@@ -77,6 +77,7 @@
   import Document from '@tiptap/extension-document'
   import Heading from '@tiptap/extension-heading'
   import ImageAlign from './extension/ImageAlign/ImageAlign'
+  import Shortkeys from './extension/Shortkeys/TiptapShortkeys';
   // import Focus from '@tiptap/extension-focus'
   import ThinSpace from './extension/ThinSpace/ThinSpace';
   // import Paper from './Drawing/Paper.js'
@@ -179,6 +180,7 @@
           TiptapInteractivePoem,
           TiptapInteractiveReading,
           ImageAlign,
+          Shortkeys,
           // Focus.configure({
           //   className: 'has-focus',
           //   mode: 'all',
