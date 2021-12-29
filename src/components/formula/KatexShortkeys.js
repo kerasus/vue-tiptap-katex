@@ -99,106 +99,55 @@ export const katexShortkeys = [
         shortKey: 'ctrl+alt+[KeyP]',
         insert: '\\div'
     },
-
-
     {
         class: 'persian',
-        shortKey: 'alt+[Digit0]',
+        shortKey: '[Digit0]',
         insert: '٠'
     },
     {
         class: 'persian',
-        shortKey: '[Numpad0]',
-        insert: '٠'
-    },
-    {
-        class: 'persian',
-        shortKey: 'alt+[Digit1]',
+        shortKey: '[Digit1]',
         insert: '١'
     },
+
     {
         class: 'persian',
-        shortKey: '[Numpad1]',
-        insert: '١'
-    },
-    {
-        class: 'persian',
-        shortKey: 'alt+[Digit2]',
+        shortKey: '[Digit2]',
         insert: '٢'
     },
     {
         class: 'persian',
-        shortKey: '[Numpad2]',
-        insert: '٢'
-    },
-    {
-        class: 'persian',
-        shortKey: 'alt+[Digit3]',
+        shortKey: '[Digit3]',
         insert: '٣'
     },
     {
         class: 'persian',
-        shortKey: '[Numpad3]',
-        insert: '٣'
-    },
-    {
-        class: 'persian',
-        shortKey: 'alt+[Digit4]',
+        shortKey: '[Digit4]',
         insert: '٤'
     },
     {
         class: 'persian',
-        shortKey: '[Numpad4]',
-        insert: '٤'
-    },
-    {
-        class: 'persian',
-        shortKey: 'alt+[Digit5]',
+        shortKey: '[Digit5]',
         insert: '٥'
     },
     {
         class: 'persian',
-        shortKey: '[Numpad5]',
-        insert: '٥'
-    },
-    {
-        class: 'persian',
-        shortKey: 'alt+[Digit6]',
+        shortKey: '[Digit6]',
         insert: '٦'
     },
     {
         class: 'persian',
-        shortKey: '[Numpad6]',
-        insert: '٦'
-    },
-    {
-        class: 'persian',
-        shortKey: 'alt+[Digit7]',
+        shortKey: '[Digit7]',
         insert: '٧'
     },
     {
         class: 'persian',
-        shortKey: '[Numpad7]',
-        insert: '٧'
-    },
-    {
-        class: 'persian',
-        shortKey: 'alt+[Digit8]',
+        shortKey: '[Digit8]',
         insert: '٨'
     },
     {
         class: 'persian',
-        shortKey: '[Numpad8]',
-        insert: '٨'
-    },
-    {
-        class: 'persian',
-        shortKey: 'alt+[Digit9]',
+        shortKey: '[Digit9]',
         insert: '٩'
     },
-    {
-        class: 'persian',
-        shortKey: '[Numpad9]',
-        insert: '٩'
-    }
 ]
