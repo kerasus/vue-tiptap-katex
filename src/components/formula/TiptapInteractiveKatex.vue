@@ -44,16 +44,16 @@
 // import VueKatex from 'vue-katex'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
-import addPersianTo from 'persian-katex-plugin';
+import addPersianTo from 'persian-katex-plugin'
 // import 'perisan-katex-plugin/build/index.css';
-import '../../../node_modules/persian-katex-plugin/build/index.css'
+import 'persian-katex-plugin/build/index.css'
 import {nodeViewProps, NodeViewWrapper} from '@tiptap/vue-2'
 import 'mathlive/dist/mathlive-fonts.css'
 import 'mathlive/dist/mathlive-static.css'
 import '@mdi/font/css/materialdesignicons.css'
 import MathLive from 'mathlive'
 import {EXTRA_KEYBOARD, EXTRA_KEYBOARD_LAYER} from './ExtraKeyboard'
-import {katexShortkeys} from './KatexShortkeys';
+import {katexShortkeys} from './KatexShortkeys'
 
 addPersianTo(katex);
 
@@ -214,6 +214,7 @@ export default {
         onKeystroke: (mathfield, keystroke /* , ev */) => {
           // console.log('ev', ev)
           // console.log('mathfield', mathfield)
+
           for (let i = 0; i < katexShortkeys.length; i++) {
             if (keystroke === katexShortkeys[i].shortKey && katexShortkeys[i].class === 'math') {
               mf.insert(katexShortkeys[i].insert)

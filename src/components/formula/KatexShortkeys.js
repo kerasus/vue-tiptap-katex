@@ -2,7 +2,7 @@ export const katexShortkeys = [
     {
         class: 'math',
         shortKey: '[Space]',
-        insert: '//enspace'
+        insert: '\\enspace'
     },
     {
         class: 'math',
