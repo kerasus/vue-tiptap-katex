@@ -1,7 +1,11 @@
 <template>
   <div>
     <div v-if="flag">
-      <div v-for="(item, index) in renderedShortkeys" :key="index" v-html="item.insert" />
+      <div
+        v-for="(item, index) in renderedShortkeys"
+        :key="index"
+        v-html="item.insert"
+      />
     </div>
   </div>
 </template>
@@ -22,7 +26,7 @@ export default {
     }
   },
   created() {
-    this.renderedShortkeys = katexShortkeys
+    this.renderedShortkeys = JSON.parse(JSON.stringify(katexShortkeys))
     this.renderedShortkeys.forEach(shortkeyObject => {
       shortkeyObject.insert = katex.renderToString(shortkeyObject.insert)
     })
