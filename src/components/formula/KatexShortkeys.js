@@ -47,52 +47,52 @@ export const katexShortkeys = [
     {
         class: 'math',
         shortKey: 'ctrl+[KeyQ]',
-        insert: '//rightarrow'
+        insert: '\\rightarrow'
     },
     {
         class: 'math',
         shortKey: 'ctrl+[KeyE]',
-        insert: '//theta'
+        insert: '\\theta'
     },
     {
         class: 'math',
         shortKey: 'ctrl+[KeyS]',
-        insert: '//alpha'
+        insert: '\\alpha'
     },
     {
         class: 'math',
         shortKey: 'ctrl+[KeyD]',
-        insert: '//beta'
+        insert: '\\beta'
     },
     {
         class: 'math',
         shortKey: 'ctrl+[KeyB]',
-        insert: '//lambda'
+        insert: '\\lambda'
     },
     {
         class: 'math',
         shortKey: 'ctrl+[KeyM]',
-        insert: '//mu'
+        insert: '\\mu'
     },
     {
         class: 'math',
         shortKey: 'ctrl+[KeyK]',
-        insert: '//rho'
+        insert: '\\rho'
     },
     {
         class: 'math',
         shortKey: 'ctrl+[KeyU]',
-        insert: '//infty'
+        insert: '\\infty'
     },
     {
         class: 'math',
         shortKey: 'ctrl+[KeyG]',
-        insert: '//pi'
+        insert: '\\pi'
     },
     {
         class: 'math',
         shortKey: 'ctrl+alt+[KeyW]',
-        insert: '//Delta'
+        insert: '\\Delta'
     },
     {
         class: 'math',
