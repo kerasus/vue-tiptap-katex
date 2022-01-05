@@ -117,7 +117,7 @@ export default {
   },
   computed: {
     keyboardList() {
-      let options = 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard'
+      let options = 'numeric custom-functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard'
       if (this.editor.editorOptions.persianKeyboard) {
         options += ' persian-keyboard'
       }
