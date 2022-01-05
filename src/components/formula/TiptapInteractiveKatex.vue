@@ -116,7 +116,7 @@ export default {
   },
   computed: {
     keyboardList() {
-      let options = 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard'
+      let options = 'numeric custom-functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard'
       if (this.editor.editorOptions.persianKeyboard) {
         options += ' persian-keyboard'
       }
@@ -213,7 +213,13 @@ export default {
         onKeystroke: (mathfield, keystroke /* , ev */) => {
           // console.log('ev', ev)
           // console.log('mathfield', mathfield)
-
+          if (keystroke === 'ctrl+[Enter]') {
+            this.$refs.mathfield.children[1].children[1].click()
+            this.editMode = false
+            console.log(this.editor.state)
+            this.editor.chain().focus('end').run()
+            return false
+          }
           for (let i = 0; i < katexShortkeys.length; i++) {
             if (keystroke === katexShortkeys[i].shortKey && katexShortkeys[i].class === 'math') {
               mf.insert(katexShortkeys[i].insert)
