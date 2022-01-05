@@ -793,6 +793,10 @@ const EXTRA_KEYBOARD_LAYER = {
                 },
                 {
                     class: 'keycap tex',
+                    insert: '$$\\lim\\limits_{x \\to \\infty}$$'
+                },
+                {
+                    class: 'keycap tex',
                     insert: '$$\\div$$'
                 },
                 {
