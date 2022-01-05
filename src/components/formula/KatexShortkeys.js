@@ -1,6 +1,11 @@
 export const katexShortkeys = [
     {
         class: 'math',
+        shortKey: 'ctrl+alt+[Space]]',
+        insert: '\\text{عبارت farsi}'
+    },
+    {
+        class: 'math',
         shortKey: '[Space]',
         insert: '\\enspace'
     },
