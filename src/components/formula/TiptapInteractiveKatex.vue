@@ -238,7 +238,10 @@ export default {
           // Keystroke not handled, return true for default handling to proceed.
           return true;
         },
-        mathModeSpace: '\\:'
+        mathModeSpace: '\\:',
+        inlineShortcuts: {
+          'lim': { mode: 'math', value: '\\lim\\limits_{x \\to \\infty}' },
+        }
       });
 
       // MathLive > 0.60
