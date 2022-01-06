@@ -116,7 +116,7 @@ export default {
   },
   computed: {
     keyboardList() {
-      let options = 'numeric functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard'
+      let options = 'numeric custom-functions symbols roman  greek matrix-keyboard others-keyboard extra-keyboard'
       if (this.editor.editorOptions.persianKeyboard) {
         options += ' persian-keyboard'
       }
@@ -237,7 +237,10 @@ export default {
           // Keystroke not handled, return true for default handling to proceed.
           return true;
         },
-        mathModeSpace: '\\:'
+        mathModeSpace: '\\:',
+        inlineShortcuts: {
+          'lim': { mode: 'math', value: '\\lim\\limits_{x \\to \\infty}' },
+        }
       });
 
       // MathLive > 0.60

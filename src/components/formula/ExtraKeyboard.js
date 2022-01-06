@@ -907,6 +907,176 @@ const EXTRA_KEYBOARD_LAYER = {
             ]
         ]
     },
+    'custom-functions-layer': {
+        styles: '',
+        rows: [
+            [
+                {class: 'separator'},
+                {
+                    class: ' fnbutton',
+                    insert: '\\sin'
+                },
+                {
+                    class: ' fnbutton',
+                    insert: '\\sin^{-1}'
+                },
+                {
+                    class: ' fnbutton',
+                    insert: '\\ln'
+                },
+                {
+                    class: ' fnbutton',
+                    insert: '\\exponentialE^{#?}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{lcm}(#?)'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{ceil}(#?)'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\lim\\limits_{x\\to\\infty}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\int'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{abs}(#?)'
+                }
+            ],
+            [
+                {class: 'separator'},
+                {
+                    class: 'fnbutton',
+                    insert: '\\cos'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '\\cos^{-1}'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '\\ln_{10}'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '10^{#?}',
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{gcd}(#?)',
+                    latex: '\\operatorname{gcd}()'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{floor}(#?)',
+                    latex: '\\operatorname{floor}()'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\sum_{n\\mathop=0}^{\\infty}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\int_{0}^{\\infty}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{sign}(#?)',
+                    latex: '\\operatorname{sign}()'
+                }
+            ],
+            [
+                {class: 'separator'},
+                {
+                    class: 'fnbutton',
+                    insert: '\\tan'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '\\tan^{-1}'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '\\log_{#?}'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '\\sqrt[#?]{#0}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '#0 \\mod',
+                    latex: '\\mod'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{round}(#?)',
+                    latex: '\\operatorname{round}()'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\prod_{n\\mathop=0}^{\\infty}',
+                    latex: '{\\scriptstyle \\prod_{n=0}^{\\infty}}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\frac{\\differentialD #0}{\\differentialD x}'
+                },
+                {
+                    class: 'action',
+                    label: '&#x232b;',
+                    command: ['performWithFeedback','deleteBackward']
+                },
+            ],
+            [
+                {class: 'separator'},
+                {
+                    class: 'fnbutton',
+                    insert: '('
+                },
+                {
+                    class: 'fnbutton',
+                    insert: ')'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '^{#?}',
+                    latex: 'x^{#?}'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '_{#?}',
+                    latex: 'x_{#?}'
+                },
+                {
+                    class: 'keycap w20 tex',
+                    label: '&nbsp;',
+                    key: ' '
+                },
+                {
+                    class: 'action',
+                    label: '<svg><use xlink:href=\'#svg-arrow-left\' /></svg>',
+                    command: ['performWithFeedback', 'moveToPreviousChar']
+                },
+                {
+                    class: 'action',
+                    label: '<svg><use xlink:href=\'#svg-arrow-right\' /></svg>',
+                    command: ['performWithFeedback', 'moveToNextChar']
+                },
+                {
+                    class: 'action font-glyph bottom right',
+                    label: '&#x232b;',
+                    command: ['performWithFeedback', 'deleteBackward']
+                }
+            ],
+        ]
+    }
 };
 const EXTRA_KEYBOARD = {
     'others-keyboard': {
@@ -928,6 +1098,11 @@ const EXTRA_KEYBOARD = {
         'label': 'Persian',
         'tooltip': '',
         'layer': 'persian-keyboard-layer'
+    },
+    'custom-functions': {
+        'label': '<i>f</i>&thinsp;()',
+        'tooltip': 'keyboard.tooltip.functions',
+        'layer': 'custom-functions-layer'
     }
 };
 
