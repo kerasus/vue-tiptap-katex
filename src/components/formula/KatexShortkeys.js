@@ -1,4 +1,12 @@
 export const katexShortkeys = [
+    // {
+    //     class: 'math',
+    //     shortKey: 'ctrl+alt+[Space]]',
+    //     // insert: '\\text{عبارت farsi}'
+    //     // insert: '\\([rtl] x^2 \\)'
+    //     // insert: '\\( عبارت farsi \\)'
+    //     insert: 'x=\\begin{align} عبارت farsi \\end{align}'
+    // },
     {
         class: 'math',
         shortKey: '[Space]',

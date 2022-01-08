@@ -907,49 +907,176 @@ const EXTRA_KEYBOARD_LAYER = {
             ]
         ]
     },
-    'custom-functions-layer': `
-        <div class='rows'>
-            <ul><li class='separator'></li>
-                <li class='fnbutton' data-insert='\\sin'></li>
-                <li class='fnbutton' data-insert='\\sin^{-1}'></li>
-                <li class='fnbutton' data-insert='\\ln'></li>
-                <li class='fnbutton' data-insert='\\exponentialE^{#?}'></li>
-                <li class='bigfnbutton' data-insert='\\operatorname{lcm}(#?)' data-latex='\\operatorname{lcm}()'></li>
-                <li class='bigfnbutton' data-insert='\\operatorname{ceil}(#?)' data-latex='\\operatorname{ceil}()'></li>
-                <li class='bigfnbutton' data-insert='\\lim\\limits_{x\\to\\infty}'></li>
-                <li class='bigfnbutton' data-insert='\\int'></li>
-                <li class='bigfnbutton' data-insert='\\operatorname{abs}(#?)' data-latex='\\operatorname{abs}()'></li>
-            </ul>
-            <ul><li class='separator'></li>
-                <li class='fnbutton' data-latex='\\cos'></li>
-                <li class='fnbutton' data-latex='\\cos^{-1}'></li>
-                <li class='fnbutton' data-latex='\\ln_{10}'></li>
-                <li class='fnbutton' data-latex='10^{#?}'></li>
-                <li class='bigfnbutton' data-latex='\\operatorname{gcd}(#?)' data-latex='\\operatorname{gcd}()'></li>
-                <li class='bigfnbutton' data-latex='\\operatorname{floor}(#?)' data-latex='\\operatorname{floor}()'></li>
-                <li class='bigfnbutton' data-latex='\\sum_{n\\mathop=0}^{\\infty}'></li>
-                <li class='bigfnbutton' data-latex='\\int_{0}^{\\infty}'></li>
-                <li class='bigfnbutton' data-latex='\\operatorname{sign}(#?)' data-latex='\\operatorname{sign}()'></li>
-            </ul>
-            <ul><li class='separator'></li>
-                <li class='fnbutton' data-latex='\\tan'></li>
-                <li class='fnbutton' data-latex='\\tan^{-1}'></li>
-                <li class='fnbutton' data-latex='\\log_{#?}'></li>
-                <li class='fnbutton' data-latex='\\sqrt[#?]{#0}'></li>
-                <li class='bigfnbutton' data-insert='#0 \\mod' data-latex='\\mod'></li>
-                <li class='bigfnbutton' data-insert='\\operatorname{round}(#?) ' data-latex='\\operatorname{round}()'></li>
-                <li class='bigfnbutton' data-insert='\\prod_{n\\mathop=0}^{\\infty}' data-latex='{\\scriptstyle \\prod_{n=0}^{\\infty}}'></li>
-                <li class='bigfnbutton' data-insert='\\frac{\\differentialD #0}{\\differentialD x}'></li>
-                <li class='action font-glyph bottom right' data-command='["performWithFeedback","deleteBackward"]'>&#x232b;</li></ul>
-            <ul><li class='separator'></li>
-                <li class='fnbutton'>(</li>
-                <li class='fnbutton'>)</li>
-                <li class='fnbutton' data-insert='^{#?}' data-latex='x^{#?}'></li>
-                <li class='fnbutton' data-insert='_{#?}' data-latex='x_{#?}'></li>
-                <li class='keycap w20 ' data-key=' '>&nbsp;</li>
-                <arrows/>
-            </ul>
-        </div>\`,`
+    'custom-functions-layer': {
+        styles: '',
+        rows: [
+            [
+                {class: 'separator'},
+                {
+                    class: ' fnbutton',
+                    insert: '\\sin'
+                },
+                {
+                    class: ' fnbutton',
+                    insert: '\\sin^{-1}'
+                },
+                {
+                    class: ' fnbutton',
+                    insert: '\\ln'
+                },
+                {
+                    class: ' fnbutton',
+                    insert: '\\exponentialE^{#?}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{lcm}(#?)'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{ceil}(#?)'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\lim\\limits_{x\\to\\infty}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\int'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{abs}(#?)'
+                }
+            ],
+            [
+                {class: 'separator'},
+                {
+                    class: 'fnbutton',
+                    insert: '\\cos'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '\\cos^{-1}'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '\\ln_{10}'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '10^{#?}',
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{gcd}(#?)',
+                    latex: '\\operatorname{gcd}()'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{floor}(#?)',
+                    latex: '\\operatorname{floor}()'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\sum_{n\\mathop=0}^{\\infty}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\int_{0}^{\\infty}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{sign}(#?)',
+                    latex: '\\operatorname{sign}()'
+                }
+            ],
+            [
+                {class: 'separator'},
+                {
+                    class: 'fnbutton',
+                    insert: '\\tan'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '\\tan^{-1}'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '\\log_{#?}'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '\\sqrt[#?]{#0}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '#0 \\mod',
+                    latex: '\\mod'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\operatorname{round}(#?)',
+                    latex: '\\operatorname{round}()'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\prod_{n\\mathop=0}^{\\infty}',
+                    latex: '{\\scriptstyle \\prod_{n=0}^{\\infty}}'
+                },
+                {
+                    class: 'bigfnbutton',
+                    insert: '\\frac{\\differentialD #0}{\\differentialD x}'
+                },
+                {
+                    class: 'action',
+                    label: '&#x232b;',
+                    command: ['performWithFeedback','deleteBackward']
+                },
+            ],
+            [
+                {class: 'separator'},
+                {
+                    class: 'fnbutton',
+                    insert: '('
+                },
+                {
+                    class: 'fnbutton',
+                    insert: ')'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '^{#?}',
+                    latex: 'x^{#?}'
+                },
+                {
+                    class: 'fnbutton',
+                    insert: '_{#?}',
+                    latex: 'x_{#?}'
+                },
+                {
+                    class: 'keycap w20 tex',
+                    label: '&nbsp;',
+                    key: ' '
+                },
+                {
+                    class: 'action',
+                    label: '<svg><use xlink:href=\'#svg-arrow-left\' /></svg>',
+                    command: ['performWithFeedback', 'moveToPreviousChar']
+                },
+                {
+                    class: 'action',
+                    label: '<svg><use xlink:href=\'#svg-arrow-right\' /></svg>',
+                    command: ['performWithFeedback', 'moveToNextChar']
+                },
+                {
+                    class: 'action font-glyph bottom right',
+                    label: '&#x232b;',
+                    command: ['performWithFeedback', 'deleteBackward']
+                }
+            ],
+        ]
+    }
 };
 const EXTRA_KEYBOARD = {
     'others-keyboard': {

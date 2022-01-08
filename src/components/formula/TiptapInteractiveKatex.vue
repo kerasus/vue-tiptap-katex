@@ -44,7 +44,6 @@
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
 import addPersianTo from 'persian-katex-plugin'
-// import 'perisan-katex-plugin/build/index.css';
 import 'persian-katex-plugin/build/index.css'
 import {nodeViewProps, NodeViewWrapper} from '@tiptap/vue-2'
 import '@mdi/font/css/materialdesignicons.css'
