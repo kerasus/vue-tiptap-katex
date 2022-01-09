@@ -738,7 +738,7 @@ const EXTRA_KEYBOARD_LAYER = {
                 {
                     class: 'keycap tex w20',
                     latex: '\\htmlStyle{display: inline-block; direction: rtl;}{متن\\enspace فارسی}',
-                    insert: '\\htmlStyle{display: inline-block; direction: rtl; background-color: #eaeaea}{#0}'
+                    insert: '\\htmlStyle{display: inline-block; direction: rtl;}{#0}'
                 },
             ],
             [
