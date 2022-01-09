@@ -735,6 +735,20 @@ const EXTRA_KEYBOARD_LAYER = {
                     class: 'keycap tex',
                     insert: '٣'
                 },
+                {
+                  class: 'separator w5'
+                },
+                {
+                    class: 'separator w5'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '\\htmlData{rtl=true}{۴عددcar}'
+                },
+                {
+                    class: 'keycap tex',
+                    insert: '\\htmlData{foo=a, bar=b}{x}'
+                },
             ],
             [
                 {
@@ -749,6 +763,9 @@ const EXTRA_KEYBOARD_LAYER = {
                     class: 'keycap tex',
                     insert: '٦'
                 },
+                {
+                    class: 'separator w20'
+                }
             ],
             [
                 {
@@ -763,12 +780,18 @@ const EXTRA_KEYBOARD_LAYER = {
                     class: 'keycap tex',
                     insert: '٩'
                 },
+                {
+                    class: 'separator w20'
+                }
             ],
             [
                 {
                     class: 'keycap tex w30',
                     insert: '٠'
                 },
+                {
+                    class: 'separator w20'
+                }
             ]
         ]
     },

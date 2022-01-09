@@ -53,9 +53,14 @@ import {katexShortkeys} from './KatexShortkeys'
 
 // ------------------- Mathlive ---------------------
 
-import 'mathlive/dist/mathlive-fonts.css'
-import 'mathlive/dist/mathlive-static.css'
-import { MathfieldElement} from 'mathlive';
+// import 'mathlive/dist/mathlive-fonts.css'
+// import 'mathlive/dist/mathlive-static.css'
+// import { MathfieldElement } from 'mathlive';
+
+
+import { MathfieldElement } from  '@/Mathlive/dist/mathlive.mjs'
+import '@/Mathlive/dist/mathlive-fonts.css'
+import '@/Mathlive/dist/mathlive-static.css'
 
 // --------------------------------------------------
 
@@ -131,6 +136,8 @@ export default {
     computedKatex() {
       return katex.renderToString(this.node.attrs.katex, {
         throwOnError: false,
+        safe: true,
+        trust: true
       })
     }
   },

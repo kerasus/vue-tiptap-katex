@@ -50,7 +50,6 @@
     "cropperjs": "^1.5.11",
     "css-loader": "^3.6.0",
     "katex": "^0.15.1",
-    "mathlive": "^0.69.9",
     "node-sass": "^6.0.0",
     "persian-katex-plugin": "^1.1.0",
     "postcss-loader": "^4.2.0",
