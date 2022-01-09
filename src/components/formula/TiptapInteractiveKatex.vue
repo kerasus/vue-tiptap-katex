@@ -213,7 +213,7 @@ export default {
       let that = this
       const mf = new MathfieldElement(
           {
-            virtualKeyboardMode: 'onfocus',
+            virtualKeyboardMode: 'manual',
             onContentDidChange: (mf) => {
               that.latexData = that.getMathliveValue(mf)
             },

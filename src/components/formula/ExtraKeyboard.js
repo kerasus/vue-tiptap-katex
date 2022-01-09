@@ -736,18 +736,9 @@ const EXTRA_KEYBOARD_LAYER = {
                     insert: '٣'
                 },
                 {
-                  class: 'separator w5'
-                },
-                {
-                    class: 'separator w5'
-                },
-                {
-                    class: 'keycap tex',
-                    insert: '\\htmlData{rtl=true}{۴عددcar}'
-                },
-                {
-                    class: 'keycap tex',
-                    insert: '\\htmlData{foo=a, bar=b}{x}'
+                    class: 'keycap tex w20',
+                    latex: '\\htmlStyle{display: inline-block; direction: rtl;}{متن\\enspace فارسی}',
+                    insert: '\\htmlStyle{display: inline-block; direction: rtl; background-color: #eaeaea}{#0}'
                 },
             ],
             [
