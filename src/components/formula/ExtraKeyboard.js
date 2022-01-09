@@ -735,6 +735,11 @@ const EXTRA_KEYBOARD_LAYER = {
                     class: 'keycap tex',
                     insert: '٣'
                 },
+                {
+                    class: 'keycap tex w20',
+                    latex: '\\htmlStyle{display: inline-block; direction: rtl;}{متن\\enspace فارسی}',
+                    insert: '\\htmlStyle{display: inline-block; direction: rtl; background-color: #eaeaea}{#0}'
+                },
             ],
             [
                 {
@@ -749,6 +754,9 @@ const EXTRA_KEYBOARD_LAYER = {
                     class: 'keycap tex',
                     insert: '٦'
                 },
+                {
+                    class: 'separator w20'
+                }
             ],
             [
                 {
@@ -763,12 +771,18 @@ const EXTRA_KEYBOARD_LAYER = {
                     class: 'keycap tex',
                     insert: '٩'
                 },
+                {
+                    class: 'separator w20'
+                }
             ],
             [
                 {
                     class: 'keycap tex w30',
                     insert: '٠'
                 },
+                {
+                    class: 'separator w20'
+                }
             ]
         ]
     },

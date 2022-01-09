@@ -49,7 +49,7 @@
     "core-js": "^3.6.5",
     "cropperjs": "^1.5.11",
     "css-loader": "^3.6.0",
-    "mathlive": "^0.58.0",
+    "katex": "^0.15.1",
     "node-sass": "^6.0.0",
     "persian-katex-plugin": "^1.1.0",
     "postcss-loader": "^4.2.0",
