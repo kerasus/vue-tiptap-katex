@@ -58,7 +58,7 @@ import {katexShortkeys} from './KatexShortkeys'
 // import { MathfieldElement } from 'mathlive';
 
 
-import { MathfieldElement } from '../../Mathlive/mathlive.mjs'
+import { MathfieldElement } from '../../Mathlive'
 import '../../Mathlive/mathlive-fonts.css'
 import '../../Mathlive/mathlive-static.css'
 
