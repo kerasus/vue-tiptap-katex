@@ -13,10 +13,16 @@ const Shortkeys = Extension.create({
                 .catch(err => {
                     console.error('Failed to read clipboard contents: ', err);
                 }),
+
+            'Mod-Alt-k': () => {
+                this.editor.chain().focus().insertContent('<tiptap-interactive-poem><mesra></mesra><mesra></mesra></tiptap-interactive-poem>').run()
+            },
+
             // Insert TiptapInteractiveKatex
             'Mod-Alt-q': () => {
                 this.editor.chain().focus().insertContent('<tiptap-interactive-katex-inline editMode="true" katex=" "></tiptap-interactive-katex-inline> ').run()
-            }
+            },
+
         }
     }
 })

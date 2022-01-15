@@ -1,12 +1,25 @@
 const mixinConvertToHTML = {
     methods: {
         convertToPureHTML(string) { //call this function when you want to convert tiptap output to pure html
-            string = this.convertInteractivePoemToHTML(string)
-            string = this.convertInlineInteractiveImagesToHTML(string)
-            string = this.convertInteractiveImagesToHTML(string)
-            string = this.convertInteractiveIKatexToHTML(string)
-            string = this.convertInteractiveReadingToHTML(string)
-            string = this.tableColWidthStyle(string)
+            try {
+                string = this.convertInteractivePoemToHTML(string)
+                string = this.convertInlineInteractiveImagesToHTML(string)
+                string = this.convertInteractiveImagesToHTML(string)
+                string = this.convertInteractiveIKatexToHTML(string)
+                string = this.convertInteractiveReadingToHTML(string)
+                string = this.tableColWidthStyle(string)
+            } catch (e) {
+                this.$notify({
+                    group: 'error',
+                    title: 'مشکلی رخ داده است',
+                    text: e.message,
+                    type: 'error',
+                    duration: 10000
+                })
+                console.log(e)
+                return false
+            }
+
 
             return string
         },
@@ -41,16 +54,21 @@ const mixinConvertToHTML = {
         convertInteractivePoemToHTML(string) {
             var wrapper = document.createElement('div')
             wrapper.innerHTML = string
-            let poems = wrapper.querySelectorAll('ol li table tr')
+            let poems = wrapper.querySelectorAll('tiptap-interactive-poem')
             poems.forEach(poem => {
+                if (poem.children.length !== 2) {
+                    throw ({
+                        message: 'بیت زیر ' + poem.children.length + ' مصراع دارد<br>' + poem.innerText
+                    })
+                }
                 let poemWrapper = document.createElement('div')
                 poemWrapper.innerHTML = poem.innerHTML
-                let poem1 = poemWrapper.querySelectorAll('p')[0].innerHTML
-                let poem2 = poemWrapper.querySelectorAll('p')[1].innerHTML
+                let poem1 = poem.children[0].innerHTML
+                let poem2 = poem.children[1].innerHTML
                 let interactivePoem = '<div class="beit"><div class="mesra">' + poem1 + '</div><div class="mesra">' + poem2 + '</div></div>'
                 var PoemWrapper = document.createElement('div')
                 PoemWrapper.innerHTML = interactivePoem
-                poem.parentNode.parentNode.parentNode.parentNode.replaceWith(PoemWrapper)
+                poem.replaceWith(PoemWrapper)
             })
             return wrapper.innerHTML
         },
@@ -111,6 +129,9 @@ const mixinConvertToHTML = {
                     var katexWrapper = document.createElement('div')
                     katexWrapper.setAttribute('katex', true)
                     katexWrapper.textContent = interactiveKatex
+                    item.replaceWith(katexWrapper.textContent)
+                } else {
+                    katexWrapper.textContent = ''
                     item.replaceWith(katexWrapper.textContent)
                 }
             })
