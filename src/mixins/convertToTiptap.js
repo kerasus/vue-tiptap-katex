@@ -1,6 +1,3 @@
-import {DOMParser} from 'prosemirror-model';
-
-
 const mixinConvertToTiptap = {
     data () {
         return {
@@ -8,43 +5,6 @@ const mixinConvertToTiptap = {
         }
     },
     methods: {
-        elementFromString(value) {
-            const element = document.createElement('div')
-            element.innerHTML = value.trim()
-
-            return element
-        },
-        insertPoem({ state, view }, value, index) {
-            const { selection } = state
-            const element = this.elementFromString(value)
-            const slice = DOMParser.fromSchema(state.schema).parseSlice(element)
-
-            let reachedEnd = false
-            let first = 0, last = 5
-            let findIndex = -1
-            while (!reachedEnd) {
-                try {
-                    const text = state.doc.textBetween(first, last)
-                    if (text === 'poem' + index) {
-                        reachedEnd = true
-                        findIndex = first
-                    }
-                    first++
-                    last++
-                } catch {
-                    console.log('poem' + index + ' not found')
-                    break;
-                }
-            }
-
-            const { doc, tr } = state;
-            let trx = tr;
-
-            trx = trx.insertText('',findIndex,findIndex + 5)
-
-            trx = trx.insert(first, slice.content)
-            view.dispatch(trx)
-        },
         convertToTiptap(string) { //call this function when you want to convert pure HTML to tiptap format
             string = string.replaceAll('¬', '&#8202;')
             string = this.convertHTMLKatexToInteractive(string)
@@ -58,9 +18,13 @@ const mixinConvertToTiptap = {
             var wrapper = document.createElement('div')
             wrapper.innerHTML = string
             let poemParent = wrapper.querySelectorAll('.beit')
-            poemParent.forEach((item, index) => {
-                this.poems.push({ poem1: item.childNodes[0].innerHTML, poem2: item.childNodes[1].innerHTML, index: string.indexOf(item.outerHTML) - 5 })
-                item.parentElement.replaceWith('poem' + index)
+            poemParent.forEach((item) => {
+                let poem1 = item.childNodes[0].innerHTML, poem2 = item.childNodes[1].innerHTML
+                let poemHTML =
+                    '<tiptap-interactive-poem><mesra>' + poem1 + '</mesra><mesra>' + poem2 + '</mesra></tiptap-interactive-poem>'
+                var poemWrapper = document.createElement('div')
+                poemWrapper.innerHTML = poemHTML
+                item.replaceWith(poemWrapper)
             })
             return wrapper.innerHTML
         },
