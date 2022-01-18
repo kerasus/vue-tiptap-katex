@@ -5,7 +5,7 @@ const Shortkeys = Extension.create({
     addKeyboardShortcuts() {
         return {
             // Paste Shortkey
-            'Mod-v': () => navigator.clipboard.readText()
+            'Mod-Alt-v': () => navigator.clipboard.readText()
                 .then(text => {
                     let string = mixinConvertToTiptap.methods.convertToTiptap(text)
                     this.editor.commands.insertContent(string)

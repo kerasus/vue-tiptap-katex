@@ -1,13 +1,9 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import Test from './test'
-import vuetify from './plugins/vuetify' // path to vuetify export
-import Notifications from 'vue-notification'
+import Notifications from '@kyvg/vue3-notification'
 
-Vue.use(Notifications)
+export const eventBus = createApp(Test)
 
-Vue.config.productionTip = false
+const app = createApp(Test).mount('#app')
 
-new Vue({
-  vuetify,
-  render: h => h(Test),
-}).$mount('#app')
+app.use(Notifications)
