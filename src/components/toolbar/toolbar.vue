@@ -656,22 +656,6 @@
       <span>Undo</span>
     </v-tooltip>
 
-    <v-tooltip top>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          small
-          tile
-          icon
-          v-bind="attrs"
-          v-on="on"
-          @click="paste"
-        >
-          <v-icon>mdi-content-paste</v-icon>
-        </v-btn>
-      </template>
-      <span>Paste</span>
-    </v-tooltip>
-
     <v-tooltip
       v-if="options && options.poem"
       top
@@ -778,21 +762,12 @@
     },
     methods: {
       insertPoem () {
-        insertHTML(this.editor, '<ol><li><table class="poem"><tr class="beit"><td class="mesra1">معشوقه به سامان شد تا باد چنین بادا</td><td class="mesra2">کفرش همه ایمان شد تا باد چنین بادا</td></tr></table></ol></li>')
+        // insertHTML(this.editor, '<ol><li><table class="poem"><tr class="beit"><td class="mesra1">معشوقه به سامان شد تا باد چنین بادا</td><td class="mesra2">کفرش همه ایمان شد تا باد چنین بادا</td></tr></table></ol></li>')
+        insertHTML(this.editor, '<tiptap-interactive-poem><mesra></mesra><mesra></mesra></tiptap-interactive-poem>')
       },
       justify (value) {
         this.editor.chain().focus().setTextAlign(value).run()
         this.editor.chain().focus().setImageAlign(value).run()
-      },
-      paste () {
-        navigator.clipboard.readText()
-          .then(text => {
-            let string = this.convertToTiptap(text)
-            this.editor.commands.insertContent(string)
-          })
-          .catch(err => {
-            console.error('Failed to read clipboard contents: ', err);
-          });
       },
       convertToTiptap(string) { //call this function when you want to convert pure HTML to tiptap format
         string = string.replaceAll('¬', '&#8202;')
