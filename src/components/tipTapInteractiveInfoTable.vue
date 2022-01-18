@@ -1,10 +1,23 @@
 <template>
   <div>
-    <v-row align="center" justify="center">
-      <v-col cols="4">
-        <v-simple-table dense>
-          <template v-slot:default>
-            <thead>
+
+    <v-dialog
+      v-model="dialog"
+      max-width="500"
+    >
+      <div class="grey lighten-2 text-start">
+        <v-btn
+          fab
+          small
+          plain
+          @click="closeDialog"
+        >
+          <v-icon>mdi-window-close</v-icon>
+        </v-btn>
+      </div>
+      <v-simple-table dense>
+        <template v-slot:default>
+          <thead>
             <tr>
               <th class="text-center">
                 Short Key
@@ -13,30 +26,38 @@
                 Result
               </th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             <tr
-                v-for="(item, index) in renderedShortKeys"
-                :key="index"
+              v-for="(item, index) in renderedShortKeys"
+              :key="index"
             >
               <td class="text-center">
-                <div v-for="(img, index) in renderShortKeysImages(item.shortKey)"
-                      :key="index">
+                <div
+                  v-for="(img, index) in renderShortKeysImages(item.shortKey)"
+                  :key="index"
+                >
                   <div style="float: left">
                     <img :src="img">
                   </div>
-                  <div v-if="index < renderShortKeysImages(item.shortKey).length - 1" style="float: left; position: relative; top: 7px;">+</div>
+                  <div
+                    v-if="index < renderShortKeysImages(item.shortKey).length - 1"
+                    style="float: left; position: relative; top: 7px;"
+                  >
+                    +
+                  </div>
                 </div>
               </td>
               <td class="text-center">
-                <div v-html="renderItems(item.insert)" style="position: relative; top: 12px;"/>
+                <div
+                  v-html="renderItems(item.insert)"
+                />
               </td>
             </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
-      </v-col>
-    </v-row>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-dialog>
   </div>
 </template>
 
@@ -47,8 +68,12 @@ import {katexShortkeys} from './formula/KatexShortkeys'
 
 export default {
   name: 'InteractiveInfoTable',
+  props: {
+    dialog: Boolean
+  },
   data() {
     return {
+      // dialog: false,
       renderedShortKeys: [],
       shortKeyImages: [],
       keyBoardKeys:{
@@ -243,7 +268,11 @@ export default {
 
 
   },
-  methods: {}
+  methods: {
+    closeDialog () {
+      this.$emit('closedialog')
+    }
+  }
 }
 </script>
 
