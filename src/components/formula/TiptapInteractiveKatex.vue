@@ -19,34 +19,36 @@
       @click="editMode = true"
       v-html="computedKatex"
     />
-    <div
-      v-if="!editMode"
+    <v-btn
+      v-if="!editMode && false"
       icon
       color="blue"
       @click="editMode = true"
     >
-      mdi-pencil
-    </div>
-    <div
+      <v-icon>mdi-pencil</v-icon>
+    </v-btn>
+    <v-btn
       v-if="editMode"
       icon
       color="green"
       @click="toggleEdit"
     >
-      mdi-check
-    </div>
+      <v-icon>mdi-check</v-icon>
+    </v-btn>
   </node-view-wrapper>
 </template>
 
 <script>
-
-import 'katex/dist/katex.min.css'
+// import Vue from 'vue'
+// import VueKatex from 'vue-katex'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
+import addPersianTo from 'persian-katex-plugin'
+import 'persian-katex-plugin/build/index.css'
+import {nodeViewProps, NodeViewWrapper} from '@tiptap/vue-2'
 import '@mdi/font/css/materialdesignicons.css'
 import {EXTRA_KEYBOARD, EXTRA_KEYBOARD_LAYER} from './ExtraKeyboard'
 import {katexShortkeys} from './KatexShortkeys'
-import {NodeViewWrapper, nodeViewProps} from '@tiptap/vue-3'
 
 
 // ------------------- Mathlive ---------------------
@@ -61,6 +63,9 @@ import '../../Mathlive/mathlive-fonts.css'
 import '../../Mathlive/mathlive-static.css'
 
 // --------------------------------------------------
+
+addPersianTo(katex);
+
 // Vue.use(VueKatex, {
 //   globalOptions: {
 //     delimiters: [
@@ -275,9 +280,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 .katex {
+
+
   direction: ltr;
   display: inline-block;
 

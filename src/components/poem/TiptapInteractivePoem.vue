@@ -6,7 +6,7 @@
 
 <script>
 
-import {NodeViewWrapper, NodeViewContent, nodeViewProps} from '@tiptap/vue-3'
+import {NodeViewWrapper, NodeViewContent, nodeViewProps} from '@tiptap/vue-2'
 export default {
   name: 'TiptapInteractivePoem',
   components: {
@@ -24,7 +24,6 @@ export default {
       required: true,
     },
     editor: {
-      default: () => {return {}},
       type: Object
     }
   },
