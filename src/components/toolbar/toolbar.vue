@@ -1,474 +1,714 @@
 <template>
   <div
     v-if="editor"
-    class="tiptap-toolbar"
+    class=""
   >
-    <!--    <mdicon name="react" />-->
-
-    <!--    https://github.com/Akryum/v-tooltip        tooltip package ToDo-->
-    <ul>
-      <li>
-        <div
-          v-tooltip="'Paragraph'"
-          class="toolbar-item"
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().setParagraph().run()"
         >
-          <span
-            class="mdi mdi-format-paragraph toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Heading 1'"
-          class="toolbar-item"
+          <v-icon>mdi-format-paragraph</v-icon>
+        </v-btn>
+      </template>
+      <span>Paragraph</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
         >
-          <span
-            class="mdi mdi-format-header-1 toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Heading 2'"
-          class="toolbar-item"
+          <v-icon>mdi-format-header-1</v-icon>
+        </v-btn>
+      </template>
+      <span>Heading 1</span>
+    </v-tooltip>
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
         >
-          <span
-            class="mdi mdi-format-header-2 toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Heading 3'"
-          class="toolbar-item"
+          <v-icon>mdi-format-header-2</v-icon>
+        </v-btn>
+      </template>
+      <span>Heading 2</span>
+    </v-tooltip>
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
         >
-          <span
-            class="mdi mdi-format-header-3 toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Heading 4'"
-          class="toolbar-item"
+          <v-icon>mdi-format-header-3</v-icon>
+        </v-btn>
+      </template>
+      <span>Heading 3</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleHeading({ level: 4 }).run()"
         >
-          <span
-            class="mdi mdi-format-header-4 toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Heading 5'"
-          class="toolbar-item"
+          <v-icon>mdi-format-header-4</v-icon>
+        </v-btn>
+      </template>
+      <span>Heading 4</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleHeading({ level: 5 }).run()"
         >
-          <span
-            class="mdi mdi-format-header-5 toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Heading 6'"
-          class="toolbar-item"
+          <v-icon>mdi-format-header-5</v-icon>
+        </v-btn>
+      </template>
+      <span>Heading 5</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleHeading({ level: 6 }).run()"
         >
-          <span
-            class="mdi mdi-format-header-6 toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div class="vl" />
-      </li>
-      <li>
-        <div
-          v-tooltip="'Bold'"
-          class="toolbar-item"
+          <v-icon>mdi-format-header-6</v-icon>
+        </v-btn>
+      </template>
+      <span>Heading 6</span>
+    </v-tooltip>
+
+    <div class="vl mx-3" />
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleBold().run()"
         >
-          <span
-            class="mdi mdi-format-bold toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Italic'"
-          class="toolbar-item"
+          <v-icon>mdi-format-bold</v-icon>
+        </v-btn>
+      </template>
+      <span>Bold</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleItalic().run()"
         >
-          <span
-            class="mdi mdi-format-italic toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Underline'"
-          class="toolbar-item"
+          <v-icon>mdi-format-italic</v-icon>
+        </v-btn>
+      </template>
+      <span>Italic</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleUnderline().run()"
         >
-          <span
-            class="mdi mdi-format-underline toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Line Through'"
-          class="toolbar-item"
+          <v-icon>mdi-format-underline</v-icon>
+        </v-btn>
+      </template>
+      <span>Underline</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleStrike().run()"
         >
-          <span
-            class="mdi mdi-format-strikethrough toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Highlight'"
-          class="toolbar-item"
+          <v-icon>mdi-format-strikethrough</v-icon>
+        </v-btn>
+      </template>
+      <span>Line Through</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleHighlight().run()"
         >
-          <span
-            class="mdi mdi-format-color-highlight toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div class="vl" />
-      </li>
-      <li>
-        <div
-          v-tooltip="'Align Right'"
-          class="toolbar-item"
+          <v-icon>mdi-format-color-highlight</v-icon>
+        </v-btn>
+      </template>
+      <span>Highlight</span>
+    </v-tooltip>
+
+    <div class="vl mx-3" />
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="justify('right')"
         >
-          <span
-            class="mdi mdi-format-align-right toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Align Center'"
-          class="toolbar-item"
+          <v-icon>mdi-format-align-right</v-icon>
+        </v-btn>
+      </template>
+      <span>Align Right</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="justify('center')"
         >
-          <span
-            class="mdi mdi-format-align-center toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Align Left'"
-          class="toolbar-item"
+          <v-icon>mdi-format-align-center</v-icon>
+        </v-btn>
+      </template>
+      <span>Align Center</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="justify('left')"
         >
-          <span
-            class="mdi mdi-format-align-left toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Align Justify'"
-          class="toolbar-item"
+          <v-icon>mdi-format-align-left</v-icon>
+        </v-btn>
+      </template>
+      <span>Align Left</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().setTextAlign('justify').run()"
         >
-          <span
-            class="mdi mdi-format-align-justify toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div class="vl" />
-      </li>
-      <li>
-        <div
-          v-tooltip="'Text rtl'"
-          class="toolbar-item"
+          <v-icon>mdi-format-align-justify</v-icon>
+        </v-btn>
+      </template>
+      <span>Align Justify</span>
+    </v-tooltip>
+
+    <div class="vl mx-3" />
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().setTextDirection('rtl').run()"
         >
-          <span
-            class="mdi mdi-format-textdirection-r-to-l toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Text ltr'"
-          class="toolbar-item"
+          <v-icon>mdi-format-textdirection-r-to-l</v-icon>
+        </v-btn>
+      </template>
+      <span>Text rtl</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().setTextDirection('ltr').run()"
         >
-          <span
-            class="mdi mdi-format-textdirection-l-to-r toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div class="vl" />
-      </li>
-      <li>
-        <div
-          v-tooltip="'Unordered List'"
-          class="toolbar-item"
+          <v-icon>mdi-format-textdirection-l-to-r</v-icon>
+        </v-btn>
+      </template>
+      <span>Text ltr</span>
+    </v-tooltip>
+
+    <div class="vl mx-3" />
+
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleBulletList().run()"
         >
-          <span
-            class="mdi mdi-format-list-bulleted toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Ordered List'"
-          class="toolbar-item"
+          <v-icon>mdi-format-list-bulleted</v-icon>
+        </v-btn>
+      </template>
+      <span>Unordered List</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().toggleOrderedList().run()"
         >
-          <span
-            class="mdi mdi-format-list-numbered toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div class="vl" />
-      </li>
-      <li>
-        <div
-          v-tooltip="'Break'"
-          class="toolbar-item"
+          <v-icon>mdi-format-list-numbered</v-icon>
+        </v-btn>
+      </template>
+      <span>Ordered List</span>
+    </v-tooltip>
+
+    <div class="vl mx-3" />
+    <!--    <v-btn-->
+    <!--      small-->
+    <!--      tile-->
+    <!--      icon-->
+    <!--      :outlined="editor.isActive('code')"-->
+    <!--      @click="editor.chain().focus().toggleCode().run()"-->
+    <!--    >-->
+    <!--      <v-icon>mdi-code-braces</v-icon>-->
+    <!--    </v-btn>-->
+    <!--    <v-btn-->
+    <!--      small-->
+    <!--      tile-->
+    <!--      icon-->
+    <!--      :outlined="editor.isActive('codeBlock')"-->
+    <!--      @click="editor.chain().focus().toggleCodeBlock().run()"-->
+    <!--    >-->
+    <!--      <v-icon>mdi-code-braces-box</v-icon>-->
+    <!--    </v-btn>-->
+    <!--    <v-btn-->
+    <!--      small-->
+    <!--      tile-->
+    <!--      icon-->
+    <!--      :outlined="editor.isActive('blockquote')"-->
+    <!--      @click="editor.chain().focus().toggleBlockquote().run()"-->
+    <!--    >-->
+    <!--      <v-icon>mdi-comment-quote-outline</v-icon>-->
+    <!--    </v-btn>-->
+    <!--    <v-btn-->
+    <!--      small-->
+    <!--      tile-->
+    <!--      icon-->
+    <!--      @click="editor.chain().focus().unsetAllMarks().run()"-->
+    <!--    >-->
+    <!--      <v-icon>mdi-format-clear</v-icon>-->
+    <!--    </v-btn>-->
+    <!--    <v-btn-->
+    <!--      small-->
+    <!--      tile-->
+    <!--      icon-->
+    <!--      @click="editor.chain().focus().clearNodes().run()"-->
+    <!--    >-->
+    <!--      <v-icon>mdi-vector-polyline-remove</v-icon>-->
+    <!--    </v-btn>-->
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().setHardBreak().run()"
         >
-          <span
-            class="mdi mdi-arrow-expand-down toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Horizontal Divider'"
-          class="toolbar-item"
+          <v-icon>mdi-arrow-expand-down</v-icon>
+        </v-btn>
+      </template>
+      <span>Break</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().setHorizontalRule().run()"
         >
-          <span
-            class="mdi mdi-arrow-split-horizontal toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div class="vl" />
-      </li>
-      <li>
-        <div
-          v-tooltip="'Table'"
-          class="toolbar-item"
+          <v-icon>mdi-arrow-split-horizontal</v-icon>
+        </v-btn>
+      </template>
+      <span>Horizontal Divider</span>
+    </v-tooltip>
+
+    <div class="vl mx-3" />
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()"
         >
-          <span
-            class="mdi mdi-table-plus toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <!--      <v-tooltip
+          <v-icon>mdi-table-plus</v-icon>
+        </v-btn>
+      </template>
+      <span>Table</span>
+    </v-tooltip>
+
+    <v-tooltip
       v-if="editor.can().mergeCells()"
       top
-      ToDo
-    >-->
-      <li v-if="editor.can().mergeCells()">
-        <div
-          v-tooltip="'Merge Cells'"
-          class="toolbar-item"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().mergeCells().run()"
         >
-          <span
-            class="mdi mdi-table-merge-cells  toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li v-if="editor.can().splitCell()">
-        <div
-          v-tooltip="'Split Cells'"
-          class="toolbar-item"
+          <v-icon>mdi-table-merge-cells</v-icon>
+        </v-btn>
+      </template>
+      <span>Merge Cells</span>
+    </v-tooltip>
+
+    <v-tooltip
+      v-if="editor.can().splitCell()"
+      top
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().splitCell().run()"
         >
-          <span
-            class="mdi mdi-table-split-cell  toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li v-if="editor.can().addColumnAfter()">
-        <div
-          v-tooltip="'Add Column'"
-          class="toolbar-item"
-          @click="editor.chain().focus().addColumnAfter().run()"
-        >
-          <span
-            class="mdi mdi-table-column-plus-after  toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li v-if="editor.can().addRowAfter()">
-        <div
-          v-tooltip="'Add Row'"
-          class="toolbar-item"
-          @click="editor.chain().focus().addRowAfter().run()"
-        >
-          <span
-            class="mdi mdi-table-row-plus-after  toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li v-if="editor.can().deleteColumn()">
-        <div
-          v-tooltip="'Delete Column'"
-          class="toolbar-item"
-          @click="editor.chain().focus().deleteColumn().run()"
-        >
-          <span
-            class="mdi mdi-table-column-remove  toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li v-if="editor.can().deleteRow()">
-        <div
-          v-tooltip="'Delete Row'"
-          class="toolbar-item"
-          @click="editor.chain().focus().deleteRow().run()"
-        >
-          <span
-            class="mdi mdi-table-row-remove  toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Add Formula'"
-          class="toolbar-item"
-          @click="editor.chain().focus().insertContent('<tiptap-interactive-katex-inline></tiptap-interactive-katex-inline> ').run()"
-        >
-          <span
-            class="mdi mdi-sigma  toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <!--      <li>-->
-      <!--        <div-->
-      <!--          class="toolbar-item"-->
-      <!--          @click="editor.chain().focus().mergeCells().run()"-->
-      <!--        >-->
-      <!--          <span-->
-      <!--            class="mdi mdi-sigma  toolbar-item-icon"-->
-      <!--          />-->
-      <!--        </div>-->
-      <!--      </li>-->
-      <li>
-        <div
-          v-tooltip="'Image'"
-          class="toolbar-item"
-          @click="editor.chain().focus().insertContent(tiptapInteractiveImageUploadInline).run()"
-        >
-          <span
-            class="mdi mdi-image toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <!--      <v-tooltip
+          <v-icon>mdi-table-split-cell</v-icon>
+        </v-btn>
+      </template>
+      <span>Split Cells</span>
+    </v-tooltip>
+
+    <v-tooltip
       v-if="editor.can().addColumnAfter()"
       top
-      ToDo
-    >-->
-      <li>
-        <div class="vl" />
-      </li>
-      <li>
-        <div
-          v-tooltip="'Redo'"
-          class="toolbar-item"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
+          @click="editor.chain().focus().addColumnAfter().run()"
+        >
+          <v-icon>mdi-table-column-plus-after</v-icon>
+        </v-btn>
+      </template>
+      <span>Add Column</span>
+    </v-tooltip>
+
+    <v-tooltip
+      v-if="editor.can().addRowAfter()"
+      top
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
+          @click="editor.chain().focus().addRowAfter().run()"
+        >
+          <v-icon>mdi-table-row-plus-after</v-icon>
+        </v-btn>
+      </template>
+      <span>Add Row</span>
+    </v-tooltip>
+
+    <v-tooltip
+      v-if="editor.can().deleteColumn()"
+      top
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
+          @click="editor.chain().focus().deleteColumn().run()"
+        >
+          <v-icon>mdi-table-column-remove</v-icon>
+        </v-btn>
+      </template>
+      <span>Delete Column</span>
+    </v-tooltip>
+
+    <v-tooltip
+      v-if="editor.can().deleteRow()"
+      top
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
+          @click="editor.chain().focus().deleteRow().run()"
+        >
+          <v-icon>mdi-table-row-remove</v-icon>
+        </v-btn>
+      </template>
+      <span>Delete Row</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
+          @click="editor.chain().focus().insertContent('<tiptap-interactive-katex-inline></tiptap-interactive-katex-inline> ').run()"
+        >
+          <v-icon>mdi-sigma</v-icon>
+        </v-btn>
+      </template>
+      <span>Add Formula</span>
+    </v-tooltip>
+
+    <!--    <v-menu-->
+    <!--            open-on-hover-->
+    <!--            bottom-->
+    <!--            :tile="true"-->
+    <!--            offset-y-->
+    <!--            rounded-->
+    <!--            content-class="formula-menu"-->
+    <!--    >-->
+    <!--      <template v-slot:activator="{ on, attrs }">-->
+    <!--        <v-btn-->
+    <!--                small-->
+    <!--                tile-->
+    <!--                icon-->
+    <!--                v-on="on"-->
+    <!--                v-bind="attrs"-->
+    <!--        >-->
+    <!--          <v-icon>mdi-sigma</v-icon>-->
+    <!--        </v-btn>-->
+    <!--      </template>-->
+
+    <!--      <v-list>-->
+    <!--        <v-list-item>-->
+    <!--          <v-btn dense tile elevation="0" color="#fff" block @click="editor.chain().focus().insertContent('<tiptap-interactive-katex-inline></tiptap-interactive-katex-inline>').run()">-->
+    <!--            Inline-->
+    <!--          </v-btn>-->
+    <!--        </v-list-item>-->
+    <!--        <v-list-item>-->
+    <!--          <v-btn dense tile elevation="0" color="#fff" block @click="editor.chain().focus().insertContent('<tiptap-interactive-katex></tiptap-interactive-katex>').run()">-->
+    <!--            Block-->
+    <!--          </v-btn>-->
+    <!--        </v-list-item>-->
+    <!--      </v-list>-->
+    <!--    </v-menu>-->
+
+    <!--    <v-tooltip top>-->
+    <!--      <template v-slot:activator="{ on, attrs }">-->
+    <!--        <v-btn-->
+    <!--          small-->
+    <!--          tile-->
+    <!--          icon-->
+    <!--          v-bind="attrs"-->
+    <!--          v-on="on"-->
+    <!--          @click="editor.chain().focus().insertContent(tiptapInteractiveImageUpload).run()"-->
+    <!--        >-->
+    <!--          <v-icon>mdi-image</v-icon>-->
+    <!--        </v-btn>-->
+    <!--      </template>-->
+    <!--      <span>Image</span>-->
+    <!--    </v-tooltip>-->
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
+          @click="editor.chain().focus().insertContent(tiptapInteractiveImageUploadInline).run()"
+        >
+          <v-icon>mdi-image</v-icon>
+        </v-btn>
+      </template>
+      <span>Image</span>
+    </v-tooltip>
+
+    <!--    <dynamic-table :editor="editor" />-->
+    <div class="vl mx-3" />
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().redo().run()"
         >
-          <span
-            class="mdi mdi-redo toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Undo'"
-          class="toolbar-item"
+          <v-icon>mdi-redo</v-icon>
+        </v-btn>
+      </template>
+      <span>Redo</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().undo().run()"
         >
-          <span
-            class="mdi mdi-undo toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Paste'"
-          class="toolbar-item"
-          @click="paste"
-        >
-          <span
-            class="mdi mdi-content-paste toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Poem'"
-          class="toolbar-item"
+          <v-icon>mdi-undo</v-icon>
+        </v-btn>
+      </template>
+      <span>Undo</span>
+    </v-tooltip>
+
+    <v-tooltip
+      v-if="options && options.poem"
+      top
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="insertPoem"
         >
-          <span
-            class="mdi mdi-format-columns toolbar-item-icon"
-          />
-        </div>
-      </li>
-      <li>
-        <div
-          v-tooltip="'Reading'"
-          class="toolbar-item"
+          <!--          @click="editor.chain().focus().insertContent('<tiptap-interactive-poem></tiptap-interactive-poem>').run()"            -->
+          <!--          <tiptap-interactive-poem><table><tr><td>test1</td><td>test2</td></tr></table></tiptap-interactive-poem>          -->
+          <v-icon>mdi-format-columns</v-icon>
+        </v-btn>
+      </template>
+      <span>Poem</span>
+    </v-tooltip>
+
+    <v-tooltip
+      v-if="options && options.poem"
+      top
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small
+          tile
+          icon
+          v-bind="attrs"
+          v-on="on"
           @click="editor.chain().focus().insertContent('<tiptap-interactive-reading>Type Here</tiptap-interactive-reading>').run()"
         >
-          <span
-            class="mdi mdi-eye-off toolbar-item-icon"
-          />
-        </div>
-      </li>
-    </ul>
+          <v-icon>mdi-eye-off</v-icon>
+        </v-btn>
+      </template>
+      <span>Reading</span>
+    </v-tooltip>
   </div>
 </template>
 
 <script>
+    // import DynamicTable from "./dynamicTools/DynamicTable"
+
     import { DOMParser } from 'prosemirror-model'
 
-import {
-  // Directives
-  VTooltip,
-  VClosePopper,
-  // Components
-  Dropdown,
-  Tooltip,
-  Menu
-} from 'v-tooltip'
-import 'v-tooltip/dist/v-tooltip.css'
-import '../../css/toolbar-Item.scss'
+    function elementFromString(value) {
+      const element = document.createElement('div')
+      element.innerHTML = value.trim()
 
-function elementFromString(value) {
-  const element = document.createElement('div')
-  element.innerHTML = value.trim()
-
-  return element
-}
+      return element
+    }
 
     function insertHTML({ state, view }, value) {
       const { selection } = state
@@ -483,20 +723,11 @@ function elementFromString(value) {
   export default {
     name: 'Toolbar',
     components: {
-      // eslint-disable-next-line vue/no-unused-components
-      Dropdown,
-      // eslint-disable-next-line vue/no-unused-components
-      Tooltip,
-      // eslint-disable-next-line vue/no-reserved-component-names,vue/no-unused-components
-      Menu
       // DynamicTable,
     },
-    directives: {
-      'tooltip': VTooltip,
-      'close-popper': VClosePopper
-    },
-    data() {
+    data () {
       return {
+        poemCom: '<p style="color: red;">test</p>'
       }
     },
     props: {
@@ -534,7 +765,7 @@ function elementFromString(value) {
         // insertHTML(this.editor, '<ol><li><table class="poem"><tr class="beit"><td class="mesra1">معشوقه به سامان شد تا باد چنین بادا</td><td class="mesra2">کفرش همه ایمان شد تا باد چنین بادا</td></tr></table></ol></li>')
         insertHTML(this.editor, '<tiptap-interactive-poem><mesra></mesra><mesra></mesra></tiptap-interactive-poem>')
       },
-      justify(value) {
+      justify (value) {
         this.editor.chain().focus().setTextAlign(value).run()
         this.editor.chain().focus().setImageAlign(value).run()
       },
@@ -641,17 +872,13 @@ function elementFromString(value) {
   }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 
-    .vl {
-      border-left: 1px dotted gray;
-      white-space: nowrap;
-      display: inline;
-      margin-right: 12px;
-      margin-left: 12px;
-      padding-top: 12px;
-      padding-bottom: 3px;
-    }
+.vl {
+  border-left: 1px dotted gray;
+  white-space: nowrap;
+  display: inline;
+}
 
     button:not(.v-btn) {
         border: solid 1px gray;

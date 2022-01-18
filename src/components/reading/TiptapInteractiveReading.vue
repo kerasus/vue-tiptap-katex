@@ -9,7 +9,7 @@
 
 <script>
 
-    import {NodeViewWrapper, NodeViewContent, nodeViewProps} from '@tiptap/vue-3'
+    import {NodeViewWrapper, NodeViewContent, nodeViewProps} from '@tiptap/vue-2'
     export default {
         name: 'TiptapInteractiveReading',
         components: {
@@ -27,7 +27,6 @@
                 required: true,
             },
             editor: {
-                default: () => {return {}},
                 type: Object
             }
         },
