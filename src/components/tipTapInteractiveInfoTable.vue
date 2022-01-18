@@ -3,6 +3,7 @@
 
     <v-dialog
       v-model="dialog"
+      persistent
       max-width="500"
     >
       <div class="grey lighten-2 text-start">
