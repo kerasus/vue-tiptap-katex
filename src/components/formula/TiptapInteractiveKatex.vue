@@ -150,6 +150,7 @@ export default {
     if (this.node.attrs.editMode) {
       setTimeout(() => {
         this.mf.executeCommand('toggleVirtualKeyboard')
+        this.mf.executeCommand('toggleVirtualKeyboard')
       }, 100)
     }
   },

@@ -13,9 +13,9 @@
     <hr>
     <div
       ref="printdiv"
-      v-katex:auto
-      v-html="test"
-    />
+    >
+      {{ test }}
+    </div>
   </v-app>
 </template>
 
@@ -39,7 +39,7 @@ export default {
   },
   data () {
     return {
-      test: '<p dir="auto">دو بار الکتریکی${q_1}$و${q_2} =  - 16\\,\\mu C$به ترتیب در مختصات$A\\, \\left|\\begin{array}{l}0 \\\\ 3\\, cm\\end{array}\\right.$$B\\, \\left|\\begin{array}{l}0 \\\\ 6\\, cm\\end{array}\\right.$واقع شده‌اند.${q_1}$چند میکروکولن باشد تا اگر بار${q_3}$را در مبدأ مختصات قرار دهیم، برایند نیروهای وارد بر آن صفر باشد؟</p>'
+      test: '<p dir="auto">$$    2 ^ 2   $$</p>'
     }
   },
   mounted() {

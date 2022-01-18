@@ -124,9 +124,9 @@ const mixinConvertToHTML = {
             let katexes = wrapper.querySelectorAll('tiptap-interactive-katex-inline')
             katexes.forEach(item => {
                 let interactiveKatex = item.attributes[0].nodeValue
+                var katexWrapper = document.createElement('div')
                 if (interactiveKatex) {
                     interactiveKatex = '$' + item.attributes['katex'].nodeValue + '$'
-                    var katexWrapper = document.createElement('div')
                     katexWrapper.setAttribute('katex', true)
                     katexWrapper.textContent = interactiveKatex
                     item.replaceWith(katexWrapper.textContent)
