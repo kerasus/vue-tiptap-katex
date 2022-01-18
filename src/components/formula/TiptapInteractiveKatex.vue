@@ -11,7 +11,6 @@
       locale="fa"
       :class="{ 'editable': editMode }"
     >
-      {{ katex }}
     </div>
     <div
       v-if="!editMode"
@@ -47,12 +46,23 @@ import 'katex/dist/katex.min.css'
 import addPersianTo from 'persian-katex-plugin'
 import 'persian-katex-plugin/build/index.css'
 import {nodeViewProps, NodeViewWrapper} from '@tiptap/vue-2'
-import 'mathlive/dist/mathlive-fonts.css'
-import 'mathlive/dist/mathlive-static.css'
 import '@mdi/font/css/materialdesignicons.css'
-import MathLive from 'mathlive'
 import {EXTRA_KEYBOARD, EXTRA_KEYBOARD_LAYER} from './ExtraKeyboard'
 import {katexShortkeys} from './KatexShortkeys'
+
+
+// ------------------- Mathlive ---------------------
+
+// import 'mathlive/dist/mathlive-fonts.css'
+// import 'mathlive/dist/mathlive-static.css'
+// import { MathfieldElement } from 'mathlive';
+
+
+import { MathfieldElement } from '../../Mathlive'
+import '../../Mathlive/mathlive-fonts.css'
+import '../../Mathlive/mathlive-static.css'
+
+// --------------------------------------------------
 
 addPersianTo(katex);
 
@@ -94,7 +104,8 @@ export default {
       editMode: false,
       questMarkdownText: '# Math Rulez! \n  $x=\\frac{-b\\pm\\sqrt[]{b^2-4ac}}{2a}$',
       katex: '$x=\\frac{-b\\pm\\sqrt[]{b^2-4ac}}{2a}$',
-      icons: {}
+      icons: {},
+      mf: null
     }
   },
   watch: {
@@ -125,6 +136,8 @@ export default {
     computedKatex() {
       return katex.renderToString(this.node.attrs.katex, {
         throwOnError: false,
+        safe: true,
+        trust: true
       })
     }
   },
@@ -136,7 +149,8 @@ export default {
   mounted () {
     if (this.node.attrs.editMode) {
       setTimeout(() => {
-        this.$refs.mathfield.children[1].children[1].click()
+        this.mf.executeCommand('toggleVirtualKeyboard')
+        this.mf.executeCommand('toggleVirtualKeyboard')
       }, 100)
     }
   },
@@ -198,8 +212,7 @@ export default {
     loadMathLive() {
       // this.katex = this.markdown.render(this.katex)
       let that = this
-      const mf = MathLive.makeMathField(
-          this.$refs.mathfield,
+      const mf = new MathfieldElement(
           {
             virtualKeyboardMode: 'manual',
             onContentDidChange: (mf) => {
@@ -214,7 +227,7 @@ export default {
           // console.log('ev', ev)
           // console.log('mathfield', mathfield)
           if (keystroke === 'ctrl+[Enter]') {
-            this.$refs.mathfield.children[1].children[1].click()
+            this.mf.executeCommand('toggleVirtualKeyboard')
             this.editMode = false
             console.log(this.editor.state)
             this.editor.chain().focus('end').run()
@@ -237,8 +250,16 @@ export default {
           // Keystroke not handled, return true for default handling to proceed.
           return true;
         },
-        mathModeSpace: '\\:'
+        mathModeSpace: '\\:',
+        inlineShortcuts: {
+          'lim': { mode: 'math', value: '\\lim\\limits_{x \\to \\infty}' },
+        }
       });
+
+      mf.value = this.katex
+      this.mf = mf
+
+      this.$refs.mathfield.appendChild(mf)
 
       // MathLive > 0.60
       // this.$refs.mathfield.setOptions({

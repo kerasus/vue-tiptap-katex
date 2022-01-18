@@ -5,7 +5,7 @@ const Shortkeys = Extension.create({
     addKeyboardShortcuts() {
         return {
             // Paste Shortkey
-            'Mod-v': () => navigator.clipboard.readText()
+            'Mod-Alt-v': () => navigator.clipboard.readText()
                 .then(text => {
                     let string = mixinConvertToTiptap.methods.convertToTiptap(text)
                     this.editor.commands.insertContent(string)
@@ -13,10 +13,16 @@ const Shortkeys = Extension.create({
                 .catch(err => {
                     console.error('Failed to read clipboard contents: ', err);
                 }),
+
+            'Mod-Alt-k': () => {
+                this.editor.chain().focus().insertContent('<tiptap-interactive-poem><mesra></mesra><mesra></mesra></tiptap-interactive-poem>').run()
+            },
+
             // Insert TiptapInteractiveKatex
             'Mod-Alt-q': () => {
                 this.editor.chain().focus().insertContent('<tiptap-interactive-katex-inline editMode="true" katex=" "></tiptap-interactive-katex-inline> ').run()
-            }
+            },
+
         }
     }
 })
