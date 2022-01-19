@@ -4,7 +4,7 @@
       ref="tiptap"
       :options="{ poem: true, reading: true, bubbleMenu: false, floatingMenu: false, persianKeyboard: true }"
     />
-    <interactive-info-table></interactive-info-table>
+<!--    <interactive-info-table></interactive-info-table>-->
     <v-btn @click="getContent">
       Get Content
     </v-btn>

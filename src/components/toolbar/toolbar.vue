@@ -695,12 +695,28 @@
       </template>
       <span>Reading</span>
     </v-tooltip>
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+            small
+            tile
+            icon
+            v-bind="attrs"
+            v-on="on"
+            @click="dialog = true"
+        >
+          <v-icon>mdi-information-outline</v-icon>
+        </v-btn>
+      </template>
+      <span>Help Me</span>
+    </v-tooltip>
+    <interactive-info-table @closedialog="dialog = false" :dialog="dialog"></interactive-info-table>
   </div>
 </template>
 
 <script>
     // import DynamicTable from "./dynamicTools/DynamicTable"
-
+    import InteractiveInfoTable from '../tipTapInteractiveInfoTable';
     import { DOMParser } from 'prosemirror-model'
 
     function elementFromString(value) {
@@ -723,11 +739,13 @@
   export default {
     name: 'Toolbar',
     components: {
+      InteractiveInfoTable,
       // DynamicTable,
     },
     data () {
       return {
-        poemCom: '<p style="color: red;">test</p>'
+        poemCom: '<p style="color: red;">test</p>',
+        dialog: false
       }
     },
     props: {

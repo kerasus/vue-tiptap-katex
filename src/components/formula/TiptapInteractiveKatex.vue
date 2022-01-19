@@ -10,8 +10,7 @@
       dir="ltr"
       locale="fa"
       :class="{ 'editable': editMode }"
-    >
-    </div>
+    />
     <div
       v-if="!editMode"
       class="converted"
@@ -40,7 +39,6 @@
 
 <script>
 // import Vue from 'vue'
-// import VueKatex from 'vue-katex'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
 import addPersianTo from 'persian-katex-plugin'
