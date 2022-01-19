@@ -211,16 +211,16 @@ export default {
       })
       let el = document.createElement('div')
       el.innerHTML = katexString
-      // el.querySelectorAll('.katex-error').forEach(error => {
-      //   console.log(error.attributes['title'])
-      //   this.$notify({
-      //     group: 'error',
-      //     title: 'مشکلی رخ داده است',
-      //     text: error.attributes['title'],
-      //     type: 'error',
-      //     duration: 10000
-      //   })
-      // })
+      el.querySelectorAll('.katex-error').forEach(error => {
+        console.log(error.attributes['title'])
+        this.$notify({
+          group: 'error',
+          title: 'مشکلی رخ داده است',
+          text: error.attributes['title'],
+          type: 'error',
+          duration: 10000
+        })
+      })
       this.editor.chain().focus().run()
     },
     getMathliveValue (mf) {
