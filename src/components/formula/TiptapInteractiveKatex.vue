@@ -215,13 +215,23 @@ export default {
       el.querySelectorAll('.katex-error').forEach(error => {
         console.log(error.attributes['title'])
         hasError = true
-        this.$notify({
-          group: 'error',
-          title: 'مشکلی رخ داده است',
-          text: error.attributes['title'].nodeValue,
-          type: 'error',
-          duration: 10000
-        })
+        if (error.attributes['title'].nodeValue.includes('KaTeX parse error: Invalid delimiter \'?\' after \'\\right\'')) {
+          this.$notify({
+            group: 'error',
+            title: 'مشکلی رخ داده است',
+            text: 'پرانتز یا آکولاد و یا ... بسته نشده است',
+            type: 'error',
+            duration: 10000
+          })
+        } else {
+          this.$notify({
+            group: 'error',
+            title: 'مشکلی رخ داده است',
+            text: error.attributes['title'].nodeValue,
+            type: 'error',
+            duration: 10000
+          })
+        }
       })
       if (hasError) {
         this.editMode = true
