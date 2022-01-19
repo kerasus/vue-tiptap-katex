@@ -13,9 +13,9 @@
     <hr>
     <div
       ref="printdiv"
-      v-katex:auto
-      v-html="test"
-    />
+    >
+      {{ test }}
+    </div>
   </v-app>
 </template>
 
@@ -39,8 +39,7 @@ export default {
   },
   data () {
     return {
-      test: '<p dir="auto">$$    2 ^ 2   $$</p>',
-      dialog2: false
+      test: '$\\begin{array}{cc}f(x) = a(x - 1)(x - 2) \\\\\\Rightarrow f(0) = a( - 1)( - 2) = 4\\\\\\\\\\Rightarrow 2a = 4 \\\\\\Rightarrow a = 2\\\\\\\\f(x) = 2(x - 1)(x - 2) \\\\\\Rightarrow f(3) = 2(2)(1) = 4\\end{array}$'
     }
   },
   mounted() {
