@@ -20,12 +20,12 @@ export const katexShortkeys = [
     {
         class: 'math',
         shortKey: 'ctrl+alt+[KeyT]]',
-        insert: '#0^\\text{text}'
+        insert: '\\Box^\\text{text}'
     },
     {
         class: 'math',
         shortKey: 'ctrl+alt+[KeyA]',
-        insert: '\\mathop {#0}\\limits^\\Delta'
+        insert: '\\mathop {\\Box}\\limits^\\Delta'
     },
     {
         class: 'math',
@@ -100,7 +100,7 @@ export const katexShortkeys = [
     {
         class: 'math',
         shortKey: 'ctrl+alt+[KeyI]',
-        insert: '\\underbrace{#0}_{\\text{note}}'
+        insert: '\\underbrace{\\Box}_{\\text{note}}'
     },
     {
         class: 'math',
