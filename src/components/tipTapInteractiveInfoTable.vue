@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <v-dialog
       v-model="dialog"
       persistent
@@ -70,11 +69,13 @@ import {katexShortkeys} from './formula/KatexShortkeys'
 export default {
   name: 'InteractiveInfoTable',
   props: {
-    dialog: Boolean
+    dialog: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
-      // dialog: false,
       renderedShortKeys: [],
       shortKeyImages: [],
       keyBoardKeys:{
@@ -126,7 +127,7 @@ export default {
   created() {
     this.renderedShortKeys = katexShortkeys
     this.renderShortKeysImages('ctrl+alt+[KeyT]]')
-    console.log(this.shortKeyImages)
+    // console.log(this.shortKeyImages)
   },
   computed: {
     renderItems() {
