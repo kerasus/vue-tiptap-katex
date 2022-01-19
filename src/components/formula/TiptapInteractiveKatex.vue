@@ -240,19 +240,10 @@ export default {
       return mf.getValue().replaceAll('\\mleft', '\\left').replaceAll('\\mright', '\\right')
     },
     loadMathLive() {
-      // this.katex = this.markdown.render(this.katex)
-      let that = this
-      const mf = new MathfieldElement(
-          {
-            virtualKeyboardMode: 'manual',
-            onContentDidChange: (mf) => {
-              that.latexData = that.getMathliveValue(mf)
-            },
-          });
-      mf.setOptions({
-        'customVirtualKeyboardLayers': EXTRA_KEYBOARD_LAYER,
-        'customVirtualKeyboards': EXTRA_KEYBOARD,
-        'virtualKeyboards': this.keyboardList,
+      let mathliveOptions = {
+        customVirtualKeyboardLayers: EXTRA_KEYBOARD_LAYER,
+        customVirtualKeyboards: EXTRA_KEYBOARD,
+        virtualKeyboards: this.keyboardList,
         onKeystroke: (mathfield, keystroke /* , ev */) => {
           // console.log('ev', ev)
           // console.log('mathfield', mathfield)
@@ -282,8 +273,19 @@ export default {
         mathModeSpace: '\\:',
         inlineShortcuts: {
           'lim': { mode: 'math', value: '\\lim\\limits_{x \\to \\infty}' },
-        }
-      });
+        },
+      }
+      Object.assign(mathliveOptions, this.editor.editorOptions.mathliveOptions)
+      // this.katex = this.markdown.render(this.katex)
+      let that = this
+      const mf = new MathfieldElement(
+          {
+            virtualKeyboardMode: 'manual',
+            onContentDidChange: (mf) => {
+              that.latexData = that.getMathliveValue(mf)
+            },
+          });
+      mf.setOptions(mathliveOptions);
 
       mf.value = this.katex
       this.mf = mf
