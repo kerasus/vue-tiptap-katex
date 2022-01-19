@@ -10,8 +10,7 @@
       dir="ltr"
       locale="fa"
       :class="{ 'editable': editMode }"
-    >
-    </div>
+    />
     <div
       v-if="!editMode"
       class="converted"
@@ -40,7 +39,6 @@
 
 <script>
 // import Vue from 'vue'
-// import VueKatex from 'vue-katex'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
 import addPersianTo from 'persian-katex-plugin'
@@ -204,6 +202,28 @@ export default {
     },
     toggleEdit () {
       this.editMode = !this.editMode
+      const katexString = katex.renderToString(this.katex, {
+        throwOnError: false,
+        safe: true,
+        trust: true
+      })
+      let el = document.createElement('div')
+      el.innerHTML = katexString
+      let hasError = false
+      el.querySelectorAll('.katex-error').forEach(error => {
+        console.log(error.attributes['title'])
+        hasError = true
+        this.$notify({
+          group: 'error',
+          title: 'مشکلی رخ داده است',
+          text: error.attributes['title'].nodeValue,
+          type: 'error',
+          duration: 10000
+        })
+      })
+      if (hasError) {
+        this.editMode = true
+      }
       this.editor.chain().focus().run()
     },
     getMathliveValue (mf) {
@@ -228,8 +248,7 @@ export default {
           // console.log('mathfield', mathfield)
           if (keystroke === 'ctrl+[Enter]') {
             this.mf.executeCommand('toggleVirtualKeyboard')
-            this.editMode = false
-            console.log(this.editor.state)
+            this.toggleEdit()
             this.editor.chain().focus('end').run()
             return false
           }
