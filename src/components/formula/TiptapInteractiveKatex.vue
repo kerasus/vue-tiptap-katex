@@ -211,16 +211,21 @@ export default {
       })
       let el = document.createElement('div')
       el.innerHTML = katexString
+      let hasError = false
       el.querySelectorAll('.katex-error').forEach(error => {
         console.log(error.attributes['title'])
+        hasError = true
         this.$notify({
           group: 'error',
           title: 'مشکلی رخ داده است',
-          text: error.attributes['title'],
+          text: error.attributes['title'].nodeValue,
           type: 'error',
           duration: 10000
         })
       })
+      if (hasError) {
+        this.editMode = true
+      }
       this.editor.chain().focus().run()
     },
     getMathliveValue (mf) {
