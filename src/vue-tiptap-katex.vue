@@ -144,7 +144,8 @@
           floatingMenu: true,
           poem: false,
           reading: false,
-          persianKeyboard: false
+          persianKeyboard: false,
+          mathliveOptions: {}
         }
         Object.assign(options, this.options)
         return options

@@ -213,13 +213,23 @@ export default {
       el.querySelectorAll('.katex-error').forEach(error => {
         console.log(error.attributes['title'])
         hasError = true
-        this.$notify({
-          group: 'error',
-          title: 'مشکلی رخ داده است',
-          text: error.attributes['title'].nodeValue,
-          type: 'error',
-          duration: 10000
-        })
+        if (error.attributes['title'].nodeValue.includes('KaTeX parse error: Invalid delimiter \'?\' after \'\\right\'')) {
+          this.$notify({
+            group: 'error',
+            title: 'مشکلی رخ داده است',
+            text: 'پرانتز یا آکولاد و یا ... بسته نشده است',
+            type: 'error',
+            duration: 10000
+          })
+        } else {
+          this.$notify({
+            group: 'error',
+            title: 'مشکلی رخ داده است',
+            text: error.attributes['title'].nodeValue,
+            type: 'error',
+            duration: 10000
+          })
+        }
       })
       if (hasError) {
         this.editMode = true
@@ -230,19 +240,10 @@ export default {
       return mf.getValue().replaceAll('\\mleft', '\\left').replaceAll('\\mright', '\\right')
     },
     loadMathLive() {
-      // this.katex = this.markdown.render(this.katex)
-      let that = this
-      const mf = new MathfieldElement(
-          {
-            virtualKeyboardMode: 'manual',
-            onContentDidChange: (mf) => {
-              that.latexData = that.getMathliveValue(mf)
-            },
-          });
-      mf.setOptions({
-        'customVirtualKeyboardLayers': EXTRA_KEYBOARD_LAYER,
-        'customVirtualKeyboards': EXTRA_KEYBOARD,
-        'virtualKeyboards': this.keyboardList,
+      let mathliveOptions = {
+        customVirtualKeyboardLayers: EXTRA_KEYBOARD_LAYER,
+        customVirtualKeyboards: EXTRA_KEYBOARD,
+        virtualKeyboards: this.keyboardList,
         onKeystroke: (mathfield, keystroke /* , ev */) => {
           // console.log('ev', ev)
           // console.log('mathfield', mathfield)
@@ -272,8 +273,19 @@ export default {
         mathModeSpace: '\\:',
         inlineShortcuts: {
           'lim': { mode: 'math', value: '\\lim\\limits_{x \\to \\infty}' },
-        }
-      });
+        },
+      }
+      Object.assign(mathliveOptions, this.editor.editorOptions.mathliveOptions)
+      // this.katex = this.markdown.render(this.katex)
+      let that = this
+      const mf = new MathfieldElement(
+          {
+            virtualKeyboardMode: 'manual',
+            onContentDidChange: (mf) => {
+              that.latexData = that.getMathliveValue(mf)
+            },
+          });
+      mf.setOptions(mathliveOptions);
 
       mf.value = this.katex
       this.mf = mf
