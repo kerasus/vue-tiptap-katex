@@ -132,7 +132,7 @@ export default {
       return options
     },
     computedKatex() {
-      return katex.renderToString(this.node.attrs.katex.toString(), {
+      return katex.renderToString(this.node.attrs.katex, {
         throwOnError: false,
         safe: true,
         trust: true
@@ -140,7 +140,7 @@ export default {
     }
   },
   created() {
-    this.katex = this.node.attrs.katex
+    this.katex = this.node.attrs.katex.toString()
     this.editMode = this.node.attrs.editMode
     this.overrideKeyboardEvent()
   },
