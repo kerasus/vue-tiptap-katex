@@ -132,7 +132,7 @@ export default {
       return options
     },
     computedKatex() {
-      return katex.renderToString(this.node.attrs.katex, {
+      return katex.renderToString(this.node.attrs.katex.toString(), {
         throwOnError: false,
         safe: true,
         trust: true
