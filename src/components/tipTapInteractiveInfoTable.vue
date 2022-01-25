@@ -2,7 +2,7 @@
   <div>
     <v-dialog
       v-model="dialog"
-      persistent
+      @click:outside="closeDialog"
       max-width="500"
     >
       <div class="grey lighten-2 text-start">
@@ -38,7 +38,7 @@
                   :key="index"
                 >
                   <div style="float: left">
-                    <img :src="img">
+                    <v-img :src="img" width="50"/>
                   </div>
                   <div
                     v-if="index < renderShortKeysImages(item.shortKey).length - 1"
@@ -272,16 +272,13 @@ export default {
   },
   methods: {
     closeDialog () {
-      this.$emit('closedialog')
+        this.$emit('closedialog')
     }
   }
 }
 </script>
 
 <style scoped>
- .text-center img {
-   width: 50px;
- }
  .v-data-table > .v-data-table__wrapper > table > tbody > tr > td, .v-data-table > .v-data-table__wrapper > table > tfoot > tr > td, .v-data-table > .v-data-table__wrapper > table > thead > tr > td{
    font-size: 1.3em;
  }

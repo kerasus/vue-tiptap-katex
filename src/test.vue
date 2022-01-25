@@ -4,7 +4,6 @@
       ref="tiptap"
       :options="{ poem: true, reading: true, bubbleMenu: false, floatingMenu: false, persianKeyboard: true }"
     />
-<!--    <interactive-info-table></interactive-info-table>-->
     <v-btn @click="getContent">
       Get Content
     </v-btn>
@@ -21,10 +20,9 @@
 
 <script>
 import VueTiptapKatex from '@/vue-tiptap-katex';
-import InteractiveInfoTable from './components/tipTapInteractiveInfoTable';
 export default {
   name: 'Test',
-  components: {VueTiptapKatex , InteractiveInfoTable},
+  components: {VueTiptapKatex},
   methods: {
     prepareForKatex () {
       let regex = /((\\\[((?! ).){1}((?!\$).)*?((?! ).){1}\\\])|(\$((?! ).){1}((?!\$).)*?((?! ).){1}\$))/gms;

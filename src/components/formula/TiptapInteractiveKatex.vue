@@ -229,6 +229,11 @@ export default {
     getMathliveValue (mf) {
       return mf.getValue().replaceAll('\\mleft', '\\left').replaceAll('\\mright', '\\right')
     },
+    checkKeyboardLanguage(input){
+      const re = /\d|\w|[\.\$@\*\\\/\+\-\^\!\(\)\[\]\~\%\&\=\?\>\<\{\}\"\'\,\:\;\_]/g;
+      let a = input.key.match(re);
+      return a === null || input.key === '[';
+    },
     loadMathLive() {
       // this.katex = this.markdown.render(this.katex)
       let that = this
@@ -243,15 +248,25 @@ export default {
         'customVirtualKeyboardLayers': EXTRA_KEYBOARD_LAYER,
         'customVirtualKeyboards': EXTRA_KEYBOARD,
         'virtualKeyboards': this.keyboardList,
-        onKeystroke: (mathfield, keystroke /* , ev */) => {
-          // console.log('ev', ev)
+        onKeystroke: (mathfield, keystroke, ev) => {
           // console.log('mathfield', mathfield)
+          if (this.checkKeyboardLanguage(ev)) {
+            if (keystroke === 'shift+[KeyP]') {
+              mf.insert('چ')
+              return false
+            }
+            if (keystroke === 'shift+[KeyF]') {
+              mf.insert('پ')
+              return false
+            }
+          }
           if (keystroke === 'ctrl+[Enter]') {
             this.mf.executeCommand('toggleVirtualKeyboard')
             this.toggleEdit()
             this.editor.chain().focus('end').run()
             return false
           }
+
           for (let i = 0; i < katexShortkeys.length; i++) {
             if (keystroke === katexShortkeys[i].shortKey && katexShortkeys[i].class === 'math') {
               mf.insert(katexShortkeys[i].insert)
