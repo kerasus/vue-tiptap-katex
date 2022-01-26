@@ -14,7 +14,7 @@ const Shortkeys = Extension.create({
                     console.error('Failed to read clipboard contents: ', err);
                 }),
 
-            'Mod-Alt-k': () => {
+            'Mod-e': () => {
                 this.editor.chain().focus().insertContent('<tiptap-interactive-poem><mesra></mesra><mesra></mesra></tiptap-interactive-poem>').run()
             },
 
