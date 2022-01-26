@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss">
-.content {
+.poem .content {
   display: flex;
   flex-direction: row;
   justify-content: center;
