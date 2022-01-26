@@ -20,7 +20,8 @@ const Shortkeys = Extension.create({
 
             // Insert TiptapInteractiveKatex
             'Mod-Alt-q': () => {
-                this.editor.chain().focus().insertContent('<tiptap-interactive-katex-inline editMode="true" katex=" "></tiptap-interactive-katex-inline> ').run()
+                const SPACE = ' '
+                this.editor.chain().focus().insertContent(`<tiptap-interactive-katex-inline editMode="true" katex="${SPACE}"></tiptap-interactive-katex-inline>${SPACE}`).run()
             },
 
         }
