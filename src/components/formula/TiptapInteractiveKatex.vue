@@ -210,7 +210,7 @@ export default {
       let el = document.createElement('div')
       el.innerHTML = katexString
       let hasError = false
-      el.querySelectorAll('.katex-error').forEach(error => {
+      el.querySelectorAll('.katex-error').forEach(error => { //configable error hangdling ToDo
         console.log(error.attributes['title'])
         hasError = true
         if (error.attributes['title'].nodeValue.includes('KaTeX parse error: Invalid delimiter \'?\' after \'\\right\'')) {
@@ -218,6 +218,14 @@ export default {
             group: 'error',
             title: 'مشکلی رخ داده است',
             text: 'پرانتز یا آکولاد و یا ... بسته نشده است',
+            type: 'error',
+            duration: 10000
+          })
+        } else if (error.attributes['title'].nodeValue.includes('KaTeX parse error: Can\'t use function \'$\' in math mode')) {
+          this.$notify({
+            group: 'error',
+            title: 'مشکلی رخ داده است',
+            text: 'فرمول رو با علامت $ درون این باکس نمیتوانید پیست کنید',
             type: 'error',
             duration: 10000
           })
