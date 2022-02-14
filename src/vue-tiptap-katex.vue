@@ -79,11 +79,11 @@
   import Text from '@tiptap/extension-text'
   import Document from '@tiptap/extension-document'
   import Heading from '@tiptap/extension-heading'
-  import ImageAlign from './extension/ImageAlign/ImageAlign'
-  import Shortkeys from './extension/Shortkeys/TiptapShortkeys';
+  import ImageAlign from 'vue-tiptap-katex-core/extension/ImageAlign/ImageAlign'
+  import Shortkeys from 'vue-tiptap-katex-core/extension/Shortkeys/TiptapShortkeys';
   import {DOMParser} from 'prosemirror-model';
   // import Focus from '@tiptap/extension-focus'
-  import ThinSpace from './extension/ThinSpace/ThinSpace';
+  import ThinSpace from 'vue-tiptap-katex-core/extension/ThinSpace/ThinSpace';
   // import Paper from './Drawing/Paper.js'
 
   import {
@@ -93,8 +93,8 @@
     FloatingMenu
   } from '@tiptap/vue-2'
 
-  import mixinConvertToHTML from './mixins/convertToHTML';
-  import mixinConvertToTiptap from './mixins/convertToTiptap';
+  import mixinConvertToHTML from 'vue-tiptap-katex-core/mixins/convertToHTML';
+  import mixinConvertToTiptap from 'vue-tiptap-katex-core/mixins/convertToTiptap';
   // import {EditorView} from "prosemirror-view";
   // import {EditorState} from "prosemirror-state";
   // import {posToDOMRect} from "@tiptap/core";
