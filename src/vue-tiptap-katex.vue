@@ -55,10 +55,10 @@
 </template>
 
 <script>
-  import toolbar from './components/toolbar/toolbar'
+  import toolbar from 'vue-tiptap-katex-core/components/toolbar/toolbar'
   import Focus from '@tiptap/extension-focus'
-  import SlotBubbleMenu from './components/SlotBubbleMenu'
-  import SlotFloatingMenu from './components/SlotFloatingMenu'
+  import SlotBubbleMenu from 'vue-tiptap-katex-core/components/SlotBubbleMenu'
+  import SlotFloatingMenu from 'vue-tiptap-katex-core/components/SlotFloatingMenu'
   import TiptapInteractiveKatex from './components/formula/extention'
   import TiptapInteractiveKatexInline from './components/formula/entensionInline'
   import TiptapInteractiveImageUpload from './components/ImageUpload/extension';
