@@ -73,11 +73,6 @@ At main Vue configuration, this will make the component available to all templat
 ###Note:
 vue-tiptap-katex accepts plain text and HTML as input and exports text as HTML.
 
-## Develop and build
-
-    npm install
-    npm run build
-
 ## Props
 Note that all props are optional.
 
@@ -100,8 +95,12 @@ All options are optional:
 | floatingMenu    | Boolean | true    | Whether to show Floating Menu or not                                                                |
 | poem            | Boolean | false   | Whether to show Poem Button in toolbar or not (This feature is designed for Arabic based languages) |
 | persianKeyboard | Boolean | false   | Adding Persian keyboard to Mathlive                                                                 |
-| mathliveOptions | Object  | {}      | This Object is passed to Mathlive instance directly                                                 |
+| mathliveOptions | Object  | {}      | This Object is passed directly to Mathlive instance                                                 |
 
+## Develop and build
+
+    npm install
+    npm run build
 
 ## Contributors
 
