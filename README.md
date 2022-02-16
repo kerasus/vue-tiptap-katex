@@ -1,6 +1,6 @@
 # Vue Tiptap Katex
 
-## Install
+## Installation
 
     npm install --save vue-tiptap-katex
 
@@ -40,6 +40,7 @@ In the same template file, at `<script>` part, this will make the component avai
 
 #### option 2
 
+
 At main Vue configuration, this will make the component available to all templates in your app
 
     import Vue from 'vue'
@@ -51,6 +52,31 @@ At main Vue configuration, this will make the component available to all templat
 
     npm install
     npm run build
+
+## Props
+Note that all props are optional.
+
+
+| Name             | Type    | Default                                                                                                           | Description                       |
+| ---------------- |---------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| accessToken      | String  | Null                                                                                                              | Access Token for uploading images |
+| uploadUrl        | String  | Null                                                                                                              | URL for uploading images          |
+| loading          | Boolean | false                                                                                                             | Loading overlay                   |
+| options          | Object  | { bubbleMenu: true, floatingMenu: true, poem: false, reading: false, persianKeyboard: false, mathliveOptions: {}} | See [Options Prop](#options-prop) |
+
+
+### Options Prop
+
+All options are optional:
+
+| Name            | Type    | Default | Description                                                                                         |
+|-----------------|---------|---------|-----------------------------------------------------------------------------------------------------|
+| bubbleMenu      | Boolean | true    | Whether to show Bubble Menu or not                                                                  |
+| floatingMenu    | Boolean | true    | Whether to show Floating Menu or not                                                                |
+| poem            | Boolean | false   | Whether to show Poem Button in toolbar or not (This feature is designed for Arabic based languages) |
+| persianKeyboard | Boolean | false   | Adding Persian keyboard to Mathlive                                                                 |
+| mathliveOptions | Object  | {}      | This Object is passed to Mathlive instance directly                                                 |
+
 
 ## Contributors
 
