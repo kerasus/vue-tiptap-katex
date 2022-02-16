@@ -1,5 +1,9 @@
 # Vue Tiptap Katex
 
+A rich-text and math editor for Vue.js v2 powered by [Tiptap](https://www.npmjs.com/package/tiptap) and [Mathlive](https://www.npmjs.com/package/mathlive).
+
+For Vue 3 support see [vue3-tiptap-katex](https://www.npmjs.com/package/vue3-tiptap-katex)
+
 ## Installation
 
     npm install --save vue-tiptap-katex
@@ -19,7 +23,7 @@ Then you should be able to navigate with your browser and see the demo in http:/
 
 something like this
 
-    <vue-tiptap-katex />
+    <vue-tiptap-katex ref="editor" />
 
 ### on &lt;script&gt; add
 
@@ -47,6 +51,27 @@ At main Vue configuration, this will make the component available to all templat
     import VueTiptapKatex from 'vue-tiptap-katex'
     ...
     Vue.component('vue-tiptap-katex', VueTiptapKatex)
+
+## How to set and get content
+    export default {
+        ...
+        methods: {
+            ...
+            getContent() {
+                const content = this.$refs.editor.getContent()
+                console.log(content)
+            },
+            setContent() {
+                const content = "<p>Hellow World!</p>"
+                this.$refs.editor.setContent(content)
+            },
+            ...
+        },
+        ...
+    }
+
+###Note:
+vue-tiptap-katex accepts plain text and HTML as input and exports text as HTML.
 
 ## Develop and build
 
