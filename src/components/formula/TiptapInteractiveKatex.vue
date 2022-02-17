@@ -41,7 +41,6 @@
 import MixinComponentFormula from 'vue-tiptap-katex-core/components/formula/mixin'
 
 import 'katex/dist/katex.min.css'
-import 'persian-katex-plugin/build/index.css'
 import {NodeViewWrapper, nodeViewProps} from '@tiptap/vue-2'
 import '@mdi/font/css/materialdesignicons.css'
 
