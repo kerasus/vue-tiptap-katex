@@ -25,8 +25,6 @@
           <toolbar
             v-if="editorOptions"
             :editor="editor"
-            :access-token="accessToken"
-            :upload-url="uploadUrl"
             :options="editorOptions"
           />
         </slot>
@@ -111,13 +109,9 @@
       SlotFloatingMenu,
     },
     props: {
-      accessToken: {
-        type: String,
-        default: ''
-      },
-      uploadUrl: {
-        type: String,
-        default: ''
+      uploadServer: {
+        type: Object,
+        default: () => {}
       },
       loading: {
         type: Boolean,
