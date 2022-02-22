@@ -657,7 +657,7 @@
     </v-tooltip>
 
     <v-tooltip
-      v-if="options && options.poem"
+      v-if="editor.editorOptions && editor.editorOptions.poem"
       top
     >
       <template v-slot:activator="{ on, attrs }">
@@ -678,7 +678,7 @@
     </v-tooltip>
 
     <v-tooltip
-      v-if="options && options.poem"
+      v-if="editor.editorOptions && editor.editorOptions.poem"
       top
     >
       <template v-slot:activator="{ on, attrs }">
@@ -761,14 +761,6 @@
         type: Object,
         default: () => {}
       },
-      options: {
-        type: Object,
-        default: () => {
-          return {
-            poem: false
-          }
-        }
-      }
     },
     computed: {
       tiptapInteractiveImageUpload () {

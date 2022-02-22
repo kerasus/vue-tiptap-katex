@@ -7,28 +7,15 @@
 <script>
 
 import {NodeViewWrapper, NodeViewContent, nodeViewProps} from '@tiptap/vue-2'
+import MixinComponentPoem from 'vue-tiptap-katex-core/components/poem/mixin'
+
 export default {
   name: 'TiptapInteractivePoem',
   components: {
     NodeViewWrapper,
     NodeViewContent
   },
-  props: {
-    nodeViewProps,
-    node: {
-      type: Object,
-      required: true
-    },
-    updateAttributes: {
-      type: Function,
-      required: true,
-    },
-    editor: {
-      type: Object
-    }
-  },
-  mounted () {
-  }
+  mixins: [MixinComponentPoem],
 }
 </script>
 
