@@ -77,13 +77,14 @@ vue-tiptap-katex accepts plain text and HTML as input and exports text as HTML.
 Note that all props are optional.
 
 
-| Name             | Type    | Default                                                                                                           | Description                       |
-| ---------------- |---------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------|
-| accessToken      | String  | Null                                                                                                              | Access Token for uploading images |
-| uploadUrl        | String  | Null                                                                                                              | URL for uploading images          |
-| loading          | Boolean | false                                                                                                             | Loading overlay                   |
-| options          | Object  | { bubbleMenu: true, floatingMenu: true, poem: false, reading: false, persianKeyboard: false, mathliveOptions: {}} | See [Options Prop](#options-prop) |
+| Name         | Type    | Default                           | Description                 |
+|--------------|---------|-----------------------------------|-----------------------------|
+| uploadServer | Object  | {}                                | Upload image request config |
+| loading      | Boolean | false                             | Loading overlay             |
+| options      | Object  | See [Options Prop](#options-prop) | Editor Options              |
 
+####uploadServer example: 
+    { url: upload.com/image, headers: { Authentication: "token" }}
 
 ### Options Prop
 
