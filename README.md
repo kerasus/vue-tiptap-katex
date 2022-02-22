@@ -79,12 +79,8 @@ Note that all props are optional.
 
 | Name         | Type    | Default                           | Description                 |
 |--------------|---------|-----------------------------------|-----------------------------|
-| uploadServer | Object  | {}                                | Upload image request config |
 | loading      | Boolean | false                             | Loading overlay             |
 | options      | Object  | See [Options Prop](#options-prop) | Editor Options              |
-
-####uploadServer example: 
-    { url: upload.com/image, headers: { Authentication: "token" }}
 
 ### Options Prop
 
@@ -97,6 +93,11 @@ All options are optional:
 | poem            | Boolean | false   | Whether to show Poem Button in toolbar or not (This feature is designed for Arabic based languages) |
 | persianKeyboard | Boolean | false   | Adding Persian keyboard to Mathlive                                                                 |
 | mathliveOptions | Object  | {}      | This Object is passed directly to Mathlive instance                                                 |
+| uploadServer    | Object  | {}      | Upload image request config                                                                         |
+
+
+####uploadServer example:
+    { url: upload.com/image, headers: { Authentication: "token" }}
 
 ## Develop and build
 

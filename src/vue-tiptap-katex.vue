@@ -109,10 +109,6 @@
       SlotFloatingMenu,
     },
     props: {
-      uploadServer: {
-        type: Object,
-        default: () => {}
-      },
       loading: {
         type: Boolean,
         required: false,
@@ -139,7 +135,12 @@
           poem: false,
           reading: false,
           persianKeyboard: false,
-          mathliveOptions: {}
+          mathliveOptions: {},
+          uploadServer: {},
+          onResizeEnd: () => {
+            const i = 0;
+            console.log(i)
+          }
         }
         Object.assign(options, this.options)
         return options
