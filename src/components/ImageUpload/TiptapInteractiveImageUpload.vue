@@ -20,7 +20,7 @@
         class="resizer-container"
         :style="{ height: node.attrs.height + 'px', width: node.attrs.width + 'px', marginBottom: node.attrs.vertical + 'px', marginTop: -1 * node.attrs.vertical + 'px' }"
     >
-      <span class="mdi mdi-drag" :style="{ top: node.attrs.vertical + 'px' }" />
+      <span class="mdi mdi-drag" :style="{ top: node.attrs.vertical + 'px', height: node.attrs.height + 'px' }" />
       <vue-drag-resize
           :w="naturalWidth"
           :h="naturalHeight"
@@ -37,7 +37,6 @@
 </template>
 
 <script>
-
 import vueFilePond from 'vue-filepond';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
@@ -85,7 +84,7 @@ export default {
 }
 
 .inline .resizer-container {
-  padding: 0 10px;
+  margin: 0 24px;
 }
 
 .filepond--credits {
@@ -109,7 +108,8 @@ export default {
 
 .resizer-container .mdi-drag {
   background: #e6e6e6;
-  position: relative;
+  position: absolute;
+  left: -16px;
 }
 
 .resizer-container .mdi-drag::before {
