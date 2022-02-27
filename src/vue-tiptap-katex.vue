@@ -120,10 +120,7 @@ export default {
         persianKeyboard: false,
         mathliveOptions: {},
         uploadServer: {},
-        onResizeEnd: () => {
-          const i = 0;
-          console.log(i)
-        }
+        onResizeEnd: null
       }
       Object.assign(options, this.options)
       return options
