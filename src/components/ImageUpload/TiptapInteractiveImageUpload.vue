@@ -26,6 +26,7 @@
           :h="naturalHeight"
           :aspect-ratio="true"
           :sticks="['br']"
+          :y="node.attrs.vertical"
           axis="y"
           @resizestop="resizeEnd"
           @dragstop="dragEnd"
