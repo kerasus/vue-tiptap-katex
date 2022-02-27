@@ -1,54 +1,37 @@
 <template>
   <div :class="{ 'tiptap-plus-container': true }">
     <notifications group="error" />
-    <v-overlay
-      v-if="loading"
-      absolute
-      :value="loading"
-      opacity="0.5"
-    />
-    <v-progress-circular
-      v-if="loading"
-      :size="50"
-      color="#fff"
-      indeterminate
-    />
-    <v-card
-      elevation="3"
-      class="tiptap-plus"
-    >
-      <v-card-title
-        v-if="editor"
-        class="tiptap-header"
+    <div class="tiptap-plus">
+      <div
+          v-if="editor"
+          class="tiptap-header"
       >
-        <slot name="toolbar">
-          <toolbar
+        <toolbar
             v-if="editorOptions"
             :editor="editor"
             :options="editorOptions"
-          />
-        </slot>
-      </v-card-title>
-      <v-card-text class="pa-0">
+        />
+      </div>
+      <div class="pa-0">
         <bubble-menu
-          v-if="editorOptions && editorOptions.bubbleMenu"
-          class="bubble-menu"
-          :tippy-options="{ duration: 100, showOnCreate: false }"
-          :editor="editor"
+            v-if="editorOptions && editorOptions.bubbleMenu"
+            class="bubble-menu"
+            :tippy-options="{ duration: 100, showOnCreate: false }"
+            :editor="editor"
         >
           <slot-bubble-menu :editor="editor" />
         </bubble-menu>
         <floating-menu
-          v-if="editorOptions && editorOptions.floatingMenu"
-          class="floating-menu"
-          :tippy-options="{ duration: 100 }"
-          :editor="editor"
+            v-if="editorOptions && editorOptions.floatingMenu"
+            class="floating-menu"
+            :tippy-options="{ duration: 100 }"
+            :editor="editor"
         >
           <slot-floating-menu :editor="editor" />
         </floating-menu>
         <editor-content :editor="editor" />
-      </v-card-text>
-    </v-card>
+      </div>
+    </div>
   </div>
 </template>
 
