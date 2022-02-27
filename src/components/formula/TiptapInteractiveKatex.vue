@@ -1,22 +1,22 @@
 <template>
   <node-view-wrapper
-    :class="{ 'vue-component': true, 'inline': node.attrs.inline }"
-    data-drag-handle
+      :class="{ 'vue-component': true, 'inline': node.attrs.inline }"
+      data-drag-handle
   >
     <div
-      v-if="editMode"
-      id="mathfield"
-      ref="mathfield"
-      dir="ltr"
-      locale="fa"
-      :class="{ 'editable': editMode }"
+        v-if="editMode"
+        id="mathfield"
+        ref="mathfield"
+        dir="ltr"
+        locale="fa"
+        :class="{ 'editable': editMode }"
     />
     <div
-      v-if="!editMode"
-      class="converted"
-      dir="ltr"
-      @click="editMode = true"
-      v-html="computedKatex"
+        v-if="!editMode"
+        class="converted"
+        dir="ltr"
+        @click="editMode = true"
+        v-html="computedKatex"
     />
     <div
         v-if="editMode"
@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .mdi-check {
   color: #4caf50;
@@ -84,8 +84,6 @@ export default {
 }
 
 .katex {
-
-
   direction: ltr;
   display: inline-block;
 

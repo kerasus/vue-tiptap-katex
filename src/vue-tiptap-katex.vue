@@ -36,216 +36,216 @@
 </template>
 
 <script>
-  import toolbar from 'vue-tiptap-katex-core/components/toolbar/toolbar'
-  import Focus from '@tiptap/extension-focus'
-  import SlotBubbleMenu from 'vue-tiptap-katex-core/components/SlotBubbleMenu'
-  import SlotFloatingMenu from 'vue-tiptap-katex-core/components/SlotFloatingMenu'
-  import TiptapInteractiveKatex from './components/formula/extention'
-  import TiptapInteractiveKatexInline from './components/formula/entensionInline'
-  import TiptapInteractiveImageUpload from './components/ImageUpload/extension';
-  import TiptapInteractiveImageUploadInline from './components/ImageUpload/extensionInline';
-  import TiptapInteractivePoem from './components/poem/extension';
-  import TiptapInteractiveReading from './components/reading/extension';
-  import mesra from './components/poem/baitExtension'
-  import StarterKit from '@tiptap/starter-kit'
-  import Table from '@tiptap/extension-table'
-  import TableRow from '@tiptap/extension-table-row'
-  import TableCell from '@tiptap/extension-table-cell'
-  import TableHeader from '@tiptap/extension-table-header'
-  import TextAlign from '@tiptap/extension-text-align'
-  import TextDirection from 'tiptap-text-direction-extension';
-  import Highlight from '@tiptap/extension-highlight'
-  import Underline from '@tiptap/extension-underline'
-  import Paragraph from '@tiptap/extension-paragraph'
-  import Text from '@tiptap/extension-text'
-  import Document from '@tiptap/extension-document'
-  import Heading from '@tiptap/extension-heading'
-  import ImageAlign from 'vue-tiptap-katex-core/extension/ImageAlign/ImageAlign'
-  import Shortkeys from 'vue-tiptap-katex-core/extension/Shortkeys/TiptapShortkeys';
-  import {DOMParser} from 'prosemirror-model';
-  // import Focus from '@tiptap/extension-focus'
-  import ThinSpace from 'vue-tiptap-katex-core/extension/ThinSpace/ThinSpace';
-  // import Paper from './Drawing/Paper.js'
+import toolbar from 'vue-tiptap-katex-core/components/toolbar/toolbar'
+import Focus from '@tiptap/extension-focus'
+import SlotBubbleMenu from 'vue-tiptap-katex-core/components/SlotBubbleMenu'
+import SlotFloatingMenu from 'vue-tiptap-katex-core/components/SlotFloatingMenu'
+import TiptapInteractiveKatex from './components/formula/extention'
+import TiptapInteractiveKatexInline from './components/formula/entensionInline'
+import TiptapInteractiveImageUpload from './components/ImageUpload/extension';
+import TiptapInteractiveImageUploadInline from './components/ImageUpload/extensionInline';
+import TiptapInteractivePoem from './components/poem/extension';
+import TiptapInteractiveReading from './components/reading/extension';
+import mesra from './components/poem/baitExtension'
+import StarterKit from '@tiptap/starter-kit'
+import Table from '@tiptap/extension-table'
+import TableRow from '@tiptap/extension-table-row'
+import TableCell from '@tiptap/extension-table-cell'
+import TableHeader from '@tiptap/extension-table-header'
+import TextAlign from '@tiptap/extension-text-align'
+import TextDirection from 'tiptap-text-direction-extension';
+import Highlight from '@tiptap/extension-highlight'
+import Underline from '@tiptap/extension-underline'
+import Paragraph from '@tiptap/extension-paragraph'
+import Text from '@tiptap/extension-text'
+import Document from '@tiptap/extension-document'
+import Heading from '@tiptap/extension-heading'
+import ImageAlign from 'vue-tiptap-katex-core/extension/ImageAlign/ImageAlign'
+import Shortkeys from 'vue-tiptap-katex-core/extension/Shortkeys/TiptapShortkeys';
+import {DOMParser} from 'prosemirror-model';
+// import Focus from '@tiptap/extension-focus'
+import ThinSpace from 'vue-tiptap-katex-core/extension/ThinSpace/ThinSpace';
+// import Paper from './Drawing/Paper.js'
 
-  import {
-    Editor,
+import {
+  Editor,
+  EditorContent,
+  BubbleMenu,
+  FloatingMenu
+} from '@tiptap/vue-2'
+
+import mixinConvertToHTML from 'vue-tiptap-katex-core/mixins/convertToHTML';
+import mixinConvertToTiptap from 'vue-tiptap-katex-core/mixins/convertToTiptap';
+// import {EditorView} from "prosemirror-view";
+// import {EditorState} from "prosemirror-state";
+// import {posToDOMRect} from "@tiptap/core";
+
+export default {
+  name: 'VueTiptapKatex',
+  mixins: [mixinConvertToHTML, mixinConvertToTiptap],
+  components: {
     EditorContent,
     BubbleMenu,
-    FloatingMenu
-  } from '@tiptap/vue-2'
-
-  import mixinConvertToHTML from 'vue-tiptap-katex-core/mixins/convertToHTML';
-  import mixinConvertToTiptap from 'vue-tiptap-katex-core/mixins/convertToTiptap';
-  // import {EditorView} from "prosemirror-view";
-  // import {EditorState} from "prosemirror-state";
-  // import {posToDOMRect} from "@tiptap/core";
-
-  export default {
-    name: 'VueTiptapKatex',
-    mixins: [mixinConvertToHTML, mixinConvertToTiptap],
-    components: {
-      EditorContent,
-      BubbleMenu,
-      FloatingMenu,
-      toolbar,
-      SlotBubbleMenu,
-      SlotFloatingMenu,
+    FloatingMenu,
+    toolbar,
+    SlotBubbleMenu,
+    SlotFloatingMenu,
+  },
+  props: {
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false
     },
-    props: {
-      loading: {
-        type: Boolean,
-        required: false,
-        default: false
-      },
-      options: {
-        type: Object,
-        required: false,
-        default () {
-          return {}
+    options: {
+      type: Object,
+      required: false,
+      default () {
+        return {}
+      }
+    }
+  },
+  data() {
+    return {
+      editor: null,
+    }
+  },
+  computed: {
+    editorOptions () {
+      const options = {
+        bubbleMenu: true,
+        floatingMenu: true,
+        poem: false,
+        reading: false,
+        persianKeyboard: false,
+        mathliveOptions: {},
+        uploadServer: {},
+        onResizeEnd: () => {
+          const i = 0;
+          console.log(i)
         }
       }
-    },
-    data() {
-      return {
-        editor: null,
-      }
-    },
-    computed: {
-      editorOptions () {
-        const options = {
-          bubbleMenu: true,
-          floatingMenu: true,
-          poem: false,
-          reading: false,
-          persianKeyboard: false,
-          mathliveOptions: {},
-          uploadServer: {},
-          onResizeEnd: () => {
-            const i = 0;
-            console.log(i)
+      Object.assign(options, this.options)
+      return options
+    }
+  },
+  mounted() {
+    this.editor = new Editor({
+      content: this.value,
+      parseOptions: {
+        preserveWhitespace: true
+      },
+      extensions: [
+        Focus.configure({
+          className: 'has-focus',
+          mode: 'all',
+        }),
+        StarterKit,
+        TextAlign.configure({
+          types: ['heading', 'paragraph', 'TiptapInteractiveImageUpload', 'TiptapInteractiveReading'],
+          defaultAlignment: ''
+        }),
+        TextDirection,
+        Highlight,
+        Underline,
+        Paragraph.configure({
+          HTMLAttributes: { dir: 'auto' },
+        }),
+        Heading,
+        Document,
+        Text,
+        Table.configure({
+          resizable: true,
+        }),
+        TableRow,
+        TableHeader,
+        TableCell,
+        TiptapInteractiveKatex,
+        TiptapInteractiveKatexInline,
+        TiptapInteractiveImageUpload,
+        TiptapInteractiveImageUploadInline,
+        TiptapInteractivePoem,
+        mesra,
+        TiptapInteractiveReading,
+        ImageAlign,
+        Shortkeys,
+        // Focus.configure({
+        //   className: 'has-focus',
+        //   mode: 'all',
+        // }),
+        ThinSpace
+      ],
+      // triggered on every change
+      onUpdate() {
+
+      },
+      editorProps: {
+        handleKeyDown: (view, event) => {
+          if (event.key === 'Enter' && document.querySelector('.mesra.has-focus')) {
+            console.log(document.querySelector('.mesra.has-focus'))
+            event.preventDefault()
+            this.insertPoem(this.editor, '<tiptap-interactive-poem><mesra></mesra><mesra></mesra></tiptap-interactive-poem>')
+            return true
           }
+          return false
         }
-        Object.assign(options, this.options)
-        return options
+      }
+    })
+    this.editor.editorOptions = this.editorOptions
+  },
+  beforeDestroy() {
+    this.editor.destroy()
+  },
+  methods: {
+    elementFromString(value) {
+      const element = document.createElement('div')
+      element.innerHTML = value.trim()
+
+      return element
+    },
+    insertPoem({ state, view }, value) {
+      const { selection } = state
+      const element = this.elementFromString(value)
+      const slice = DOMParser.fromSchema(state.schema).parseSlice(element)
+
+      // let reachedEnd = false
+      // let first = 0, last = 26
+      // let findIndex = -1
+      // console.log('text: ', state.doc.textBetween(0, state.doc.content.size))
+      // while (!reachedEnd) {
+      //   try {
+      //     const text = state.doc.textBetween(first, last)
+      //     if (text === '</tiptap-interactive-poem>') {
+      //       reachedEnd = true
+      //       findIndex = first
+      //     }
+      //     first++
+      //     last++
+      //   } catch {
+      //     console.log('poem not found')
+      //     break;
+      //   }
+      // }
+
+      const { doc, tr } = state;
+      let trx = tr;
+
+      // trx = trx.insertText('',state.doc.content.size,state.doc.content.size + 1)
+
+      trx = trx.insert(state.doc.content.size, slice.content)
+      view.dispatch(trx)
+    },
+    setContent(pureHTML) {
+      let string = this.convertToTiptap(pureHTML)
+      if (string.length) {
+        this.editor.commands.setContent(string)
       }
     },
-    mounted() {
-      this.editor = new Editor({
-        content: this.value,
-        parseOptions: {
-          preserveWhitespace: true
-        },
-        extensions: [
-          Focus.configure({
-            className: 'has-focus',
-            mode: 'all',
-          }),
-          StarterKit,
-          TextAlign.configure({
-            types: ['heading', 'paragraph', 'TiptapInteractiveImageUpload', 'TiptapInteractiveReading'],
-            defaultAlignment: ''
-          }),
-          TextDirection,
-          Highlight,
-          Underline,
-          Paragraph.configure({
-            HTMLAttributes: { dir: 'auto' },
-          }),
-          Heading,
-          Document,
-          Text,
-          Table.configure({
-            resizable: true,
-          }),
-          TableRow,
-          TableHeader,
-          TableCell,
-          TiptapInteractiveKatex,
-          TiptapInteractiveKatexInline,
-          TiptapInteractiveImageUpload,
-          TiptapInteractiveImageUploadInline,
-          TiptapInteractivePoem,
-          mesra,
-          TiptapInteractiveReading,
-          ImageAlign,
-          Shortkeys,
-          // Focus.configure({
-          //   className: 'has-focus',
-          //   mode: 'all',
-          // }),
-          ThinSpace
-        ],
-        // triggered on every change
-        onUpdate() {
-
-        },
-        editorProps: {
-          handleKeyDown: (view, event) => {
-            if (event.key === 'Enter' && document.querySelector('.mesra.has-focus')) {
-              console.log(document.querySelector('.mesra.has-focus'))
-              event.preventDefault()
-              this.insertPoem(this.editor, '<tiptap-interactive-poem><mesra></mesra><mesra></mesra></tiptap-interactive-poem>')
-              return true
-            }
-            return false
-          }
-        }
-      })
-      this.editor.editorOptions = this.editorOptions
+    getContent() {
+      return this.convertToPureHTML(this.editor.getHTML())
     },
-    beforeDestroy() {
-      this.editor.destroy()
-    },
-    methods: {
-      elementFromString(value) {
-        const element = document.createElement('div')
-        element.innerHTML = value.trim()
-
-        return element
-      },
-      insertPoem({ state, view }, value) {
-        const { selection } = state
-        const element = this.elementFromString(value)
-        const slice = DOMParser.fromSchema(state.schema).parseSlice(element)
-
-        // let reachedEnd = false
-        // let first = 0, last = 26
-        // let findIndex = -1
-        // console.log('text: ', state.doc.textBetween(0, state.doc.content.size))
-        // while (!reachedEnd) {
-        //   try {
-        //     const text = state.doc.textBetween(first, last)
-        //     if (text === '</tiptap-interactive-poem>') {
-        //       reachedEnd = true
-        //       findIndex = first
-        //     }
-        //     first++
-        //     last++
-        //   } catch {
-        //     console.log('poem not found')
-        //     break;
-        //   }
-        // }
-
-        const { doc, tr } = state;
-        let trx = tr;
-
-        // trx = trx.insertText('',state.doc.content.size,state.doc.content.size + 1)
-
-        trx = trx.insert(state.doc.content.size, slice.content)
-        view.dispatch(trx)
-      },
-      setContent(pureHTML) {
-        let string = this.convertToTiptap(pureHTML)
-        if (string.length) {
-          this.editor.commands.setContent(string)
-        }
-      },
-      getContent() {
-        return this.convertToPureHTML(this.editor.getHTML())
-      },
-    },
-  }
+  },
+}
 </script>
 
 <style>
@@ -273,158 +273,159 @@
   white-space: nowrap;
 }
 
-  .ProseMirror {
-    outline: none;
-    padding: 20px;
-  }
+.ProseMirror {
+  outline: none;
+  padding: 20px;
+}
 
-  .tiptap-plus-container .v-card__title {
-    border-bottom: solid 1px #dedede;
-  }
+.tiptap-plus-container .v-card__title {
+  border-bottom: solid 1px #dedede;
+}
 
-  .tiptap-plus-container {
-    width: 100%;
-    margin: 0;
-    border-radius: 10px;
-    position: relative;
-  }
+.tiptap-plus-container {
+  width: 100%;
+  margin: 0;
+  border-radius: 10px;
+  position: relative;
+  background: white;
+}
 
-  .tiptap-plus-container .v-progress-circular {
-    position: absolute;
-    z-index: 10;
-    left: calc(50% - 25px);
-    top: calc(50% - 25px);
-  }
+.tiptap-plus-container .v-progress-circular {
+  position: absolute;
+  z-index: 10;
+  left: calc(50% - 25px);
+  top: calc(50% - 25px);
+}
 
-  .tiptap-plus .tiptap-header {
-    background-color: #e9ecf4;
-    padding: 8px;
-  }
+.tiptap-plus .tiptap-header {
+  background-color: #e9ecf4;
+  padding: 8px;
+}
 </style>
 
 <style lang="scss">
-  /* Basic editor styles */
-  .ProseMirror {
-    /*white-space: normal !important;*/
+/* Basic editor styles */
+.ProseMirror {
+  /*white-space: normal !important;*/
 
-    > * + * {
-      margin-top: 0.75em;
-    }
+  > * + * {
+    margin-top: 0.75em;
+  }
 
-    ul,
-    ol {
-      padding: 0 1rem;
-    }
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      line-height: 1.1;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+  }
+
+  code {
+    background-color: rgba(#616161, 0.1);
+    color: #616161;
+  }
+
+  pre {
+    background: #0D0D0D;
+    color: #FFF;
+    font-family: 'JetBrainsMono', monospace;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
 
     code {
-      background-color: rgba(#616161, 0.1);
-      color: #616161;
-    }
-
-    pre {
-      background: #0D0D0D;
-      color: #FFF;
-      font-family: 'JetBrainsMono', monospace;
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-
-      code {
-        color: inherit;
-        padding: 0;
-        background: none;
-        font-size: 0.8rem;
-      }
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    blockquote {
-      padding-left: 1rem;
-      border-left: 2px solid rgba(#0D0D0D, 0.1);
-    }
-
-    hr {
-      border: none;
-      border-top: 2px solid rgba(#0D0D0D, 0.1);
-      margin: 2rem 0;
+      color: inherit;
+      padding: 0;
+      background: none;
+      font-size: 0.8rem;
     }
   }
 
-  /* Table-specific styling */
-  .ProseMirror {
-    table {
-      border-collapse: collapse;
-      table-layout: fixed;
-      width: 100%;
-      margin: 0;
-      overflow: hidden;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 
-      td,
-      th {
-        min-width: 1em;
-        border: 2px solid #ced4da;
-        padding: 3px 5px;
-        vertical-align: top;
-        box-sizing: border-box;
-        position: relative;
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0D0D0D, 0.1);
+  }
 
-        > * {
-          margin-bottom: 0;
-        }
-      }
+  hr {
+    border: none;
+    border-top: 2px solid rgba(#0D0D0D, 0.1);
+    margin: 2rem 0;
+  }
+}
 
-      th {
-        font-weight: bold;
-        text-align: left;
-        background-color: #f1f3f5;
-      }
+/* Table-specific styling */
+.ProseMirror {
+  table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
 
-      .selectedCell:after {
-        z-index: 2;
-        position: absolute;
-        content: "";
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background: rgba(200, 200, 255, 0.4);
-        pointer-events: none;
-      }
+    td,
+    th {
+      min-width: 1em;
+      border: 2px solid #ced4da;
+      padding: 3px 5px;
+      vertical-align: top;
+      box-sizing: border-box;
+      position: relative;
 
-      .column-resize-handle {
-        position: absolute;
-        right: -2px;
-        top: 0;
-        bottom: -2px;
-        width: 4px;
-        background-color: #adf;
-        pointer-events: none;
+      > * {
+        margin-bottom: 0;
       }
     }
-  }
 
-  .tableWrapper {
-    overflow-x: auto;
+    th {
+      font-weight: bold;
+      text-align: left;
+      background-color: #f1f3f5;
+    }
 
-    table {
-      float: left;
+    .selectedCell:after {
+      z-index: 2;
+      position: absolute;
+      content: "";
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: rgba(200, 200, 255, 0.4);
+      pointer-events: none;
+    }
+
+    .column-resize-handle {
+      position: absolute;
+      right: -2px;
+      top: 0;
+      bottom: -2px;
+      width: 4px;
+      background-color: #adf;
+      pointer-events: none;
     }
   }
+}
 
-  .resize-cursor {
-    cursor: ew-resize;
-    cursor: col-resize;
+.tableWrapper {
+  overflow-x: auto;
+
+  table {
+    float: left;
   }
+}
+
+.resize-cursor {
+  cursor: ew-resize;
+  cursor: col-resize;
+}
 </style>
