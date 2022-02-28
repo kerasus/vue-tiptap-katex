@@ -86,18 +86,29 @@ Note that all props are optional.
 
 All options are optional:
 
-| Name            | Type    | Default | Description                                                                                         |
-|-----------------|---------|---------|-----------------------------------------------------------------------------------------------------|
-| bubbleMenu      | Boolean | true    | Whether to show Bubble Menu or not                                                                  |
-| floatingMenu    | Boolean | true    | Whether to show Floating Menu or not                                                                |
-| poem            | Boolean | false   | Whether to show Poem Button in toolbar or not (This feature is designed for Arabic based languages) |
-| persianKeyboard | Boolean | false   | Adding Persian keyboard to Mathlive                                                                 |
-| mathliveOptions | Object  | {}      | This Object is passed directly to Mathlive instance                                                 |
-| uploadServer    | Object  | {}      | Upload image request config                                                                         |
+| Name            | Type     | Default | Description                                                                                         |
+|-----------------|----------|---------|-----------------------------------------------------------------------------------------------------|
+| bubbleMenu      | Boolean  | true    | Whether to show Bubble Menu or not                                                                  |
+| floatingMenu    | Boolean  | true    | Whether to show Floating Menu or not                                                                |
+| poem            | Boolean  | false   | Whether to show Poem Button in toolbar or not (This feature is designed for Arabic based languages) |
+| persianKeyboard | Boolean  | false   | Adding Persian keyboard to Mathlive                                                                 |
+| mathliveOptions | Object   | {}      | This Object is passed directly to Mathlive instance                                                 |
+| uploadServer    | Object   | {}      | Upload image request config                                                                         |
+| onResizeEnd     | Function | null    | Gets called after resizing image                                                                    |
 
 
 ####uploadServer example:
     { url: upload.com/image, headers: { Authentication: "token" }}
+
+####onResizeEnd:
+Arguments: url, width, height
+Return value: url
+
+Example:
+
+    onResizeEnd (url, width, height) {
+        return url.split('?w=')[0] + '?w=' + width + '&h=' + height
+    }
 
 ## Develop and build
 
