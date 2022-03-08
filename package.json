@@ -2,49 +2,32 @@
   "name": "vue-tiptap-katex",
   "version": "2.3.4",
   "description": "tiptap editor with katex in vue",
-  "main": "index.js",
-  "keywords": [
-    "vue",
-    "tiptap",
-    "katex",
-    "vue-tiptap-katex"
-  ],
-  "contributors": [
-    {
-      "name": "Ali Esmaeeli",
-      "email": "aliesmaeeli20@gmail.com",
-      "url": "https://github.com/kerasus/vue-tiptap-katex"
-    },
-    {
-      "name": "Mostafa Kazemi",
-      "email": "neo.kazemi168@gmail.com",
-      "url": "https://github.com/neokazemi/vue-tiptap-katex"
-    }
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/kerasus/vue-tiptap-katex",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint src"
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint src",
+    "test": "jest",
+    "test:full": "jest --verbose"
   },
+  "main": "index.js",
   "dependencies": {
     "@mdi/font": "^5.8.55",
-    "@tiptap/core": "^2.0.0-beta.102",
-    "@tiptap/extension-document": "^2.0.0-beta.13",
-    "@tiptap/extension-focus": "^2.0.0-beta.26",
-    "@tiptap/extension-heading": "^2.0.0-beta.15",
-    "@tiptap/extension-highlight": "^2.0.0-beta.15",
-    "@tiptap/extension-paragraph": "^2.0.0-beta.17",
-    "@tiptap/extension-table": "^2.0.0-beta.29",
-    "@tiptap/extension-table-cell": "^2.0.0-beta.14",
-    "@tiptap/extension-table-header": "^2.0.0-beta.16",
-    "@tiptap/extension-table-row": "^2.0.0-beta.14",
-    "@tiptap/extension-text": "^2.0.0-beta.13",
-    "@tiptap/extension-text-align": "^2.0.0-beta.22",
-    "@tiptap/extension-underline": "^2.0.0-beta.16",
-    "@tiptap/starter-kit": "^2.0.0-beta.101",
-    "@tiptap/vue-2": "^2.0.0-beta.48",
+    "@tiptap/core": "^2.0.0-beta.174",
+    "@tiptap/extension-document": "^2.0.0-beta.15",
+    "@tiptap/extension-focus": "^2.0.0-beta.40",
+    "@tiptap/extension-heading": "^2.0.0-beta.26",
+    "@tiptap/extension-highlight": "^2.0.0-beta.33",
+    "@tiptap/extension-paragraph": "^2.0.0-beta.23",
+    "@tiptap/extension-table": "^2.0.0-beta.48",
+    "@tiptap/extension-table-cell": "^2.0.0-beta.20",
+    "@tiptap/extension-table-header": "^2.0.0-beta.22",
+    "@tiptap/extension-table-row": "^2.0.0-beta.19",
+    "@tiptap/extension-text": "^2.0.0-beta.15",
+    "@tiptap/extension-text-align": "^2.0.0-beta.29",
+    "@tiptap/extension-underline": "^2.0.0-beta.23",
+    "@tiptap/starter-kit": "^2.0.0-beta.183",
+    "@tiptap/vue-2": "^2.0.0-beta.77",
     "@xkeshi/image-compressor": "^0.5.3",
     "core-js": "^3.6.5",
     "cropperjs": "^1.5.11",
@@ -52,13 +35,17 @@
     "filepond": "^4.30.3",
     "filepond-plugin-file-validate-type": "^1.2.6",
     "filepond-plugin-image-preview": "^4.6.10",
+    "jest-serializer-vue": "^2.0.2",
+    "jest-transform-stub": "^2.0.0",
     "katex": "^0.15.2",
+    "mathlive": "^0.69.10",
     "node-sass": "^6.0.0",
     "persian-katex-plugin": "^1.1.0",
     "postcss-loader": "^4.2.0",
     "sass-loader": "^10.1.1",
     "tiptap-extensions": "^1.35.2",
-    "tiptap-text-direction-extension": "^1.0.2",
+    "tiptap-text-direction-extension": "^1.0.3",
+    "ts-jest": "^27.1.3",
     "turndown": "^7.0.0",
     "vue": "^2.6.11",
     "vue-drag-resize": "^1.5.4",
@@ -72,11 +59,17 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "^3.1.1",
+    "@vue/cli-plugin-unit-jest": "~4.5.15",
     "@vue/cli-service": "^3.12.1",
+    "@vue/test-utils": "^1.3.0",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^27.5.1",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "jest": "^27.5.1",
+    "vue-jest": "^3.0.7",
+    "vue-template-compiler": "^2.6.11",
+    "vue-test-utils": "^1.0.0-beta.11"
   },
   "eslintConfig": {
     "root": true,
@@ -109,11 +102,73 @@
         2,
         "single"
       ]
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,vue}",
+      "!**/node_modules/**"
+    ],
+    "moduleNameMapper": {
+      "^vue$": "vue/dist/vue.common.js",
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "vue",
+      "ts"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!.*)"
+    ],
+    "snapshotSerializers": [
+      "jest-serializer-vue"
+    ],
+    "preset": "@vue/cli-plugin-unit-jest",
+    "setupFiles": [
+      "<rootDir>/tests/unit/index.js"
+    ],
+    "testEnvironment": "jsdom"
+  },
+  "contributors": [
+    {
+      "name": "Ali Esmaeeli",
+      "email": "aliesmaeeli20@gmail.com",
+      "url": "https://github.com/kerasus/vue-tiptap-katex"
+    },
+    {
+      "name": "Mostafa Kazemi",
+      "email": "neo.kazemi168@gmail.com",
+      "url": "https://github.com/neokazemi/vue-tiptap-katex"
+    }
+  ],
+  "homepage": "https://github.com/kerasus/vue-tiptap-katex",
+  "keywords": [
+    "vue",
+    "tiptap",
+    "katex",
+    "vue-tiptap-katex"
+  ],
+  "license": "MIT"
 }
