@@ -21,8 +21,7 @@
     >
       {{ test }}
     </div>
-    <div>
-      {{html}}
+    <div v-html="test">
     </div>
   </div>
 </template>
