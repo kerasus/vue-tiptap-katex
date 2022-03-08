@@ -8,6 +8,7 @@
       >
         <toolbar
             v-if="editorOptions"
+            ref="toolbar"
             :editor="editor"
             :options="editorOptions"
         />
@@ -53,13 +54,9 @@ import TableRow from '@tiptap/extension-table-row'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TextAlign from '@tiptap/extension-text-align'
-import TextDirection from 'tiptap-text-direction-extension';
+import TextDirection from 'tiptap-text-direction-extension/src';
 import Highlight from '@tiptap/extension-highlight'
 import Underline from '@tiptap/extension-underline'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
-import Document from '@tiptap/extension-document'
-import Heading from '@tiptap/extension-heading'
 import ImageAlign from 'vue-tiptap-katex-core/extension/ImageAlign/ImageAlign'
 import Shortkeys from 'vue-tiptap-katex-core/extension/Shortkeys/TiptapShortkeys';
 import {DOMParser} from 'prosemirror-model';
@@ -137,7 +134,11 @@ export default {
           className: 'has-focus',
           mode: 'all',
         }),
-        StarterKit,
+        StarterKit.configure({
+          paragraph: {
+            HTMLAttributes: { dir: 'auto' },
+          }
+        }),
         TextAlign.configure({
           types: ['heading', 'paragraph', 'TiptapInteractiveImageUpload', 'TiptapInteractiveReading'],
           defaultAlignment: ''
@@ -145,12 +146,6 @@ export default {
         TextDirection,
         Highlight,
         Underline,
-        Paragraph.configure({
-          HTMLAttributes: { dir: 'auto' },
-        }),
-        Heading,
-        Document,
-        Text,
         Table.configure({
           resizable: true,
         }),
@@ -166,10 +161,6 @@ export default {
         TiptapInteractiveReading,
         ImageAlign,
         Shortkeys,
-        // Focus.configure({
-        //   className: 'has-focus',
-        //   mode: 'all',
-        // }),
         ThinSpace
       ],
       // triggered on every change
@@ -201,30 +192,10 @@ export default {
       return element
     },
     insertPoem({ state, view }, value) {
-      const { selection } = state
       const element = this.elementFromString(value)
       const slice = DOMParser.fromSchema(state.schema).parseSlice(element)
 
-      // let reachedEnd = false
-      // let first = 0, last = 26
-      // let findIndex = -1
-      // console.log('text: ', state.doc.textBetween(0, state.doc.content.size))
-      // while (!reachedEnd) {
-      //   try {
-      //     const text = state.doc.textBetween(first, last)
-      //     if (text === '</tiptap-interactive-poem>') {
-      //       reachedEnd = true
-      //       findIndex = first
-      //     }
-      //     first++
-      //     last++
-      //   } catch {
-      //     console.log('poem not found')
-      //     break;
-      //   }
-      // }
-
-      const { doc, tr } = state;
+      const { tr } = state;
       let trx = tr;
 
       // trx = trx.insertText('',state.doc.content.size,state.doc.content.size + 1)
