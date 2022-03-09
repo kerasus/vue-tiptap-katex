@@ -13,7 +13,7 @@
             :options="editorOptions"
         />
       </div>
-      <div class="pa-0">
+      <div class="pa-0" v-if="editor">
         <bubble-menu
             v-if="editorOptions && editorOptions.bubbleMenu"
             class="bubble-menu"
