@@ -64,6 +64,11 @@ import {DOMParser} from 'prosemirror-model';
 import ThinSpace from 'vue-tiptap-katex-core/extension/ThinSpace/ThinSpace';
 // import Paper from './Drawing/Paper.js'
 
+import Vue from 'vue'
+import Notifications from 'vue-notification'
+
+Vue.use(Notifications)
+
 import {
   Editor,
   EditorContent,
