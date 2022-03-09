@@ -5,7 +5,7 @@
   >
     <file-pond
         v-if="!node.attrs.url"
-        instant-upload="false"
+        instant-upload="true"
         :style="{ maxWidth: '600px', margin: '0 auto' }"
         name="file"
         label-idle="Drop files here..."
