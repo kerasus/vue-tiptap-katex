@@ -210,9 +210,7 @@ export default {
     },
     setContent(pureHTML) {
       let string = this.convertToTiptap(pureHTML)
-      if (string.length) {
-        this.editor.commands.setContent(string)
-      }
+      this.editor.commands.setContent(string)
     },
     getContent() {
       return this.convertToPureHTML(this.editor.getHTML())

@@ -95,6 +95,10 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.setContent()
+      this.test = ''
+      setTimeout(() => {
+        this.setContent()
+      }, 5000)
     })
   }
 }
