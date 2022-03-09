@@ -13,7 +13,7 @@
             :options="editorOptions"
         />
       </div>
-      <div class="pa-0">
+      <div class="pa-0" v-if="editor">
         <bubble-menu
             v-if="editorOptions && editorOptions.bubbleMenu"
             class="bubble-menu"
@@ -63,6 +63,11 @@ import {DOMParser} from 'prosemirror-model';
 // import Focus from '@tiptap/extension-focus'
 import ThinSpace from 'vue-tiptap-katex-core/extension/ThinSpace/ThinSpace';
 // import Paper from './Drawing/Paper.js'
+
+import Vue from 'vue'
+import Notifications from 'vue-notification'
+
+Vue.use(Notifications)
 
 import {
   Editor,
@@ -205,9 +210,7 @@ export default {
     },
     setContent(pureHTML) {
       let string = this.convertToTiptap(pureHTML)
-      if (string.length) {
-        this.editor.commands.setContent(string)
-      }
+      this.editor.commands.setContent(string)
     },
     getContent() {
       return this.convertToPureHTML(this.editor.getHTML())

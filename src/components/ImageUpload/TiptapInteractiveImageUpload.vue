@@ -5,7 +5,7 @@
   >
     <file-pond
         v-if="!node.attrs.url"
-        instant-upload="false"
+        :instant-upload="editor.editorOptions.uploadServer ? editor.editorOptions.uploadServer.instantUpload : false"
         :style="{ maxWidth: '600px', margin: '0 auto' }"
         name="file"
         label-idle="Drop files here..."
