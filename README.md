@@ -98,7 +98,7 @@ All options are optional:
 
 
 ####uploadServer example:
-    { url: upload.com/image, headers: { Authentication: "token" }}
+    { url: upload.com/image, headers: { Authentication: "token" }, instantUpload: false }
 
 ####onResizeEnd:
 Arguments: url, width, height
