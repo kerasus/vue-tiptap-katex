@@ -1,6 +1,6 @@
 {
   "name": "vue-tiptap-katex",
-  "version": "2.3.13",
+  "version": "2.3.14",
   "description": "tiptap editor with katex in vue",
   "scripts": {
     "serve": "vue-cli-service serve",
