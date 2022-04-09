@@ -44,7 +44,7 @@
     "postcss-loader": "^4.2.0",
     "sass-loader": "^10.1.1",
     "tiptap-extensions": "^1.35.2",
-    "tiptap-text-direction-extension": "^1.0.5",
+    "tiptap-text-direction-extension": "^1.0.6",
     "ts-jest": "^27.1.3",
     "turndown": "^7.0.0",
     "vue": "^2.6.11",
