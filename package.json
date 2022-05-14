@@ -48,6 +48,7 @@
     "ts-jest": "^27.1.3",
     "turndown": "^7.0.0",
     "vue": "^2.6.11",
+    "vue-color": "^2.8.1",
     "vue-drag-resize": "^1.5.4",
     "vue-filepond": "^6.0.3",
     "vue-notification": "^1.3.20",
