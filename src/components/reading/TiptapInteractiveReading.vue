@@ -10,25 +10,14 @@
 <script>
 
     import {NodeViewWrapper, NodeViewContent, nodeViewProps} from '@tiptap/vue-2'
+    import MixinComponentReading from 'vue-tiptap-katex-core/components/reading/mixin'
+
     export default {
         name: 'TiptapInteractiveReading',
+        mixins: [MixinComponentReading],
         components: {
             NodeViewWrapper,
             NodeViewContent
-        },
-        props: {
-            nodeViewProps,
-            node: {
-                type: Object,
-                required: true
-            },
-            updateAttributes: {
-                type: Function,
-                required: true,
-            },
-            editor: {
-                type: Object
-            }
         },
     }
 </script>
