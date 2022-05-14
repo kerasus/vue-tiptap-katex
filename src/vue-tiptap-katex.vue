@@ -3,30 +3,33 @@
     <notifications group="error" />
     <div class="tiptap-plus">
       <div
-          v-if="editor"
-          class="tiptap-header"
+        v-if="editor"
+        class="tiptap-header"
       >
         <toolbar
-            v-if="editorOptions"
-            ref="toolbar"
-            :editor="editor"
-            :options="editorOptions"
+          v-if="editorOptions"
+          ref="toolbar"
+          :editor="editor"
+          :options="editorOptions"
         />
       </div>
-      <div class="pa-0" v-if="editor">
+      <div
+        v-if="editor"
+        class="pa-0"
+      >
         <bubble-menu
-            v-if="editorOptions && editorOptions.bubbleMenu"
-            class="bubble-menu"
-            :tippy-options="{ duration: 100, showOnCreate: false }"
-            :editor="editor"
+          v-if="editorOptions && editorOptions.bubbleMenu"
+          class="bubble-menu"
+          :tippy-options="{ duration: 100, showOnCreate: false }"
+          :editor="editor"
         >
           <slot-bubble-menu :editor="editor" />
         </bubble-menu>
         <floating-menu
-            v-if="editorOptions && editorOptions.floatingMenu"
-            class="floating-menu"
-            :tippy-options="{ duration: 100 }"
-            :editor="editor"
+          v-if="editorOptions && editorOptions.floatingMenu"
+          class="floating-menu"
+          :tippy-options="{ duration: 100 }"
+          :editor="editor"
         >
           <slot-floating-menu :editor="editor" />
         </floating-menu>
@@ -48,6 +51,7 @@ import TiptapInteractiveImageUploadInline from './components/ImageUpload/extensi
 import TiptapInteractivePoem from './components/poem/extension';
 import TiptapInteractiveReading from './components/reading/extension';
 import mesra from './components/poem/baitExtension'
+import cell from './components/table/cellExtension'
 import StarterKit from '@tiptap/starter-kit'
 import Table from '@tiptap/extension-table'
 import TableRow from '@tiptap/extension-table-row'
@@ -163,6 +167,7 @@ export default {
         TiptapInteractiveImageUploadInline,
         TiptapInteractivePoem,
         mesra,
+        cell,
         TiptapInteractiveReading,
         ImageAlign,
         Shortkeys,
