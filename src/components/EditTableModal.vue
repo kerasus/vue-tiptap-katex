@@ -5,89 +5,21 @@
       wrapper-class="edit-table-modal-wrapper"
     >
       <div class="edit-cell-panel">
+        <div class="cell-demo-panel">
+          <div
+            class="cell-box"
+            :style="{
+              'border-top': getBorderTopStyle,
+              'border-left': getBorderLeftStyle,
+              'border-bottom': getBorderBottomStyle,
+              'border-right': getBorderRightStyle,
+              'background-color': computedBackgroundColor
+            }"
+          >
+            your cell
+          </div>
+        </div>
         <div class="edit-box">
-<!--          <div-->
-<!--            v-if="selected"-->
-<!--          >-->
-<!--            <div-->
-<!--              v-if="selected && selected !== 'backgroundColor'"-->
-<!--            >-->
-<!--              <div>currentOptions[selected].cellBorderColor {{ currentOptions[selected].cellBorderColor }}</div>-->
-<!--              <div>currentOptions[selected].cellBorderWidth {{ currentOptions[selected].cellBorderWidth }}</div>-->
-<!--              <div>currentOptions[selected].cellBorderType {{ currentOptions[selected].cellBorderType }}</div>-->
-<!--              <div>currentOptions[selected].none {{ currentOptions[selected].none }}</div>-->
-<!--            </div>-->
-<!--            <div v-else>-->
-<!--              currentOptions.backgroundColor {{ currentOptions.backgroundColor }}-->
-<!--            </div>-->
-<!--          </div>-->
-          <div
-            v-if="selected && selected !== 'backgroundColor'"
-            class="border-color-picker"
-          >
-            <sketch-picker v-model="computedBackgroundColor" />
-            <div>{{ currentOptions[selected].cellBorderColor }}</div>
-          </div>
-          <div
-            v-else
-            class="background-color-picker"
-          >
-            <sketch-picker v-model="computedBackgroundColor" />
-            <div>{{ currentOptions.backgroundColor }}</div>
-          </div>
-          <div
-            v-if="selected && selected !== 'backgroundColor'"
-          >
-            <input
-              v-model="currentOptions[selected].cellBorderWidth"
-              type="number"
-            >
-            <span v-text="currentOptions[selected].cellBorderWidth" />
-          </div>
-          <div
-            v-if="selected && selected !== 'backgroundColor'"
-          >
-            <input
-              id="checkbox"
-              v-model="currentOptions[selected].none"
-              type="checkbox"
-            >
-            <label for="checkbox">{{ currentOptions[selected].none }}</label>
-          </div>
-          <div
-            v-if="selected && selected !== 'backgroundColor'"
-            class="selector-dropdown cell-border-type"
-          >
-            <div
-              class="select"
-              style="width: 200px;"
-            >
-              <select v-model="currentOptions[selected].cellBorderType">
-                <option
-                  disabled
-                  value=""
-                >
-                  Please select one
-                </option>
-                <option>dotted</option>
-                <option>dashed</option>
-                <option>solid</option>
-                <option>double</option>
-                <option>groove</option>
-                <option>ridge</option>
-                <option>inset</option>
-                <option>outset</option>
-                <option>hidden</option>
-                <option>mix</option>
-              </select>
-              <svg viewBox="0 0 24 24">
-                <path
-                  xmlns="http://www.w3.org/2000/svg"
-                  d="M10 12.458Q9.833 12.458 9.677 12.396Q9.521 12.333 9.375 12.188L5.604 8.417Q5.354 8.167 5.375 7.792Q5.396 7.417 5.625 7.188Q5.896 6.917 6.25 6.927Q6.604 6.938 6.854 7.188L10 10.354L13.167 7.188Q13.417 6.938 13.76 6.938Q14.104 6.938 14.375 7.208Q14.625 7.458 14.625 7.823Q14.625 8.188 14.375 8.438L10.625 12.188Q10.479 12.333 10.323 12.396Q10.167 12.458 10 12.458Z"
-                />
-              </svg>
-            </div>
-          </div>
           <div class="selector-dropdown current-options">
             <div
               class="select"
@@ -111,19 +43,69 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="cell-demo-panel">
           <div
-            class="cell-box"
-            :style="{
-              'border-top': getBorderTopStyle,
-              'border-left': getBorderLeftStyle,
-              'border-bottom': getBorderBottomStyle,
-              'border-right': getBorderRightStyle,
-              'background-color': computedBackgroundColor
-            }"
+              class="none-background"
+            v-if="selected && selected !== 'backgroundColor'"
           >
-            your cell
+            <div class="type-width">
+              <div
+                  class="cell-border-type selector-dropdown "
+              >
+                <div class="border-types-title">
+                  border types :
+                </div>
+                <div
+                    class="select"
+                    style="width: 200px;"
+                >
+                  <select v-model="currentOptions[selected].cellBorderType">
+                    <option
+                        disabled
+                        value=""
+                    >
+                      Please select a type
+                    </option>
+                    <option>none</option>
+                    <option>dotted</option>
+                    <option>dashed</option>
+                    <option>solid</option>
+                    <option>double</option>
+                    <option>groove</option>
+                    <option>ridge</option>
+                    <option>inset</option>
+                    <option>outset</option>
+                    <option>mix</option>
+                  </select>
+                  <svg viewBox="0 0 24 24">
+                    <path
+                        xmlns="http://www.w3.org/2000/svg"
+                        d="M10 12.458Q9.833 12.458 9.677 12.396Q9.521 12.333 9.375 12.188L5.604 8.417Q5.354 8.167 5.375 7.792Q5.396 7.417 5.625 7.188Q5.896 6.917 6.25 6.927Q6.604 6.938 6.854 7.188L10 10.354L13.167 7.188Q13.417 6.938 13.76 6.938Q14.104 6.938 14.375 7.208Q14.625 7.458 14.625 7.823Q14.625 8.188 14.375 8.438L10.625 12.188Q10.479 12.333 10.323 12.396Q10.167 12.458 10 12.458Z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="cell-border-width">
+                <input
+                    v-model="currentOptions[selected].cellBorderWidth"
+                    type="number"
+                >
+                <span v-text="currentOptions[selected].cellBorderWidth" />
+              </div>
+            </div>
+            <div
+              class="border-color-picker"
+            >
+              <sketch-picker v-model="computedBackgroundColor" />
+            </div>
+          </div>
+          <div
+            v-else-if="selected"
+          >
+            <div
+              class="background-color-picker"
+            >
+              <sketch-picker v-model="computedBackgroundColor" />
+            </div>
           </div>
         </div>
       </div>
@@ -165,33 +147,29 @@ export default {
         topBorder: {
           cellBorderWidth: '2',
           cellBorderType:'solid',
-          cellBorderColor:'rgba(114, 114, 114, 1)',
-          none: false
+          cellBorderColor:'rgba(114, 114, 114, 1)'
         },
         rightBorder: {
           cellBorderWidth: '2',
           cellBorderType:'solid',
-          cellBorderColor:'rgba(114, 114, 114, 1)',
-          none: false
+          cellBorderColor:'rgba(114, 114, 114, 1)'
         },
         leftBorder: {
           cellBorderWidth: '2',
           cellBorderType:'solid',
-          cellBorderColor:'rgba(114, 114, 114, 1)',
-          none: false
+          cellBorderColor:'rgba(114, 114, 114, 1)'
         },
         bottomBorder: {
           cellBorderWidth: '2',
           cellBorderType:'solid',
-          cellBorderColor:'rgba(114, 114, 114, 1)',
-          none: false
+          cellBorderColor:'rgba(114, 114, 114, 1)'
         },
         backgroundColor: 'rgba(255, 255, 255, 1)'
       },
       selected: '',
       options: [
         {
-          label: 'Please select one',
+          label: 'Please select a field',
           value: '',
           disabled: true,
           selected: false
@@ -245,28 +223,28 @@ export default {
         const border = this.currentOptions.leftBorder
         return border.cellBorderWidth + 'px ' + border.cellBorderType + ' ' + border.cellBorderColor
       }
-      return ''
+      return 'none'
     },
     getBorderTopStyle () {
       if (!this.currentOptions.topBorder.none) {
         const border = this.currentOptions.topBorder
         return border.cellBorderWidth + 'px ' + border.cellBorderType + ' ' + border.cellBorderColor
       }
-      return ''
+      return 'none'
     },
     getBorderRightStyle () {
       if (!this.currentOptions.rightBorder.none) {
         const border = this.currentOptions.rightBorder
         return border.cellBorderWidth + 'px ' + border.cellBorderType + ' ' + border.cellBorderColor
       }
-      return ''
+      return 'none'
     },
     getBorderBottomStyle () {
       if (!this.currentOptions.bottomBorder.none) {
         const border = this.currentOptions.bottomBorder
         return border.cellBorderWidth + 'px ' + border.cellBorderType + ' ' + border.cellBorderColor
       }
-      return ''
+      return 'none'
     },
     computedBackgroundColor: {
       get () {
@@ -316,17 +294,39 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
   .edit-box {
-
+    .none-background {
+      //display: flex;
+      //justify-content: center;
+      //align-items: center;
+      //
+    }
+    .current-options {
+      margin-bottom: 14px;
+    }
+    .cell-border-type {
+      .border-types-title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 28px;
+      }
+      margin-bottom: 14px;
+    }
   }
   .cell-demo-panel {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 374px;
-    height: 412px;
+    width: 100%;
+    height: 168px;
+    scroll-behavior: auto;
+    overflow: scroll;
     background-color: #F4F5F6;
+    margin-bottom: 14px;
+    border-radius: 10px;
     .cell-box {
       width: 120px;
       height: 30px;
