@@ -52,10 +52,12 @@ import TiptapInteractivePoem from './components/poem/extension';
 import TiptapInteractiveReading from './components/reading/extension';
 import mesra from './components/poem/baitExtension'
 import cell from './components/table/cellExtension'
+import TiptapInteractiveTable from './components/table/tableExtension'
 import StarterKit from '@tiptap/starter-kit'
 import Table from '@tiptap/extension-table'
+import TableCell from 'vue-tiptap-katex-core/extension/table'
 import TableRow from '@tiptap/extension-table-row'
-import TableCell from '@tiptap/extension-table-cell'
+// import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TextAlign from '@tiptap/extension-text-align'
 import TextDirection from 'tiptap-text-direction-extension/src';
@@ -157,6 +159,9 @@ export default {
         Underline,
         Table.configure({
           resizable: true,
+          HTMLAttributes: {
+            class: 'tiptap-table',
+          },
         }),
         TableRow,
         TableHeader,
@@ -168,6 +173,7 @@ export default {
         TiptapInteractivePoem,
         mesra,
         cell,
+        TiptapInteractiveTable,
         TiptapInteractiveReading,
         ImageAlign,
         Shortkeys,
@@ -180,7 +186,7 @@ export default {
       editorProps: {
         handleKeyDown: (view, event) => {
           if (event.key === 'Enter' && document.querySelector('.mesra.has-focus')) {
-            console.log(document.querySelector('.mesra.has-focus'))
+            // console.log(document.querySelector('.mesra.has-focus'))
             event.preventDefault()
             this.insertPoem(this.editor, '<tiptap-interactive-poem><mesra></mesra><mesra></mesra></tiptap-interactive-poem>')
             return true
@@ -195,6 +201,31 @@ export default {
     this.editor.destroy()
   },
   methods: {
+    getTableDirection() {
+      let selectedPartOfTable = []
+      let row = []
+      const consoleArray = []
+      let table = cell.parentElement.parentElement
+      for (let i = 0; i < table.children.length; i++) {
+        const tableRow = table.children[i]
+        const cellsOfRow = tableRow.children
+        for (let j = 0; j < cellsOfRow.length; j++) {
+          document.querySelectorAll('.selectedCell').forEach(cell => {
+            if (cell === cellsOfRow[j]) {
+              console.log(row, i)
+              row.push({i, j})
+              consoleArray.push({tableRow, cellsOfRow})
+            }
+          })
+        }
+        if (row.length) {
+          selectedPartOfTable.push(row)
+          row = []
+        }
+      }
+      console.log(selectedPartOfTable)
+      console.log(consoleArray)
+    },
     elementFromString(value) {
       const element = document.createElement('div')
       element.innerHTML = value.trim()
@@ -225,6 +256,7 @@ export default {
 </script>
 
 <style>
+
 .beit {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -280,6 +312,8 @@ export default {
 </style>
 
 <style lang="scss">
+
+
 /* Basic editor styles */
 .ProseMirror {
   /*white-space: normal !important;*/

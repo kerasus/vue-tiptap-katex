@@ -10,7 +10,7 @@
     :style="{
       border: node.attrs.cellBorderWidth + ' ' + node.attrs.cellBorderType + ' ' + node.attrs.cellBorderColor,
       backgroundColor: node.attrs.cellBg,
-      width: node.attrs.cellWidth,
+      width: node.attrs.cellWidth
     }"
   >
     <div>

@@ -15,11 +15,11 @@ export default Node.create({
                 default: '100px',
             },
             cellBg: {
-                default: '#fff'
+                default: '#f00'
             },
             cellBorderVisibility: {
                 default: {
-                    top: true,
+                    top: false,
                     right: true,
                     bottom: true,
                     left: true
@@ -29,10 +29,10 @@ export default Node.create({
                 default: '#000'
             },
             cellBorderType: {
-                default: 'solid'
+                default: 'dashed'
             },
             cellBorderWidth: {
-                default: '1px'
+                default: '10px'
             }
         }
     },
