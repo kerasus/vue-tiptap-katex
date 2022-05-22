@@ -1,6 +1,16 @@
 <template>
   <div :class="{ 'tiptap-plus-container': true }">
     <notifications group="error" />
+    <div class="test">
+      <button @click="showDialog = !showDialog">
+        open modal
+      </button>
+      <edit-table-modal
+        :show-modal="showDialog"
+        @update:showDialog="setShowDialog"
+        @cellBordersUpdated="updateTableStyle"
+      />
+    </div>
     <div class="tiptap-plus">
       <div
         v-if="editor"
@@ -40,6 +50,8 @@
 </template>
 
 <script>
+import EditTableModal from '@/components/EditTableModal';
+
 import toolbar from 'vue-tiptap-katex-core/components/toolbar/toolbar'
 import Focus from '@tiptap/extension-focus'
 import SlotBubbleMenu from 'vue-tiptap-katex-core/components/SlotBubbleMenu'
@@ -92,6 +104,7 @@ export default {
   name: 'VueTiptapKatex',
   mixins: [mixinConvertToHTML, mixinConvertToTiptap],
   components: {
+    EditTableModal,
     EditorContent,
     BubbleMenu,
     FloatingMenu,
@@ -116,6 +129,8 @@ export default {
   data() {
     return {
       editor: null,
+      showDialog: false
+
     }
   },
   computed: {
@@ -201,6 +216,22 @@ export default {
     this.editor.destroy()
   },
   methods: {
+    updateTableStyle (data) {
+      this.editor.commands.setCellAttribute('backgroundColor', data.backgroundColor)
+      this.editor.commands.setCellAttribute('borderBottom', this.convertTableStyleToCss(data.bottomBorder))
+      this.editor.commands.setCellAttribute('borderLeft', this.convertTableStyleToCss(data.leftBorder))
+      this.editor.commands.setCellAttribute('borderRight', this.convertTableStyleToCss(data.rightBorder))
+      this.editor.commands.setCellAttribute('borderTop', this.convertTableStyleToCss(data.topBorder))
+    },
+    convertTableStyleToCss (data) {
+      if (data.cellBorderType === 'none') {
+        return 'none'
+      }
+      return `${data.cellBorderWidth}px ${data.cellBorderType} ${data.cellBorderColor}`
+    },
+    setShowDialog (val){
+      this.showDialog = val
+    },
     getTableDirection() {
       let selectedPartOfTable = []
       let row = []
