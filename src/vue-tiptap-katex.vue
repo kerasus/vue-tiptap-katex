@@ -1,32 +1,43 @@
 <template>
   <div :class="{ 'tiptap-plus-container': true }">
     <notifications group="error" />
+    <div class="test">
+      <edit-table-modal
+        :show-modal="showDialog"
+        @update:showDialog="setShowDialog"
+        @cellBordersUpdated="updateTableStyle"
+      />
+    </div>
     <div class="tiptap-plus">
       <div
-          v-if="editor"
-          class="tiptap-header"
+        v-if="editor"
+        class="tiptap-header"
       >
         <toolbar
-            v-if="editorOptions"
-            ref="toolbar"
-            :editor="editor"
-            :options="editorOptions"
+          v-if="editorOptions"
+          ref="toolbar"
+          :editor="editor"
+          :options="editorOptions"
+          @show-edit-table-modal="showDialog = !showDialog"
         />
       </div>
-      <div class="pa-0" v-if="editor">
+      <div
+        v-if="editor"
+        class="pa-0"
+      >
         <bubble-menu
-            v-if="editorOptions && editorOptions.bubbleMenu"
-            class="bubble-menu"
-            :tippy-options="{ duration: 100, showOnCreate: false }"
-            :editor="editor"
+          v-if="editorOptions && editorOptions.bubbleMenu"
+          class="bubble-menu"
+          :tippy-options="{ duration: 100, showOnCreate: false }"
+          :editor="editor"
         >
           <slot-bubble-menu :editor="editor" />
         </bubble-menu>
         <floating-menu
-            v-if="editorOptions && editorOptions.floatingMenu"
-            class="floating-menu"
-            :tippy-options="{ duration: 100 }"
-            :editor="editor"
+          v-if="editorOptions && editorOptions.floatingMenu"
+          class="floating-menu"
+          :tippy-options="{ duration: 100 }"
+          :editor="editor"
         >
           <slot-floating-menu :editor="editor" />
         </floating-menu>
@@ -37,6 +48,8 @@
 </template>
 
 <script>
+import EditTableModal from '@/components/EditTableModal';
+
 import toolbar from 'vue-tiptap-katex-core/components/toolbar/toolbar'
 import Focus from '@tiptap/extension-focus'
 import SlotBubbleMenu from 'vue-tiptap-katex-core/components/SlotBubbleMenu'
@@ -48,11 +61,15 @@ import TiptapInteractiveImageUploadInline from './components/ImageUpload/extensi
 import TiptapInteractivePoem from './components/poem/extension';
 import TiptapInteractiveReading from './components/reading/extension';
 import mesra from './components/poem/baitExtension'
+import cell from './components/table/cellExtension'
+import TiptapInteractiveTable from './components/table/tableExtension'
 import StarterKit from '@tiptap/starter-kit'
 import Table from '@tiptap/extension-table'
+import TableCell from 'vue-tiptap-katex-core/extension/table'
+// import TableRow from 'vue-tiptap-katex-core/extension/tableRow'
 import TableRow from '@tiptap/extension-table-row'
-import TableCell from '@tiptap/extension-table-cell'
-import TableHeader from '@tiptap/extension-table-header'
+// import TableCell from '@tiptap/extension-table-cell'
+// import TableHeader from '@tiptap/extension-table-header'
 import TextAlign from '@tiptap/extension-text-align'
 import TextDirection from 'tiptap-text-direction-extension/src';
 import Highlight from '@tiptap/extension-highlight'
@@ -86,6 +103,7 @@ export default {
   name: 'VueTiptapKatex',
   mixins: [mixinConvertToHTML, mixinConvertToTiptap],
   components: {
+    EditTableModal,
     EditorContent,
     BubbleMenu,
     FloatingMenu,
@@ -110,6 +128,8 @@ export default {
   data() {
     return {
       editor: null,
+      showDialog: false
+
     }
   },
   computed: {
@@ -153,9 +173,18 @@ export default {
         Underline,
         Table.configure({
           resizable: true,
+          HTMLAttributes: {
+            class: 'tiptap-table',
+            style: 'border-collapse: collapse !important'
+          },
         }),
-        TableRow,
-        TableHeader,
+          TableRow.extend({
+            content: 'tableCell*',
+          }),
+        // TableRow.extend({
+        //   content: 'tableCell*',
+        // }),
+        // TableHeader,
         TableCell,
         TiptapInteractiveKatex,
         TiptapInteractiveKatexInline,
@@ -163,6 +192,8 @@ export default {
         TiptapInteractiveImageUploadInline,
         TiptapInteractivePoem,
         mesra,
+        cell,
+        TiptapInteractiveTable,
         TiptapInteractiveReading,
         ImageAlign,
         Shortkeys,
@@ -175,7 +206,7 @@ export default {
       editorProps: {
         handleKeyDown: (view, event) => {
           if (event.key === 'Enter' && document.querySelector('.mesra.has-focus')) {
-            console.log(document.querySelector('.mesra.has-focus'))
+            // console.log(document.querySelector('.mesra.has-focus'))
             event.preventDefault()
             this.insertPoem(this.editor, '<tiptap-interactive-poem><mesra></mesra><mesra></mesra></tiptap-interactive-poem>')
             return true
@@ -190,6 +221,48 @@ export default {
     this.editor.destroy()
   },
   methods: {
+    updateTableStyle (data) {
+      console.log('data', data)
+      this.editor.commands.setCellAttribute('backgroundColor', data.background.color)
+      this.editor.commands.setCellAttribute('borderBottom', this.convertTableStyleToCss(data.bottom))
+      this.editor.commands.setCellAttribute('borderLeft', this.convertTableStyleToCss(data.left))
+      this.editor.commands.setCellAttribute('borderRight', this.convertTableStyleToCss(data.right))
+      this.editor.commands.setCellAttribute('borderTop', this.convertTableStyleToCss(data.top))
+    },
+    convertTableStyleToCss (data) {
+      if (data.cellBorderType === 'none') {
+        return 'none'
+      }
+      return `${data.cellBorderWidth}px ${data.cellBorderType} ${data.color}`
+    },
+    setShowDialog (val){
+      this.showDialog = val
+    },
+    getTableDirection() {
+      let selectedPartOfTable = []
+      let row = []
+      const consoleArray = []
+      let table = cell.parentElement.parentElement
+      for (let i = 0; i < table.children.length; i++) {
+        const tableRow = table.children[i]
+        const cellsOfRow = tableRow.children
+        for (let j = 0; j < cellsOfRow.length; j++) {
+          document.querySelectorAll('.selectedCell').forEach(cell => {
+            if (cell === cellsOfRow[j]) {
+              console.log(row, i)
+              row.push({i, j})
+              consoleArray.push({tableRow, cellsOfRow})
+            }
+          })
+        }
+        if (row.length) {
+          selectedPartOfTable.push(row)
+          row = []
+        }
+      }
+      console.log(selectedPartOfTable)
+      console.log(consoleArray)
+    },
     elementFromString(value) {
       const element = document.createElement('div')
       element.innerHTML = value.trim()
@@ -220,6 +293,7 @@ export default {
 </script>
 
 <style>
+
 .beit {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -275,6 +349,8 @@ export default {
 </style>
 
 <style lang="scss">
+
+
 /* Basic editor styles */
 .ProseMirror {
   /*white-space: normal !important;*/

@@ -12,6 +12,7 @@
   },
   "main": "index.js",
   "dependencies": {
+    "@kouts/vue-modal": "^2.1.7",
     "@mdi/font": "^5.8.55",
     "@tiptap/core": "^2.0.0-beta.174",
     "@tiptap/extension-document": "^2.0.0-beta.15",
@@ -48,6 +49,7 @@
     "ts-jest": "^27.1.3",
     "turndown": "^7.0.0",
     "vue": "^2.6.11",
+    "vue-color": "^2.8.1",
     "vue-drag-resize": "^1.5.4",
     "vue-filepond": "^6.0.3",
     "vue-notification": "^1.3.20",
