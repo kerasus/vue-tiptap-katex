@@ -2,9 +2,6 @@
   <div :class="{ 'tiptap-plus-container': true }">
     <notifications group="error" />
     <div class="test">
-      <button @click="showDialog = !showDialog">
-        open modal
-      </button>
       <edit-table-modal
         :show-modal="showDialog"
         @update:showDialog="setShowDialog"
@@ -21,6 +18,7 @@
           ref="toolbar"
           :editor="editor"
           :options="editorOptions"
+          @show-edit-table-modal="showDialog = !showDialog"
         />
       </div>
       <div
@@ -68,9 +66,10 @@ import TiptapInteractiveTable from './components/table/tableExtension'
 import StarterKit from '@tiptap/starter-kit'
 import Table from '@tiptap/extension-table'
 import TableCell from 'vue-tiptap-katex-core/extension/table'
+// import TableRow from 'vue-tiptap-katex-core/extension/tableRow'
 import TableRow from '@tiptap/extension-table-row'
 // import TableCell from '@tiptap/extension-table-cell'
-import TableHeader from '@tiptap/extension-table-header'
+// import TableHeader from '@tiptap/extension-table-header'
 import TextAlign from '@tiptap/extension-text-align'
 import TextDirection from 'tiptap-text-direction-extension/src';
 import Highlight from '@tiptap/extension-highlight'
@@ -176,10 +175,16 @@ export default {
           resizable: true,
           HTMLAttributes: {
             class: 'tiptap-table',
+            style: 'border-collapse: collapse !important'
           },
         }),
-        TableRow,
-        TableHeader,
+          TableRow.extend({
+            content: 'tableCell*',
+          }),
+        // TableRow.extend({
+        //   content: 'tableCell*',
+        // }),
+        // TableHeader,
         TableCell,
         TiptapInteractiveKatex,
         TiptapInteractiveKatexInline,
@@ -217,17 +222,18 @@ export default {
   },
   methods: {
     updateTableStyle (data) {
-      this.editor.commands.setCellAttribute('backgroundColor', data.backgroundColor)
-      this.editor.commands.setCellAttribute('borderBottom', this.convertTableStyleToCss(data.bottomBorder))
-      this.editor.commands.setCellAttribute('borderLeft', this.convertTableStyleToCss(data.leftBorder))
-      this.editor.commands.setCellAttribute('borderRight', this.convertTableStyleToCss(data.rightBorder))
-      this.editor.commands.setCellAttribute('borderTop', this.convertTableStyleToCss(data.topBorder))
+      console.log('data', data)
+      this.editor.commands.setCellAttribute('backgroundColor', data.background.color)
+      this.editor.commands.setCellAttribute('borderBottom', this.convertTableStyleToCss(data.bottom))
+      this.editor.commands.setCellAttribute('borderLeft', this.convertTableStyleToCss(data.left))
+      this.editor.commands.setCellAttribute('borderRight', this.convertTableStyleToCss(data.right))
+      this.editor.commands.setCellAttribute('borderTop', this.convertTableStyleToCss(data.top))
     },
     convertTableStyleToCss (data) {
       if (data.cellBorderType === 'none') {
         return 'none'
       }
-      return `${data.cellBorderWidth}px ${data.cellBorderType} ${data.cellBorderColor}`
+      return `${data.cellBorderWidth}px ${data.cellBorderType} ${data.color}`
     },
     setShowDialog (val){
       this.showDialog = val
