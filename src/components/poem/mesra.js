@@ -12,13 +12,14 @@ export default Node.create({
     parseHTML() {
         return [
             {
-                tag: 'mesra',
+                tag: 'div',
+                getAttrs: element => element.getAttribute('class') === 'mesra'
             },
         ]
     },
 
-    renderHTML({ HTMLAttributes }) {
-        return ['mesra', mergeAttributes(HTMLAttributes), 0]
+    renderHTML() {
+        return ['div', { class: 'mesra' }, 0]
     },
 
     addNodeView() {

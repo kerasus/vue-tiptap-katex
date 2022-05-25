@@ -49,37 +49,30 @@
 
 <script>
 import EditTableModal from '@/components/EditTableModal';
-
 import toolbar from 'vue-tiptap-katex-core/components/toolbar/toolbar'
 import Focus from '@tiptap/extension-focus'
 import SlotBubbleMenu from 'vue-tiptap-katex-core/components/SlotBubbleMenu'
 import SlotFloatingMenu from 'vue-tiptap-katex-core/components/SlotFloatingMenu'
 import TiptapInteractiveKatex from './components/formula/extention'
 import TiptapInteractiveKatexInline from './components/formula/entensionInline'
-import TiptapInteractiveImageUpload from './components/ImageUpload/extension';
 import TiptapInteractiveImageUploadInline from './components/ImageUpload/extensionInline';
-import TiptapInteractivePoem from './components/poem/extension';
+import TiptapInteractivePoem from './components/poem/beit';
 import TiptapInteractiveReading from './components/reading/extension';
-import mesra from './components/poem/baitExtension'
+import mesra from './components/poem/mesra'
 import cell from './components/table/cellExtension'
 import TiptapInteractiveTable from './components/table/tableExtension'
 import StarterKit from '@tiptap/starter-kit'
 import Table from '@tiptap/extension-table'
 import TableCell from 'vue-tiptap-katex-core/extension/table'
-// import TableRow from 'vue-tiptap-katex-core/extension/tableRow'
 import TableRow from '@tiptap/extension-table-row'
-// import TableCell from '@tiptap/extension-table-cell'
-// import TableHeader from '@tiptap/extension-table-header'
-import TextAlign from '@tiptap/extension-text-align'
+import TextAlign from 'vue-tiptap-katex-core/extension/TextAlign/TextAlign'
 import TextDirection from 'tiptap-text-direction-extension/src';
 import Highlight from '@tiptap/extension-highlight'
 import Underline from '@tiptap/extension-underline'
-import ImageAlign from 'vue-tiptap-katex-core/extension/ImageAlign/ImageAlign'
 import Shortkeys from 'vue-tiptap-katex-core/extension/Shortkeys/TiptapShortkeys';
 import {DOMParser} from 'prosemirror-model';
 // import Focus from '@tiptap/extension-focus'
 import ThinSpace from 'vue-tiptap-katex-core/extension/ThinSpace/ThinSpace';
-// import Paper from './Drawing/Paper.js'
 
 import Vue from 'vue'
 import Notifications from 'vue-notification'
@@ -93,15 +86,11 @@ import {
   FloatingMenu
 } from '@tiptap/vue-2'
 
-import mixinConvertToHTML from 'vue-tiptap-katex-core/mixins/convertToHTML';
 import mixinConvertToTiptap from 'vue-tiptap-katex-core/mixins/convertToTiptap';
-// import {EditorView} from "prosemirror-view";
-// import {EditorState} from "prosemirror-state";
-// import {posToDOMRect} from "@tiptap/core";
 
 export default {
   name: 'VueTiptapKatex',
-  mixins: [mixinConvertToHTML, mixinConvertToTiptap],
+  mixins: [mixinConvertToTiptap],
   components: {
     EditTableModal,
     EditorContent,
@@ -123,13 +112,17 @@ export default {
       default () {
         return {}
       }
+    },
+    value: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data() {
     return {
       editor: null,
       showDialog: false
-
     }
   },
   computed: {
@@ -148,9 +141,13 @@ export default {
       return options
     }
   },
+  created () {
+    this.$emit('input', this.convertToTiptap(this.value))
+  },
   mounted() {
+    let vueTiptapKatexInstance = this
     this.editor = new Editor({
-      content: this.value,
+      content: this.convertToTiptap(this.value),
       parseOptions: {
         preserveWhitespace: true
       },
@@ -165,7 +162,7 @@ export default {
           }
         }),
         TextAlign.configure({
-          types: ['heading', 'paragraph', 'TiptapInteractiveImageUpload', 'TiptapInteractiveReading'],
+          types: ['heading', 'paragraph'],
           defaultAlignment: ''
         }),
         TextDirection,
@@ -178,37 +175,31 @@ export default {
             style: 'border-collapse: collapse !important'
           },
         }),
-          TableRow.extend({
-            content: 'tableCell*',
-          }),
-        // TableRow.extend({
-        //   content: 'tableCell*',
-        // }),
-        // TableHeader,
+        TableRow.extend({
+          content: 'tableCell*',
+        }),
         TableCell,
         TiptapInteractiveKatex,
         TiptapInteractiveKatexInline,
-        TiptapInteractiveImageUpload,
         TiptapInteractiveImageUploadInline,
         TiptapInteractivePoem,
         mesra,
         cell,
         TiptapInteractiveTable,
         TiptapInteractiveReading,
-        ImageAlign,
         Shortkeys,
         ThinSpace
       ],
       // triggered on every change
-      onUpdate() {
-
+      onUpdate({ editor }) {
+        vueTiptapKatexInstance.$emit('input', editor.getHTML())
       },
       editorProps: {
         handleKeyDown: (view, event) => {
           if (event.key === 'Enter' && document.querySelector('.mesra.has-focus')) {
             // console.log(document.querySelector('.mesra.has-focus'))
             event.preventDefault()
-            this.insertPoem(this.editor, '<tiptap-interactive-poem><mesra></mesra><mesra></mesra></tiptap-interactive-poem>')
+            this.insertPoem(this.editor, '<div class="beit"><div class="mesra"></div><div class="mesra"></div></div>')
             return true
           }
           return false
@@ -222,7 +213,6 @@ export default {
   },
   methods: {
     updateTableStyle (data) {
-      console.log('data', data)
       this.editor.commands.setCellAttribute('backgroundColor', data.background.color)
       this.editor.commands.setCellAttribute('borderBottom', this.convertTableStyleToCss(data.bottom))
       this.editor.commands.setCellAttribute('borderLeft', this.convertTableStyleToCss(data.left))
@@ -272,22 +262,11 @@ export default {
     insertPoem({ state, view }, value) {
       const element = this.elementFromString(value)
       const slice = DOMParser.fromSchema(state.schema).parseSlice(element)
-
       const { tr } = state;
       let trx = tr;
-
-      // trx = trx.insertText('',state.doc.content.size,state.doc.content.size + 1)
-
       trx = trx.insert(state.doc.content.size, slice.content)
       view.dispatch(trx)
-    },
-    setContent(pureHTML) {
-      let string = this.convertToTiptap(pureHTML)
-      this.editor.commands.setContent(string)
-    },
-    getContent() {
-      return this.convertToPureHTML(this.editor.getHTML())
-    },
+    }
   },
 }
 </script>
