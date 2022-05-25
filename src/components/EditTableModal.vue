@@ -23,28 +23,28 @@
           <div class="selector-ui">
             <div
               class="border-top-selector selector"
-              @click="selectBorder('top')"
               :class="{ 'selected': isSelected('top') }"
+              @click="selectBorder('top')"
             />
             <div
               class="border-right-selector selector"
-              @click="selectBorder('right')"
               :class="{ 'selected': isSelected('right') }"
+              @click="selectBorder('right')"
             />
             <div
               class="border-left-selector selector"
-              @click="selectBorder('left')"
               :class="{ 'selected': isSelected('left') }"
+              @click="selectBorder('left')"
             />
             <div
               class="border-bottom-selector selector"
-              @click="selectBorder('bottom')"
               :class="{ 'selected': isSelected('bottom') }"
+              @click="selectBorder('bottom')"
             />
             <div
               class="background-selector selector"
-              @click="selectBackground"
               :class="{ 'selected': isSelected('background') }"
+              @click="selectBackground"
             />
           </div>
           <div
@@ -62,23 +62,76 @@
                   class="select"
                   style="width: 200px;"
                 >
-                  <select :value="currentOptions[selected[0]].cellBorderType" @input="changeAttribute($event, 'cellBorderType')">
+                  <select
+                    :value="currentOptions[selected[0]].cellBorderType"
+                    @input="changeAttribute($event, 'cellBorderType')"
+                  >
                     <option
                       disabled
                       value=""
                     >
                       Please select a type
                     </option>
-                    <option @click="changeAttribute({data: 'none'}, 'cellBorderType')" value="none">none</option>
-                    <option @click="changeAttribute({data: 'dotted'}, 'cellBorderType')" value="dotted">dotted</option>
-                    <option @click="changeAttribute({data: 'dashed'}, 'cellBorderType')" value="dashed">dashed</option>
-                    <option @click="changeAttribute({data: 'solid'}, 'cellBorderType')" value="solid">solid</option>
-                    <option @click="changeAttribute({data: 'double'}, 'cellBorderType')" value="double">double</option>
-                    <option @click="changeAttribute({data: 'groove'}, 'cellBorderType')" value="groove">groove</option>
-                    <option @click="changeAttribute({data: 'ridge'}, 'cellBorderType')" value="ridge">ridge</option>
-                    <option @click="changeAttribute({data: 'inset'}, 'cellBorderType')" value="inset">inset</option>
-                    <option @click="changeAttribute({data: 'outset'}, 'cellBorderType')" value="outset">outset</option>
-                    <option @click="changeAttribute({data: 'mix'}, 'cellBorderType')" value="mix">mix</option>
+                    <option
+                      value="none"
+                      @click="changeAttribute({data: 'none'}, 'cellBorderType')"
+                    >
+                      none
+                    </option>
+                    <option
+                      value="dotted"
+                      @click="changeAttribute({data: 'dotted'}, 'cellBorderType')"
+                    >
+                      dotted
+                    </option>
+                    <option
+                      value="dashed"
+                      @click="changeAttribute({data: 'dashed'}, 'cellBorderType')"
+                    >
+                      dashed
+                    </option>
+                    <option
+                      value="solid"
+                      @click="changeAttribute({data: 'solid'}, 'cellBorderType')"
+                    >
+                      solid
+                    </option>
+                    <option
+                      value="double"
+                      @click="changeAttribute({data: 'double'}, 'cellBorderType')"
+                    >
+                      double
+                    </option>
+                    <option
+                      value="groove"
+                      @click="changeAttribute({data: 'groove'}, 'cellBorderType')"
+                    >
+                      groove
+                    </option>
+                    <option
+                      value="ridge"
+                      @click="changeAttribute({data: 'ridge'}, 'cellBorderType')"
+                    >
+                      ridge
+                    </option>
+                    <option
+                      value="inset"
+                      @click="changeAttribute({data: 'inset'}, 'cellBorderType')"
+                    >
+                      inset
+                    </option>
+                    <option
+                      value="outset"
+                      @click="changeAttribute({data: 'outset'}, 'cellBorderType')"
+                    >
+                      outset
+                    </option>
+                    <option
+                      value="mix"
+                      @click="changeAttribute({data: 'mix'}, 'cellBorderType')"
+                    >
+                      mix
+                    </option>
                   </select>
                   <svg viewBox="0 0 24 24">
                     <path
@@ -91,15 +144,18 @@
               <div class="cell-border-width">
                 <input
                   :value="currentOptions[selected[0]].cellBorderWidth"
-                  @input="changeAttribute($event, 'cellBorderWidth')"
                   type="number"
+                  @input="changeAttribute($event, 'cellBorderWidth')"
                 >
               </div>
             </div>
             <div
               class="border-color-picker"
             >
-              <sketch-picker :value="currentOptions[selected[0]].color" @input="changeAttribute($event, 'color')" />
+              <sketch-picker
+                :value="currentOptions[selected[0]].color"
+                @input="changeAttribute($event, 'color')"
+              />
             </div>
           </div>
           <div
@@ -109,7 +165,10 @@
             <div
               class="background-color-picker"
             >
-              <sketch-picker :value="currentOptions.background" @input="changeAttribute($event, 'color')" />
+              <sketch-picker
+                :value="currentOptions.background"
+                @input="changeAttribute($event, 'color')"
+              />
             </div>
           </div>
         </div>

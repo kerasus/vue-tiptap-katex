@@ -1,4 +1,4 @@
-import { Node, mergeAttributes } from '@tiptap/core'
+import { Node } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-2'
 import TiptapInteractiveKatex from './TiptapInteractiveKatex'
 

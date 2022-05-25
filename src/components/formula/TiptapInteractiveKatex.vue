@@ -1,31 +1,29 @@
 <template>
   <node-view-wrapper
-      :class="{ 'vue-component': true, 'inline': node.attrs.inline }"
-      data-drag-handle
+    :class="{ 'vue-component': true, 'inline': node.attrs.inline }"
+    data-drag-handle
   >
     <div
-        v-if="editMode"
-        id="mathfield"
-        ref="mathfield"
-        dir="ltr"
-        locale="fa"
-        :class="{ 'editable': editMode }"
+      v-if="editMode"
+      id="mathfield"
+      ref="mathfield"
+      dir="ltr"
+      locale="fa"
+      :class="{ 'editable': editMode }"
     />
     <div
-        v-if="!editMode"
-        class="converted"
-        dir="ltr"
-        @click="editMode = true"
-        v-html="computedKatex"
+      v-if="!editMode"
+      class="converted"
+      dir="ltr"
+      @click="editMode = true"
+      v-html="computedKatex"
     />
     <div
-        v-if="editMode"
-        icon
-        color="green"
-        @click="toggleEdit"
+      v-if="editMode"
+      @click="toggleEdit"
     >
       <span
-          class="mdi mdi-check"
+        class="mdi mdi-check"
       />
     </div>
   </node-view-wrapper>
@@ -35,7 +33,7 @@
 import MixinComponentFormula from 'vue-tiptap-katex-core/components/formula/mixin'
 
 import 'katex/dist/katex.min.css'
-import {NodeViewWrapper, nodeViewProps} from '@tiptap/vue-2'
+import {NodeViewWrapper} from '@tiptap/vue-2'
 import '@mdi/font/css/materialdesignicons.css'
 
 

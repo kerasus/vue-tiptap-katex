@@ -53,14 +53,11 @@ import toolbar from 'vue-tiptap-katex-core/components/toolbar/toolbar'
 import Focus from '@tiptap/extension-focus'
 import SlotBubbleMenu from 'vue-tiptap-katex-core/components/SlotBubbleMenu'
 import SlotFloatingMenu from 'vue-tiptap-katex-core/components/SlotFloatingMenu'
-import TiptapInteractiveKatex from './components/formula/extention'
 import TiptapInteractiveKatexInline from './components/formula/entensionInline'
 import TiptapInteractiveImageUploadInline from './components/ImageUpload/extensionInline';
 import TiptapInteractivePoem from './components/poem/beit';
 import TiptapInteractiveReading from './components/reading/extension';
 import mesra from './components/poem/mesra'
-import cell from './components/table/cellExtension'
-import TiptapInteractiveTable from './components/table/tableExtension'
 import StarterKit from '@tiptap/starter-kit'
 import Table from '@tiptap/extension-table'
 import TableCell from 'vue-tiptap-katex-core/extension/table'
@@ -179,13 +176,10 @@ export default {
           content: 'tableCell*',
         }),
         TableCell,
-        TiptapInteractiveKatex,
         TiptapInteractiveKatexInline,
         TiptapInteractiveImageUploadInline,
         TiptapInteractivePoem,
         mesra,
-        cell,
-        TiptapInteractiveTable,
         TiptapInteractiveReading,
         Shortkeys,
         ThinSpace
@@ -229,29 +223,29 @@ export default {
       this.showDialog = val
     },
     getTableDirection() {
-      let selectedPartOfTable = []
-      let row = []
-      const consoleArray = []
-      let table = cell.parentElement.parentElement
-      for (let i = 0; i < table.children.length; i++) {
-        const tableRow = table.children[i]
-        const cellsOfRow = tableRow.children
-        for (let j = 0; j < cellsOfRow.length; j++) {
-          document.querySelectorAll('.selectedCell').forEach(cell => {
-            if (cell === cellsOfRow[j]) {
-              console.log(row, i)
-              row.push({i, j})
-              consoleArray.push({tableRow, cellsOfRow})
-            }
-          })
-        }
-        if (row.length) {
-          selectedPartOfTable.push(row)
-          row = []
-        }
-      }
-      console.log(selectedPartOfTable)
-      console.log(consoleArray)
+      // let selectedPartOfTable = []
+      // let row = []
+      // const consoleArray = []
+      // let table = cell.parentElement.parentElement
+      // for (let i = 0; i < table.children.length; i++) {
+      //   const tableRow = table.children[i]
+      //   const cellsOfRow = tableRow.children
+      //   for (let j = 0; j < cellsOfRow.length; j++) {
+      //     document.querySelectorAll('.selectedCell').forEach(cell => {
+      //       if (cell === cellsOfRow[j]) {
+      //         console.log(row, i)
+      //         row.push({i, j})
+      //         consoleArray.push({tableRow, cellsOfRow})
+      //       }
+      //     })
+      //   }
+      //   if (row.length) {
+      //     selectedPartOfTable.push(row)
+      //     row = []
+      //   }
+      // }
+      // console.log(selectedPartOfTable)
+      // console.log(consoleArray)
     },
     elementFromString(value) {
       const element = document.createElement('div')
