@@ -53,7 +53,7 @@
     "vue-drag-resize": "^1.5.4",
     "vue-filepond": "^6.0.3",
     "vue-notification": "^1.3.20",
-    "vue-tiptap-katex-core": "^1.0.21",
+    "vue-tiptap-katex-core": "^1.0.23",
     "vue-upload-component": "^2.8.22",
     "vuetify": "^2.5.3",
     "webpack": "<=4"

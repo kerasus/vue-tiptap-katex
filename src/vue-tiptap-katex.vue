@@ -62,7 +62,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Table from '@tiptap/extension-table'
 import TableCell from 'vue-tiptap-katex-core/extension/table'
 import TableRow from '@tiptap/extension-table-row'
-import TextAlign from 'vue-tiptap-katex-core/extension/TextAlign/TextAlign'
+import TextAlign from '@tiptap/extension-text-align'
 import TextDirection from 'tiptap-text-direction-extension/src';
 import Highlight from '@tiptap/extension-highlight'
 import Underline from '@tiptap/extension-underline'
@@ -260,7 +260,14 @@ export default {
       let trx = tr;
       trx = trx.insert(state.doc.content.size, slice.content)
       view.dispatch(trx)
-    }
+    },
+    setContent(pureHTML) {
+      let string = this.convertToTiptap(pureHTML)
+      this.editor.commands.setContent(string)
+    },
+    getContent() {
+      return this.editor.getHTML()
+    },
   },
 }
 </script>
