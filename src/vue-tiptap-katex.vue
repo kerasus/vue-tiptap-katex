@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import EditTableModal from '@/components/EditTableModal';
+import EditTableModal from './components/EditTableModal';
 import toolbar from 'vue-tiptap-katex-core/components/toolbar/toolbar'
 import Focus from '@tiptap/extension-focus'
 import SlotBubbleMenu from 'vue-tiptap-katex-core/components/SlotBubbleMenu'
