@@ -1,6 +1,6 @@
 import { Node } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-2'
-import mesra from './mesra';
+import mesra from './mesra.vue';
 
 export default Node.create({
     name: 'mesra',

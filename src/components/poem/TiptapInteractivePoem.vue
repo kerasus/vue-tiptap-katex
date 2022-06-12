@@ -13,7 +13,7 @@
 <script>
 
 import {NodeViewWrapper, NodeViewContent } from '@tiptap/vue-2'
-import MixinComponentPoem from 'vue-tiptap-katex-core/components/poem/mixin'
+import MixinComponentPoem from 'vue-tiptap-katex-core/components/poem/mixin.js'
 
 export default {
   name: 'TiptapInteractivePoem',
