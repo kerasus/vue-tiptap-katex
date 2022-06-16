@@ -1,35 +1,38 @@
 <template>
   <node-view-wrapper
-      :class="{ 'vue-component': true, 'inline': node.attrs.inline, 'uploading': !node.attrs.url }"
-      data-drag-handle
+    :class="{ 'vue-component': true, 'inline': true, 'uploading': !node.attrs.url }"
+    data-drag-handle
   >
     <file-pond
-        v-if="!node.attrs.url"
-        :instant-upload="editor.editorOptions.uploadServer ? editor.editorOptions.uploadServer.instantUpload : false"
-        :style="{ maxWidth: '600px', margin: '0 auto' }"
-        name="file"
-        label-idle="Drop files here..."
-        accepted-file-types="image/jpeg, image/png"
-        chunk-uploads="true"
-        :server="editor.editorOptions.uploadServer"
-        :files="files"
-        @processfile="onFileUpload"
+      v-if="!node.attrs.url"
+      :instant-upload="editor.editorOptions.uploadServer ? editor.editorOptions.uploadServer.instantUpload : false"
+      :style="{ maxWidth: '600px', margin: '0 auto' }"
+      name="file"
+      label-idle="Drop files here..."
+      accepted-file-types="image/jpeg, image/png"
+      chunk-uploads="true"
+      :server="editor.editorOptions.uploadServer"
+      :files="files"
+      @processfile="onFileUpload"
     />
     <div
-        v-else-if="naturalHeight && naturalWidth"
-        class="resizer-container"
-        :style="{ height: node.attrs.height + 'px', width: node.attrs.width + 'px', marginBottom: node.attrs.vertical + 'px', marginTop: -1 * node.attrs.vertical + 'px' }"
+      v-else-if="naturalHeight && naturalWidth"
+      class="resizer-container"
+      :style="{ height: node.attrs.height + 'px', width: node.attrs.width + 'px', marginBottom: node.attrs.vertical + 'px', marginTop: -1 * node.attrs.vertical + 'px' }"
     >
-      <span class="mdi mdi-drag" :style="{ top: node.attrs.vertical + 'px', height: node.attrs.height + 'px' }" />
+      <span
+        class="mdi mdi-drag"
+        :style="{ top: node.attrs.vertical + 'px', height: node.attrs.height + 'px' }"
+      />
       <vue-drag-resize
-          :w="naturalWidth"
-          :h="naturalHeight"
-          :aspect-ratio="true"
-          :sticks="['br']"
-          :y="node.attrs.vertical"
-          axis="y"
-          @resizestop="resizeEnd"
-          @dragstop="dragEnd"
+        :w="naturalWidth"
+        :h="naturalHeight"
+        :aspect-ratio="true"
+        :sticks="['br']"
+        :y="node.attrs.vertical"
+        axis="y"
+        @resizestop="resizeEnd"
+        @dragstop="dragEnd"
       >
         <img :src="node.attrs.url">
       </vue-drag-resize>
@@ -50,7 +53,7 @@ const FilePond = vueFilePond(
 );
 
 import VueDragResize from 'vue-drag-resize'
-import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-2'
+import { NodeViewWrapper } from '@tiptap/vue-2'
 import MixinComponentImageUpload from 'vue-tiptap-katex-core/components/ImageUpload/mixin'
 
 
@@ -62,7 +65,6 @@ export default {
     VueDragResize
   },
   props: {
-    nodeViewProps,
     node: {
       type: Object,
       required: true

@@ -1,6 +1,6 @@
-import { Node, mergeAttributes } from '@tiptap/core'
+import { Node } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-2'
-import mesra from './mesra';
+import mesra from './mesra.vue';
 
 export default Node.create({
     name: 'mesra',
@@ -12,13 +12,14 @@ export default Node.create({
     parseHTML() {
         return [
             {
-                tag: 'mesra',
+                tag: 'div',
+                getAttrs: element => element.getAttribute('class') === 'mesra'
             },
         ]
     },
 
-    renderHTML({ HTMLAttributes }) {
-        return ['mesra', mergeAttributes(HTMLAttributes), 0]
+    renderHTML() {
+        return ['div', { class: 'mesra' }, 0]
     },
 
     addNodeView() {

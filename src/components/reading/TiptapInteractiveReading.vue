@@ -1,15 +1,26 @@
 <template>
-  <node-view-wrapper class="vue-component ma-4" data-drag-handle>
-    <span class="label" contenteditable="false">Not shown in konkoor view</span>
+  <node-view-wrapper
+    class="vue-component ma-4"
+    data-drag-handle
+  >
+    <span
+      class="label"
+      contenteditable="false"
+    >
+      Not shown in konkoor view
+    </span>
     <div>
-      <node-view-content class="content" dir="auto" />
+      <node-view-content
+        class="content"
+        dir="auto"
+      />
     </div>
   </node-view-wrapper>
 </template>
 
 <script>
 
-    import {NodeViewWrapper, NodeViewContent, nodeViewProps} from '@tiptap/vue-2'
+    import {NodeViewWrapper, NodeViewContent } from '@tiptap/vue-2'
     import MixinComponentReading from 'vue-tiptap-katex-core/components/reading/mixin'
 
     export default {

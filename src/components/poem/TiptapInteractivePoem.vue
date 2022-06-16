@@ -1,13 +1,19 @@
 <template>
-  <node-view-wrapper class="poem ma-4" data-drag-handle>
-    <node-view-content class="content" dir="auto" />
+  <node-view-wrapper
+    class="poem ma-4"
+    data-drag-handle
+  >
+    <node-view-content
+      class="content"
+      dir="auto"
+    />
   </node-view-wrapper>
 </template>
 
 <script>
 
-import {NodeViewWrapper, NodeViewContent, nodeViewProps} from '@tiptap/vue-2'
-import MixinComponentPoem from 'vue-tiptap-katex-core/components/poem/mixin'
+import {NodeViewWrapper, NodeViewContent } from '@tiptap/vue-2'
+import MixinComponentPoem from 'vue-tiptap-katex-core/components/poem/mixin.js'
 
 export default {
   name: 'TiptapInteractivePoem',

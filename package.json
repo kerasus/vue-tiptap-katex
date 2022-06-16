@@ -1,6 +1,6 @@
 {
   "name": "vue-tiptap-katex",
-  "version": "2.3.15",
+  "version": "2.3.22",
   "description": "tiptap editor with katex in vue",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -12,6 +12,7 @@
   },
   "main": "index.js",
   "dependencies": {
+    "@kouts/vue-modal": "^2.1.7",
     "@mdi/font": "^5.8.55",
     "@tiptap/core": "^2.0.0-beta.174",
     "@tiptap/extension-document": "^2.0.0-beta.15",
@@ -44,14 +45,15 @@
     "postcss-loader": "^4.2.0",
     "sass-loader": "^10.1.1",
     "tiptap-extensions": "^1.35.2",
-    "tiptap-text-direction-extension": "^1.0.6",
+    "tiptap-text-direction-extension": "^1.0.7",
     "ts-jest": "^27.1.3",
     "turndown": "^7.0.0",
     "vue": "^2.6.11",
+    "vue-color": "^2.8.1",
     "vue-drag-resize": "^1.5.4",
     "vue-filepond": "^6.0.3",
     "vue-notification": "^1.3.20",
-    "vue-tiptap-katex-core": "^1.0.20",
+    "vue-tiptap-katex-core": "^1.0.27",
     "vue-upload-component": "^2.8.22",
     "vuetify": "^2.5.3",
     "webpack": "<=4"

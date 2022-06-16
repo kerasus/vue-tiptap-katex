@@ -1,6 +1,11 @@
 <template>
   <node-view-wrapper class="mesra">
-    <div contenteditable="false" class="mesra-label">مصراع</div>
+    <div
+      contenteditable="false"
+      class="mesra-label"
+    >
+      مصراع
+    </div>
     <div>
       <node-view-content class="content" />
     </div>
@@ -9,11 +14,11 @@
 
 <script>
 import { NodeViewWrapper, NodeViewContent, nodeViewProps } from '@tiptap/vue-2'
-import MixinComponentPoemMesra from 'vue-tiptap-katex-core/components/poem/mixin-mesra'
+import MixinComponentPoemMesra from 'vue-tiptap-katex-core/components/poem/mixin-mesra.js'
 
 
 export default {
-  name: 'mesra',
+  name: 'Mesra',
   components: {
     NodeViewWrapper,
     NodeViewContent,
